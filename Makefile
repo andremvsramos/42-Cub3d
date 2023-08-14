@@ -6,7 +6,7 @@
 #    By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/08/14 09:40:50 by andvieir         ###   ########.fr        #
+#    Updated: 2023/08/14 16:17:43 by andvieir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,10 @@ MLXDIR = ./mlx/
 
 SRC =	src/main.c \
 		src/map_parser.c \
+		src/map_parser_utils.c \
+		src/info_parser.c \
+		src/file_utils.c \
+		src/utils.c \
 
 #----------COMMANDS----------#
 

@@ -65,23 +65,52 @@ typedef struct	s_ImageControl
 	int		endian;
 }				t_ImageControl;
 
+typedef struct	s_TextureSetup
+{
+	char	*path_north;
+	char	*path_south;
+	char	*path_west;
+	char	*path_east;
+	int		floor_c[255][255][255];
+	int		ceilling_c[255][255][255];
+	bool	colors[2];
+}				t_TextureSetup;
+
+
+/**
+ * @struct t_MapConfig
+ * A structure representing the configuration and data of the game map.
+ *
+ * @param fd The file descriptor associated with the map file.
+ * @param n_lines The number of lines in the map.
+ * @param filename The name of the map file being processed.
+ */
+typedef struct	s_MapConfig
+{
+	int				fd;
+	int				n_lines;
+	char			*filename;
+	t_TextureSetup	*tex;
+}				t_MapConfig;
+
+
 /**
  * @struct t_Cub3d
  * The main structure representing the context and data for the Cub3D project.
  * It holds essential information related to the game's execution and rendering.
  *
- * @param FileName The name of the scene description file being processed.
+ * @param filename The name of the scene description file being processed.
  * @param mlx_ptr A pointer to the MinilibX context for graphics operations.
  * @param win_ptr A pointer to the game's main window created with MinilibX.
  * @param img A pointer to an image control structure for managing graphical data.
+ * @param map A pointer to the structure holding map configuration and data.
  */
 typedef struct	s_Cub3d
 {
-	char			*filename;
-	int				fd;
 	void			*mlx_ptr;
 	void			*win_ptr;
 	t_ImageControl	*img;
+	t_MapConfig		*map;
 
 }				t_Cub3d;
 
@@ -89,12 +118,23 @@ typedef struct	s_Cub3d
 // PROGRAM LIFECYCLE FUNCTIONS
 // Section for functions managing program's start, execution, and termination.
 void	shutdown(char *str, bool crash);
+void	free_main(t_Cub3d *cub);
 
 // MAP AND FILE PARSING FUNCTIONS
 // Section for functions related to parsing map files and validating file types.
-int	check_map_validity(t_Cub3d *cub);
-int	parse_map_file(t_Cub3d *cub);
-int	is_valid_map_type(char *FileName);
-int	parse_elements(t_Cub3d *cub);
+int		check_map_validity(t_Cub3d *cub);
+int		parse_map_file(t_Cub3d *cub);
+int		is_valid_map_type(char *FileName);
+int		parse_elements(t_Cub3d *cub);
+void	get_map_n_lines(t_Cub3d *cub);
+int		has_valid_boundaries(t_Cub3d *cub);
+int		check_bot_top_boundaries(t_Cub3d *cub, char *line, int index);
+int		has_valid_info(t_Cub3d *cub);
+void	put_floor_ceil_color(t_Cub3d *cub, char *line, int n);
+
+// FILE MANAGEMENT FUNCTIONS
+// Section for managing file processes
+void	ft_open(t_Cub3d *cub);
+char	*skip_info(t_Cub3d *cub, char *line);
 
 #endif

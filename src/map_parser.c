@@ -38,70 +38,119 @@ int	is_valid_map_file(t_Cub3d *cub)
 	int		i;
 
 	filetype = ".cub";
-	len = ft_strlen(cub->filename) - 1;
+	len = ft_strlen(cub->map->filename) - 1;
 	i = 4;
 	while (i)
-		if (cub->filename[len--] != filetype[--i])
+		if (cub->map->filename[len--] != filetype[--i])
 			return (1);
-	cub->fd = open(cub->filename, O_RDONLY);
-	if (cub->fd < 0)
-		return (1);
+	ft_open(cub);
 	return (0);
 }
 
+/**
+ * @brief Check the validity of the game map configuration.
+ *
+ * This function performs various checks to validate the game map
+ * configuration. It first retrieves the number of lines in the map and then
+ * proceeds to parse the elements and boundaries of the map. If any of these
+ * checks fail, indicating an invalid map, the function returns 1. Otherwise,
+ * if all checks pass, it returns 0.
+ *
+ * @param cub Pointer to the t_Cub3d structure containing program context
+ * and data.
+ * @return Returns 0 if the map configuration is valid,
+ * or 1 if any checks fail.
+ */
 int	parse_elements(t_Cub3d *cub)
 {
 	char	*line;
 	int		i;
 
-	line = get_next_line(cub->fd);
+	ft_open(cub);
+	line = get_next_line(cub->map->fd);
 	if (!line)
-		return (free(line), 1);
+		return (free(line), close(cub->map->fd), 1);
+	line = skip_info(cub, line);
+	if (!line)
+		return (free(line), close(cub->map->fd), 1);
 	while (line)
 	{
 		i = 0;
 		while (line[i])
-			if (!ft_strchr("01NSEW\n\t", line[i++]))
-				return (free(line), 1);
+			if (!ft_strchr("01NSEW\n\t ", line[i++]))
+				return (free(line), close(cub->map->fd), 1);
 		free(line);
-		line = get_next_line(cub->fd);
+		line = get_next_line(cub->map->fd);
 	}
-	return (free(line), 0);
+	return (free(line), close(cub->map->fd), 0);
 }
 
-/* int	hasValidBoundaries(t_Cub3d *cub)
+/**
+ * @brief Check the validity of the boundaries of the game map.
+ *
+ * This function checks the validity of the boundaries of the game map,
+ * including the top, bottom, left, and right boundaries. It reads and validates
+ * the map's top and bottom boundaries to ensure they consist entirely of walls
+ * ('1'). Additionally, it checks the left and right boundaries of each row to
+ * ensure they are also walls. This function ensures that the game map is
+ * surrounded by walls on all sides as expected.
+ *
+ * If the boundaries are valid, the function returns 0. If any boundary check
+ * fails, indicating an invalid map, the function frees allocated memory,
+ * terminates the program with an error message, and sets the `crash` flag to
+ * true to indicate an error.
+ *
+ * @param cub Pointer to the t_Cub3d structure containing
+ * program context and data.
+ * @return Returns 0 if the map boundaries are valid, or 1 if any
+ * boundary check fails.
+ */
+int	has_valid_boundaries(t_Cub3d *cub)
 {
-	char	**line;
+	char	*line;
 	int		index;
-	int		i;
-	int		j;
 
-	line = ft_calloc(1, sizeof(char *));
-	*line = get_next_line(cub->fd);
-	if (!*line)
-		return (free(*line), free(line), 1);
-	while (*line = get_next_line(cub->fd))
+	ft_open(cub);
+	line = get_next_line(cub->map->fd);
+	if (!line)
+		return (free(line), close(cub->map->fd), 1);
+	index = 0;
+	while (line)
 	{
-		i = 0;
-		while (*line[i])
-		{
-			j = 0;
-			if (i = 0)
-				if (!ft_strchr("1\t\n", *line[j++]))
-					return (free(*line), free(line), 1);
-			else
-			{
-
-			}
-		}
+		if (check_bot_top_boundaries(cub, line, index))
+			return (free(line), close(cub->map->fd), 1);
+		free(line);
+		line = get_next_line(cub->map->fd);
 		index++;
 	}
+	return (free(line), close(cub->map->fd), 0);
+}
 
-} */
-
+/**
+ * @brief Parse and validate the map elements of the scene description
+ * for the Cub3D project.
+ *
+ * This function is responsible for parsing and validating the map elements
+ * within the provided scene description. It reads and validates the map's
+ * elements, ensuring they adhere to the specified rules. The function checks
+ * that each character in the map is a valid map element ('0' for empty space,
+ * '1' for walls, 'N', 'S', 'E', or 'W' for player orientations, and valid
+ * separators like newline, tab, and space).
+ *
+ * If the map elements are valid, the function returns 0. If any map element
+ * is invalid, the function frees allocated memory, terminates the program with
+ * an error message, and sets the `crash` flag to true to indicate an error.
+ *
+ * @param cub Pointer to the t_Cub3d structure containing program
+ * context and data.
+ * @return Returns 0 if the map elements are valid, or terminates the
+ * program with an error.
+ */
 int	check_map_validity(t_Cub3d *cub)
 {
-	if (parse_elements(cub) /*|| has_valid_boundaries(cub)*/)
+	get_map_n_lines(cub);
+	cub->map->n_lines--;
+	if (parse_elements(cub) || has_valid_boundaries(cub))
 		return (1);
 	return (0);
 }
@@ -126,16 +175,22 @@ int	check_map_validity(t_Cub3d *cub)
  */
 int	parse_map_file(t_Cub3d *cub)
 {
-	if (!cub->filename || is_valid_map_file(cub))
+	if (has_valid_info(cub))
 	{
-		close(cub->fd);
-		free(cub->filename);
+		free_main(cub);
+		shutdown("Error: Invalid or missing texture/color info\n", true);
+	}
+	if (!cub->map->filename || is_valid_map_file(cub))
+	{
+		close(cub->map->fd);
+		free(cub->map->filename);
 		shutdown("Error: Cannot read map file or is of wrong type\n", true);
 	}
+	close(cub->map->fd);
 	if (check_map_validity(cub))
 	{
-		close(cub->fd);
-		free(cub->filename);
+		close(cub->map->fd);
+		free(cub->map->filename);
 		shutdown("Error: Map is invalid or contains invalid elements\n", true);
 	}
 	return (0);
