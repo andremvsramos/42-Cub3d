@@ -6,12 +6,28 @@
 /*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:12:03 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/14 17:13:44 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/08/14 18:18:46 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/cub3d.h"
 
+/**
+ * @brief Free allocated memory and resources within the main program context.
+ *
+ * This function is responsible for releasing allocated memory and resources
+ * within the main program context represented by the `t_Cub3d` structure. It
+ * closes the map file, frees memory allocated for filenames, texture paths,
+ * and texture setup structures.
+ * Additionally, it releases the memory allocated for the main map
+ * configuration and the overall program context.
+ *
+ * Note: MiniLibX resource releases have been commented out, and
+ * additional cleanup for other resources (e.g., image data and window)
+ * might be required.
+ *
+ * @param cub Pointer to the t_Cub3d structure containing program context and data.
+ */
 void	free_main(t_Cub3d *cub)
 {
 	close(cub->map->fd);
