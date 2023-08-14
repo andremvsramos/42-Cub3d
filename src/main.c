@@ -35,12 +35,6 @@ void	shutdown(char *str, bool crash)
 		exit(EXIT_SUCCESS);
 }
 
-void	aux(char **line)
-{
-	free(line);
-	exit(1);
-}
-
 int	main(int ac, char **av, char **env)
 {
 	t_Cub3d	cub;
