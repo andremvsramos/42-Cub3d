@@ -15,7 +15,7 @@
 
 # include "../mlx/mlx.h"
 # include "libft.h"
-# include <math.>
+# include <math.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <sys/wait.h>
@@ -40,9 +40,9 @@
  */
 typedef struct	s_WindowConfig
 {
-	int	WindowSizeX;
-	int	WindowSizeY;
-	int	WindowAspectRatio;
+	int	width;
+	int	height;
+	int	aspect_ratio;
 }				t_WindowConfig;
 
 /**
@@ -77,7 +77,8 @@ typedef struct	s_ImageControl
  */
 typedef struct	s_Cub3d
 {
-	char			*FileName;
+	char			*filename;
+	int				fd;
 	void			*mlx_ptr;
 	void			*win_ptr;
 	t_ImageControl	*img;
@@ -91,7 +92,9 @@ void	shutdown(char *str, bool crash);
 
 // MAP AND FILE PARSING FUNCTIONS
 // Section for functions related to parsing map files and validating file types.
-int	parseMapFile(t_Cub3d *cub);
-int	isValidMapType(char *FileName);
+int	check_map_validity(t_Cub3d *cub);
+int	parse_map_file(t_Cub3d *cub);
+int	is_valid_map_type(char *FileName);
+int	parse_elements(t_Cub3d *cub);
 
 #endif
