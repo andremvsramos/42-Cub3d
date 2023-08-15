@@ -45,6 +45,7 @@ int	main(int ac, char **av, char **env)
 	else if (ac < 2)
 		shutdown("Error: Please provide a map file\n", true);
 	cub.map = ft_calloc(1, sizeof(t_MapConfig));
+	cub.map->skip_counter = 0;
 	//cub.img = ft_calloc(1, sizeof(t_ImageControl));
 	cub.map->filename = ft_strdup(av[1]);
 	cub.map->tex = ft_calloc(1, sizeof(t_TextureSetup));

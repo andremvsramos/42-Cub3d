@@ -89,6 +89,7 @@ typedef struct	s_MapConfig
 {
 	int				fd;
 	int				n_lines;
+	int				skip_counter;
 	char			*filename;
 	t_TextureSetup	*tex;
 }				t_MapConfig;

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/cub3d.h"
+#include "../../headers/cub3d.h"
 
 /**
  * @brief Check if the provided scene description file has a valid map type
@@ -69,20 +69,20 @@ int	parse_elements(t_Cub3d *cub)
 	ft_open(cub);
 	line = get_next_line(cub->map->fd);
 	if (!line)
-		return (free(line), close(cub->map->fd), 1);
+		return (free(line), 1);
 	line = skip_info(cub, line);
 	if (!line)
-		return (free(line), close(cub->map->fd), 1);
+		return (free(line), 1);
 	while (line)
 	{
 		i = 0;
 		while (line[i])
 			if (!ft_strchr("01NSEW\n\t ", line[i++]))
-				return (free(line), close(cub->map->fd), 1);
+				return (free(line), 1);
 		free(line);
 		line = get_next_line(cub->map->fd);
 	}
-	return (free(line), close(cub->map->fd), 0);
+	return (free(line), 0);
 }
 
 /**
@@ -113,17 +113,17 @@ int	has_valid_boundaries(t_Cub3d *cub)
 	ft_open(cub);
 	line = get_next_line(cub->map->fd);
 	if (!line)
-		return (free(line), close(cub->map->fd), 1);
+		return (free(line), 1);
 	index = 0;
 	while (line)
 	{
 		if (check_bot_top_boundaries(cub, line, index))
-			return (free(line), close(cub->map->fd), 1);
+			return (free(line), 1);
 		free(line);
 		line = get_next_line(cub->map->fd);
 		index++;
 	}
-	return (free(line), close(cub->map->fd), 0);
+	return (free(line), 0);
 }
 
 /**
@@ -182,17 +182,15 @@ int	parse_map_file(t_Cub3d *cub)
 	}
 	if (!cub->map->filename || is_valid_map_file(cub))
 	{
-		close(cub->map->fd);
-		free(cub->map->filename);
+		free_main(cub);
 		shutdown("Error: Cannot read map file or is of wrong type\n", true);
 	}
 	close(cub->map->fd);
 	if (check_map_validity(cub))
 	{
-		close(cub->map->fd);
-		free(cub->map->filename);
+		free_main(cub);
 		shutdown("Error: Map is invalid or contains invalid elements\n", true);
 	}
-	return (0);
+	return (ft_printf("Success: Map has passed all validations"), 0);
 	// TODO: Implement map file parsing and validation logic here.
 }

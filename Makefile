@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/08/14 16:17:43 by andvieir         ###   ########.fr        #
+#    Updated: 2023/08/15 18:45:38 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,11 @@ HEADERDIR = ./headers/
 MLXDIR = ./mlx/
 
 SRC =	src/main.c \
-		src/map_parser.c \
-		src/map_parser_utils.c \
-		src/info_parser.c \
-		src/file_utils.c \
 		src/utils.c \
+		src/map_files/map_parser.c \
+		src/map_files/map_parser_utils.c \
+		src/map_files/info_parser.c \
+		src/map_files/file_utils.c \
 
 #----------COMMANDS----------#
 

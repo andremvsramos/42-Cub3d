@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:03:12 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/14 16:20:21 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/08/15 18:44:18 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/cub3d.h"
+#include "../../headers/cub3d.h"
 
 /**
  * @brief Calculate the number of lines in the game map file.
@@ -65,7 +65,7 @@ int	check_bot_top_boundaries(t_Cub3d *cub, char *line, int index)
 {
 	int	i;
 
-	if (index == 0 || index == cub->map->n_lines)
+	if (index == cub->map->skip_counter || index == cub->map->n_lines)
 	{
 		i = 0;
 		while (line[i])
