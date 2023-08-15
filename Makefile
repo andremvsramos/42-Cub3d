@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/08/15 18:45:38 by marvin           ###   ########.fr        #
+#    Updated: 2023/08/15 19:00:53 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ MLXDIR = ./mlx/
 
 SRC =	src/main.c \
 		src/utils.c \
+		src/map_files/map_init.c \
 		src/map_files/map_parser.c \
 		src/map_files/map_parser_utils.c \
 		src/map_files/info_parser.c \

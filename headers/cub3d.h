@@ -123,9 +123,10 @@ void	free_main(t_Cub3d *cub);
 
 // MAP AND FILE PARSING FUNCTIONS
 // Section for functions related to parsing map files and validating file types.
+void	map_init(t_Cub3d *cub, char *file);
 int		check_map_validity(t_Cub3d *cub);
 int		parse_map_file(t_Cub3d *cub);
-int		is_valid_map_type(char *FileName);
+int		is_valid_map_type(char *filename);
 int		parse_elements(t_Cub3d *cub);
 void	get_map_n_lines(t_Cub3d *cub);
 int		has_valid_boundaries(t_Cub3d *cub);
