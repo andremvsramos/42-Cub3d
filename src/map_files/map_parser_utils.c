@@ -6,7 +6,7 @@
 /*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:03:12 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/16 15:51:11 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/08/16 19:01:49 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,11 @@ void	get_map_n_lines(t_Cub3d *cub, int i)
 	} */
 	while (line)
 	{
-		printf("%s", line);
 		cub->map->n_lines++;
-		/* while (line[i])
+		aux_len = 0;
+		//puts(ft_itoa(ft_strlen(line)));
+		i = 0;
+		while (line[i])
 		{
 			if (ft_strchr("\t", line[i]))
 				aux_len += 4;
@@ -56,7 +58,7 @@ void	get_map_n_lines(t_Cub3d *cub, int i)
 			i++;
 		}
 		if (aux_len > cub->map->max_line_len)
-			cub->map->max_line_len = aux_len; */
+			cub->map->max_line_len = aux_len;
 		free(line);
 		line = get_next_line(cub->map->temp_fd);
 	}
@@ -88,7 +90,6 @@ int	check_bot_top_boundaries(t_Cub3d *cub, char *line, int index)
 {
 	int	i;
 
-	puts(ft_itoa(cub->map->n_lines));
 	if (index == 0 || index == cub->map->n_lines)
 	{
 		i = 0;

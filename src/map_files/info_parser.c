@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   info_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:45:39 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/16 10:49:00 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2023/08/16 18:36:21 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,11 @@ int	has_valid_info(t_Cub3d *cub)
 			return (1);
 		else if (has_valid_info3(cub, line))
 			return (1);
+		free(line);
+		line = get_next_line(cub->map->fd);
+	}
+	while (line)
+	{
 		free(line);
 		line = get_next_line(cub->map->fd);
 	}

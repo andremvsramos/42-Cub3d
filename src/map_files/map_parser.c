@@ -43,7 +43,6 @@ int	is_valid_map_file(t_Cub3d *cub)
 	while (i)
 		if (cub->map->filename[len--] != filetype[--i])
 			return (1);
-	ft_open(cub);
 	return (0);
 }
 
@@ -70,16 +69,17 @@ int	parse_elements(t_Cub3d *cub, int i)
 {
 	char	*line;
 
+	//close(cub->map->fd);
 	ft_open(cub);
 	line = get_next_line(cub->map->fd);
 	if (!line)
 		return (free(line), 1);
 	line = skip_info(cub, line);
 	//close(cub->map->fd);
+	//close(cub->map->fd);
 	create_temp_map(cub, line);
-	close(cub->map->fd);
 	close(cub->map->temp_fd);
-	cub->map->temp_fd = open(".map", O_RDONLY);
+	cub->map->temp_fd = open("./.map", O_RDONLY);
 	line = get_next_line(cub->map->temp_fd);
 	if (!line)
 		return (free(line), 1);
@@ -127,7 +127,6 @@ int	has_valid_boundaries(t_Cub3d *cub)
 	int		index;
 
 	cub->map->temp_fd = open(".map", O_RDONLY);
-	printf("parse: %d\n", cub->map->temp_fd);
 	if (cub->map->temp_fd < 0)
 	{
 		free_main(cub);
@@ -210,12 +209,11 @@ int	parse_map_file(t_Cub3d *cub)
 		free_main(cub);
 		shutdown("Error: Cannot read map file or is of wrong type\n", true);
 	}
-	close(cub->map->fd);
 	if (check_map_validity(cub))
 	{
 		free_main(cub);
 		shutdown("Error: Map is invalid or contains invalid elements\n", true);
 	}
-	return (ft_printf("Success: Map has passed all validations"), 0);
+	return (printf("Success: Map has passed all validations"), 0);
 	// TODO: Implement map file parsing and validation logic here.
 }

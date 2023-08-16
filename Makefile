@@ -6,7 +6,7 @@
 #    By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/08/16 12:35:24 by andvieir         ###   ########.fr        #
+#    Updated: 2023/08/16 19:15:02 by andvieir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,6 +82,7 @@ fclean:		clean
 			@$(RM) $(NAME) $(LIBFT) $(MLX)
 			@cd $(LIBFTDIR) && $(MAKE) -s fclean
 			@cd $(MLXDIR) && $(MAKE) -s fclean
+
 
 aclean:		all clean
 

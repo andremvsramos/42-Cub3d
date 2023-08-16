@@ -6,7 +6,7 @@
 /*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:57:34 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/16 15:22:24 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/08/16 18:42:43 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_open(t_Cub3d *cub)
 
 void	create_temp_map(t_Cub3d *cub, char *line)
 {
-	cub->map->temp_fd = open(".map", O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+	cub->map->temp_fd = open("./.map", O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
 	while (line)
 	{
 		write(cub->map->temp_fd, line, ft_strlen(line));

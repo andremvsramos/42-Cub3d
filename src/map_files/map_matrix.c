@@ -6,7 +6,7 @@
 /*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 11:39:08 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/08/16 15:26:27 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/08/16 19:08:24 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	fill_matrix2(t_Cub3d *cub, char *line, int y)
 		if (line[i] == '\t')
 		{
 			tabs = 0;
-			while (tabs < 4)
+			while (tabs++ < 8)
 				cub->map->matrix[y][x++] = ' ';
 		}
 		else
@@ -40,8 +40,8 @@ int	fill_matrix(t_Cub3d *cub)
 	char	*line;
 
 	y = 0;
-	ft_open(cub);
-	line = get_next_line(cub->map->fd);
+	cub->map->temp_fd = open("./.map", O_RDONLY);
+	line = get_next_line(cub->map->temp_fd);
 	if (!line)
 		return (free(line), 1);
 	cub->map->matrix = ft_calloc(cub->map->n_lines, sizeof(char *));
@@ -49,9 +49,10 @@ int	fill_matrix(t_Cub3d *cub)
 	{
 		cub->map->matrix[y] = ft_calloc(cub->map->max_line_len, sizeof(char));
 		fill_matrix2(cub, line, y);
-		//puts(cub->map->matrix[y]);
+		puts(cub->map->matrix[y]);
+		y++;
 		free(line);
-		line = get_next_line(cub->map->fd);
+		line = get_next_line(cub->map->temp_fd);
 	}
-	return (free(line), close(cub->map->fd), 0);
+	return (free(line), close(cub->map->temp_fd), 0);
 }
