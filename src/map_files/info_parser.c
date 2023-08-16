@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   info_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:45:39 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/15 18:44:09 by marvin           ###   ########.fr       */
+/*   Updated: 2023/08/16 10:34:31 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,31 @@
  * from the provided `line`, which represents a color setting, and sets the
  * corresponding entry in the `floor_c` or `ceiling_c` array of the
  * `t_TextureSetup` structure within the provided `t_Cub3d` context.
- * Additionally, the function marks the appropriate color index as true in the
- * `colors` array to indicate that the color setting has been processed.
+ * Additionally, the function performs validation on the provided color
+ * components to ensure they are within the valid range of 0 to 255.
+ * If any component is found to be out of range, the function terminates the
+ * program with an error message.
  *
  * @param cub Pointer to the t_Cub3d structure containing
  * program context and data.
  * @param line A pointer to the current line containing the color setting.
  * @param n An integer indicating whether to process floor (0)
  * or ceiling (1) color.
+ * @param i Index for iterating over the color components.
  */
-void	put_floor_ceil_color(t_Cub3d *cub, char *line, int n)
+void	put_floor_ceil_color(t_Cub3d *cub, char *line, int n, int i)
 {
 	char	**colors;
 
 	colors = ft_split(line + 2, ',');
+	while (i < 3)
+	{
+		if (!(ft_atoi(colors[i]) >= 0 && ft_atoi(colors[i]) <= 255))
+		{
+			free_main(cub);
+			shutdown("Error: Invalid color range\n", true);
+		}
+	}
 	if (n == 0)
 	{
 		cub->map->tex->floor_c[ft_atoi(colors[0])]
@@ -75,13 +86,13 @@ static int	has_valid_info3(t_Cub3d *cub, char *line)
 	if (!ft_strncmp("F ", line, 2))
 	{
 		if (!cub->map->tex->colors[0])
-			put_floor_ceil_color(cub, line, 0);
+			put_floor_ceil_color(cub, line, 0, 0);
 		else return (1);
 	}
 	else if (!ft_strncmp("C ", line, 2))
 	{
 		if (!cub->map->tex->colors[1])
-			put_floor_ceil_color(cub, line, 1);
+			put_floor_ceil_color(cub, line, 1, 0);
 		else return (1);
 	}
 	return (0);
@@ -111,25 +122,25 @@ static int	has_valid_info2(t_Cub3d *cub, char *line)
 	if (!ft_strncmp("NO ", line, 3))
 	{
 		if (!cub->map->tex->path_north)
-			cub->map->tex->path_north = ft_strdup(line + 3);
+			cub->map->tex->path_north = ft_strtrim(ft_strdup(line + 3), " \t");
 		else return (1);
 	}
 	else if (!ft_strncmp("SO ", line, 3))
 	{
 		if (!cub->map->tex->path_south)
-			cub->map->tex->path_south = ft_strdup(line + 3);
+			cub->map->tex->path_south = ft_strtrim(ft_strdup(line + 3), " \t");
 		else return (1);
 	}
 	else if (!ft_strncmp("WE ", line, 3))
 	{
 		if (!cub->map->tex->path_west)
-			cub->map->tex->path_west = ft_strdup(line + 3);
+			cub->map->tex->path_west = ft_strtrim(ft_strdup(line + 3), " \t");
 		else return (1);
 	}
 	else if (!ft_strncmp("EA ", line, 3))
 	{
 		if (!cub->map->tex->path_east)
-			cub->map->tex->path_east = ft_strdup(line + 3);
+			cub->map->tex->path_east = ft_strtrim(ft_strdup(line + 3), " \t");
 		else return (1);
 	}
 	return (0);

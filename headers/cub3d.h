@@ -132,7 +132,7 @@ void	get_map_n_lines(t_Cub3d *cub);
 int		has_valid_boundaries(t_Cub3d *cub);
 int		check_bot_top_boundaries(t_Cub3d *cub, char *line, int index);
 int		has_valid_info(t_Cub3d *cub);
-void	put_floor_ceil_color(t_Cub3d *cub, char *line, int n);
+void	put_floor_ceil_color(t_Cub3d *cub, char *line, int n, int i);
 
 // FILE MANAGEMENT FUNCTIONS
 // Section for managing file processes
