@@ -89,7 +89,11 @@ void	map_init(t_Cub3d *cub, char *file)
 	player_init(cub);
 	//cub.img = ft_calloc(1, sizeof(t_ImageControl));
 	parse_map_file(cub);
-	fill_matrix(cub);
+	if (fill_matrix(cub))
+	{
+		free_main(cub);
+		shutdown("Error: fatal: matrix not created\n", true);
+	}
 }
 
 

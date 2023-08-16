@@ -94,6 +94,7 @@ typedef struct	s_PlayerConfig
 typedef struct	s_MapConfig
 {
 	int				fd;
+	int				temp_fd;
 	int				n_lines;
 	int				max_line_len;
 	int				skip_counter;
@@ -133,15 +134,20 @@ void	free_main(t_Cub3d *cub);
 // MAP AND FILE PARSING FUNCTIONS
 // Section for functions related to parsing map files and validating file types.
 void	map_init(t_Cub3d *cub, char *file);
+void	create_temp_map(t_Cub3d *cub, char *line);
 int		check_map_validity(t_Cub3d *cub);
 int		parse_map_file(t_Cub3d *cub);
 int		is_valid_map_type(char *filename);
 int		parse_elements(t_Cub3d *cub, int i);
-void	get_map_n_lines(t_Cub3d *cub);
+void	get_map_n_lines(t_Cub3d *cub, int i);
 int		has_valid_boundaries(t_Cub3d *cub);
 int		check_bot_top_boundaries(t_Cub3d *cub, char *line, int index);
 int		has_valid_info(t_Cub3d *cub);
 void	put_floor_ceil_color(t_Cub3d *cub, char *line, int n, int i);
+int		fill_matrix(t_Cub3d *cub);
+
+// PLAYER MANAGEMENT FUNCTIONS
+int	set_player_orientation(t_Cub3d *cub, char c);
 
 // FILE MANAGEMENT FUNCTIONS
 // Section for managing file processes

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:57:34 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/15 18:43:59 by marvin           ###   ########.fr       */
+/*   Updated: 2023/08/16 15:22:24 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,17 @@ void	ft_open(t_Cub3d *cub)
 	{
 		free_main(cub);
 		shutdown("Error: fatal: cannot open map file\n", true);
+	}
+}
+
+void	create_temp_map(t_Cub3d *cub, char *line)
+{
+	cub->map->temp_fd = open(".map", O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+	while (line)
+	{
+		write(cub->map->temp_fd, line, ft_strlen(line));
+		free(line);
+		line = get_next_line(cub->map->fd);
 	}
 }
 

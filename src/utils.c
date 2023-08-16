@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:12:03 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/16 11:04:49 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2023/08/16 14:45:19 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 void	free_main(t_Cub3d *cub)
 {
 	close(cub->map->fd);
+	close(cub->map->temp_fd);
 	if (cub->map->filename)
 		free(cub->map->filename);
 	if (cub->map->tex->path_east)

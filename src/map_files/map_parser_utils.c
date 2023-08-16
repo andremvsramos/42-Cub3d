@@ -3,54 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:03:12 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/16 11:53:43 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2023/08/16 15:51:11 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
 
 /**
- * @brief Calculate the number of lines in the game map file.
+ * @brief Calculate the number of lines and maximum line
+ * length in the game map.
  *
- * This function calculates and stores the number of lines present in the game
- * map file. It reads the map file line by line using the `get_next_line`
- * function and increments the line count for each successfully read line. The
- * final line count is stored in the `n_lines` member of the `t_MapConfig`
- * structure within the `t_Cub3d` context.
+ * This function reads through the map file to determine the number of lines and
+ * calculates the maximum line length in the game map. It iterates over each
+ * line, incrementing the line count and updating the maximum line length based
+ * on the characters encountered, accounting for tab characters that contribute
+ * 4 spaces. The calculated values are stored in the t_Cub3d structure to
+ * provide context for map processing and rendering.
  *
- * @param cub Pointer to the t_Cub3d structure containing program
- * context and data.
+ * @param cub Pointer to the t_Cub3d structure containing
+ * program context and data.
  */
-void	get_map_n_lines(t_Cub3d *cub)
+void	get_map_n_lines(t_Cub3d *cub, int i)
 {
 	char	*line;
-	int		i;
 	int		aux_len;
 
 	cub->map->n_lines = 0;
+	i = 0;
 	aux_len = 0;
-	ft_open(cub);
-	line = get_next_line(cub->map->fd);
-	while (line)
+	//close(cub->map->temp_fd);
+	cub->map->temp_fd = open(".map", O_RDONLY);
+	line = get_next_line(cub->map->temp_fd);
+	/* while (cub->map->n_lines < cub->map->skip_counter)
 	{
 		cub->map->n_lines++;
-		while (line[i])
+		free(line);
+		line = get_next_line(cub->map->fd);
+	} */
+	while (line)
+	{
+		printf("%s", line);
+		cub->map->n_lines++;
+		/* while (line[i])
 		{
 			if (ft_strchr("\t", line[i]))
 				aux_len += 4;
 			else
 				aux_len++;
+			i++;
 		}
 		if (aux_len > cub->map->max_line_len)
-			cub->map->max_line_len = aux_len;
+			cub->map->max_line_len = aux_len; */
 		free(line);
-		line = get_next_line(cub->map->fd);
+		line = get_next_line(cub->map->temp_fd);
 	}
 	free(line);
-	close(cub->map->fd);
+	close(cub->map->temp_fd);
 }
 
 /**
@@ -77,7 +88,8 @@ int	check_bot_top_boundaries(t_Cub3d *cub, char *line, int index)
 {
 	int	i;
 
-	if (index == cub->map->skip_counter || index == cub->map->n_lines)
+	puts(ft_itoa(cub->map->n_lines));
+	if (index == 0 || index == cub->map->n_lines)
 	{
 		i = 0;
 		while (line[i])
@@ -90,6 +102,23 @@ int	check_bot_top_boundaries(t_Cub3d *cub, char *line, int index)
 	return (0);
 }
 
+/**
+ * @brief Set the player's orientation based on a valid map element.
+ *
+ * This function is responsible for setting the player's orientation based on
+ * a valid map element character ('N', 'S', 'E', 'W'). It checks if the provided
+ * character represents a valid orientation and if the player's orientation has
+ * not been set already. If the conditions are met, the player's orientation is
+ * updated in the t_Cub3d structure. If the character is not a valid orientation
+ * or the orientation has already been set, the function returns an error code.
+ *
+ * @param cub Pointer to the t_Cub3d structure containing program context
+ * and data.
+ * @param c The character representing the map element.
+ * @return Returns 0 if the player's orientation is successfully set,
+ * or 1 if the character is not a valid orientation or the orientation is
+ * already set.
+ */
 int	set_player_orientation(t_Cub3d *cub, char c)
 {
 	if (ft_strchr("NSEW", c) && !cub->map->player->orientation)

@@ -48,18 +48,23 @@ int	is_valid_map_file(t_Cub3d *cub)
 }
 
 /**
- * @brief Check the validity of the game map configuration.
+ * @brief Check the validity of the game map configuration and
+ * set player orientation.
  *
  * This function performs various checks to validate the game map
  * configuration. It first retrieves the number of lines in the map and then
- * proceeds to parse the elements and boundaries of the map. If any of these
- * checks fail, indicating an invalid map, the function returns 1. Otherwise,
+ * proceeds to parse the elements and boundaries of the map. For each valid
+ * character encountered ('0', '1', 'N', 'S', 'E', 'W', newline, tab, or space),
+ * it checks and sets the player's orientation accordingly using the
+ * set_player_orientation function. If any checks fail or an invalid character
+ * is encountered, indicating an invalid map, the function returns 1. Otherwise,
  * if all checks pass, it returns 0.
  *
  * @param cub Pointer to the t_Cub3d structure containing program context
  * and data.
- * @return Returns 0 if the map configuration is valid,
- * or 1 if any checks fail.
+ * @param i Index used for iterating through each character in the map.
+ * @return Returns 0 if the map configuration is valid and player
+ * orientation is set, or 1 if any checks fail.
  */
 int	parse_elements(t_Cub3d *cub, int i)
 {
@@ -70,24 +75,29 @@ int	parse_elements(t_Cub3d *cub, int i)
 	if (!line)
 		return (free(line), 1);
 	line = skip_info(cub, line);
+	//close(cub->map->fd);
+	create_temp_map(cub, line);
+	close(cub->map->fd);
+	close(cub->map->temp_fd);
+	cub->map->temp_fd = open(".map", O_RDONLY);
+	line = get_next_line(cub->map->temp_fd);
 	if (!line)
 		return (free(line), 1);
 	while (line)
 	{
+		i = 0;
 		while (line[i])
 		{
-			if (ft_strchr("01NSEW\n\t ", line[i]))
-			{
-				if (set_player_orientation(cub, line[i]))
-					return (free(line), 1);
-			}
-			else
+			if (!ft_strchr("01NSEW\n\t ", line[i]))
 				return (free(line), 1);
+			else if (set_player_orientation(cub, line[i]))
+					return (free(line), 1);
 			i++;
 		}
 		free(line);
-		line = get_next_line(cub->map->fd);
+		line = get_next_line(cub->map->temp_fd);
 	}
+	close(cub->map->temp_fd);
 	return (free(line), 0);
 }
 
@@ -116,8 +126,14 @@ int	has_valid_boundaries(t_Cub3d *cub)
 	char	*line;
 	int		index;
 
-	ft_open(cub);
-	line = get_next_line(cub->map->fd);
+	cub->map->temp_fd = open(".map", O_RDONLY);
+	printf("parse: %d\n", cub->map->temp_fd);
+	if (cub->map->temp_fd < 0)
+	{
+		free_main(cub);
+		shutdown("Error: fatal: cannot open map file\n", true);
+	}
+	line = get_next_line(cub->map->temp_fd);
 	if (!line)
 		return (free(line), 1);
 	index = 0;
@@ -126,9 +142,10 @@ int	has_valid_boundaries(t_Cub3d *cub)
 		if (check_bot_top_boundaries(cub, line, index))
 			return (free(line), 1);
 		free(line);
-		line = get_next_line(cub->map->fd);
+		line = get_next_line(cub->map->temp_fd);
 		index++;
 	}
+	close(cub->map->temp_fd);
 	return (free(line), 0);
 }
 
@@ -154,9 +171,11 @@ int	has_valid_boundaries(t_Cub3d *cub)
  */
 int	check_map_validity(t_Cub3d *cub)
 {
-	get_map_n_lines(cub);
+	if (parse_elements(cub, 0))
+		return (1);
+	get_map_n_lines(cub, 0);
 	cub->map->n_lines--;
-	if (parse_elements(cub, 0) || has_valid_boundaries(cub))
+	if (has_valid_boundaries(cub))
 		return (1);
 	return (0);
 }
