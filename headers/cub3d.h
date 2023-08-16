@@ -76,6 +76,12 @@ typedef struct	s_TextureSetup
 	bool	colors[2];
 }				t_TextureSetup;
 
+typedef struct	s_PlayerConfig
+{
+	char	orientation;
+	int		player_x;
+	int		player_y;
+}				t_PlayerConfig;
 
 /**
  * @struct t_MapConfig
@@ -89,9 +95,12 @@ typedef struct	s_MapConfig
 {
 	int				fd;
 	int				n_lines;
+	int				max_line_len;
 	int				skip_counter;
+	char			**matrix;
 	char			*filename;
 	t_TextureSetup	*tex;
+	t_PlayerConfig	*player;
 }				t_MapConfig;
 
 
@@ -127,7 +136,7 @@ void	map_init(t_Cub3d *cub, char *file);
 int		check_map_validity(t_Cub3d *cub);
 int		parse_map_file(t_Cub3d *cub);
 int		is_valid_map_type(char *filename);
-int		parse_elements(t_Cub3d *cub);
+int		parse_elements(t_Cub3d *cub, int i);
 void	get_map_n_lines(t_Cub3d *cub);
 int		has_valid_boundaries(t_Cub3d *cub);
 int		check_bot_top_boundaries(t_Cub3d *cub, char *line, int index);

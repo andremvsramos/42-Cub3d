@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:45:39 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/16 10:34:31 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2023/08/16 10:49:00 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	put_floor_ceil_color(t_Cub3d *cub, char *line, int n, int i)
 			free_main(cub);
 			shutdown("Error: Invalid color range\n", true);
 		}
+		i++;
 	}
 	if (n == 0)
 	{
@@ -170,7 +171,6 @@ static int	has_valid_info2(t_Cub3d *cub, char *line)
 int	has_valid_info(t_Cub3d *cub)
 {
 	char	*line;
-
 
 	ft_open(cub);
 	line = get_next_line(cub->map->fd);

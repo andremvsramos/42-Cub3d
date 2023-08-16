@@ -45,6 +45,6 @@ int	main(int ac, char **av, char **env)
 	else if (ac < 2)
 		shutdown("Error: Please provide a map file\n", true);
 	map_init(&cub, av[1]);
-	parse_map_file(&cub);
+
 	//verificar se os numeros das cores estao entre 0 e 255
 }

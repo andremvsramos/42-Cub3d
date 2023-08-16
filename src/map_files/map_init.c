@@ -37,6 +37,30 @@ static void	tex_init(t_Cub3d *cub)
 }
 
 /**
+ * @brief Initialize the player configuration in the map.
+ *
+ * This function initializes the player configuration within the map.
+ * It allocates memory for a `t_PlayerConfig` structure and sets the player's
+ * initial position to (0, 0) within the provided `t_Cub3d` context.
+ * If memory allocation fails, the function terminates the program with
+ * an error message.
+ *
+ * @param cub Pointer to the t_Cub3d structure containing
+ * program context and data.
+ */
+static void	player_init(t_Cub3d *cub)
+{
+	cub->map->player = ft_calloc(1, sizeof(t_PlayerConfig));
+	if (!cub->map->player)
+	{
+		free_main(cub);
+		shutdown("Error: fatal: t_PlayerConfig not created\n", true);
+	}
+	cub->map->player->player_x = 0;
+	cub->map->player->player_y = 0;
+}
+
+/**
  * @brief Initialize map configuration data within the Cub3D context.
  *
  * This function initializes the map configuration data within the
@@ -59,7 +83,13 @@ void	map_init(t_Cub3d *cub, char *file)
 		shutdown("Error: fatal: t_MapConfig not created\n", true);
 	}
 	cub->map->skip_counter = 0;
+	cub->map->max_line_len = 0;
 	cub->map->filename = ft_strdup(file);
 	tex_init(cub);
+	player_init(cub);
 	//cub.img = ft_calloc(1, sizeof(t_ImageControl));
+	parse_map_file(cub);
+	fill_matrix(cub);
 }
+
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:03:12 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/15 18:44:18 by marvin           ###   ########.fr       */
+/*   Updated: 2023/08/16 11:53:43 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,25 @@
 void	get_map_n_lines(t_Cub3d *cub)
 {
 	char	*line;
+	int		i;
+	int		aux_len;
 
 	cub->map->n_lines = 0;
+	aux_len = 0;
 	ft_open(cub);
 	line = get_next_line(cub->map->fd);
 	while (line)
 	{
 		cub->map->n_lines++;
+		while (line[i])
+		{
+			if (ft_strchr("\t", line[i]))
+				aux_len += 4;
+			else
+				aux_len++;
+		}
+		if (aux_len > cub->map->max_line_len)
+			cub->map->max_line_len = aux_len;
 		free(line);
 		line = get_next_line(cub->map->fd);
 	}
@@ -70,12 +82,19 @@ int	check_bot_top_boundaries(t_Cub3d *cub, char *line, int index)
 		i = 0;
 		while (line[i])
 		{
-			if (ft_strchr("\n", line[i]))
-				return (0);
-			if (!ft_strchr("1\t ", line[i]))
+			if (!ft_strchr("1\t\n ", line[i]))
 				return (1);
 			i++;
 		}
 	}
+	return (0);
+}
+
+int	set_player_orientation(t_Cub3d *cub, char c)
+{
+	if (ft_strchr("NSEW", c) && !cub->map->player->orientation)
+		cub->map->player->orientation = c;
+	else if (!ft_strchr("01\n\t ", c))
+		return (1);
 	return (0);
 }

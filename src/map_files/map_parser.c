@@ -61,10 +61,9 @@ int	is_valid_map_file(t_Cub3d *cub)
  * @return Returns 0 if the map configuration is valid,
  * or 1 if any checks fail.
  */
-int	parse_elements(t_Cub3d *cub)
+int	parse_elements(t_Cub3d *cub, int i)
 {
 	char	*line;
-	int		i;
 
 	ft_open(cub);
 	line = get_next_line(cub->map->fd);
@@ -75,10 +74,17 @@ int	parse_elements(t_Cub3d *cub)
 		return (free(line), 1);
 	while (line)
 	{
-		i = 0;
 		while (line[i])
-			if (!ft_strchr("01NSEW\n\t ", line[i++]))
+		{
+			if (ft_strchr("01NSEW\n\t ", line[i]))
+			{
+				if (set_player_orientation(cub, line[i]))
+					return (free(line), 1);
+			}
+			else
 				return (free(line), 1);
+			i++;
+		}
 		free(line);
 		line = get_next_line(cub->map->fd);
 	}
@@ -150,7 +156,7 @@ int	check_map_validity(t_Cub3d *cub)
 {
 	get_map_n_lines(cub);
 	cub->map->n_lines--;
-	if (parse_elements(cub) || has_valid_boundaries(cub))
+	if (parse_elements(cub, 0) || has_valid_boundaries(cub))
 		return (1);
 	return (0);
 }
