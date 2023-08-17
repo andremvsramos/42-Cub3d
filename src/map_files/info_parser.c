@@ -6,11 +6,27 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:45:39 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/17 09:31:56 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2023/08/17 10:18:07 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
+
+static	void	put_floor_ceil_color_utils(t_Cub3d *cub, int n, char **colors)
+{
+	if (n == 0)
+	{
+		cub->map->tex->floor_c[ft_atoi(colors[0])]
+		[ft_atoi(colors[1])]
+		[ft_atoi(colors[2])] = 1;
+	}
+	else
+	{
+		cub->map->tex->ceilling_c[ft_atoi(colors[0])]
+		[ft_atoi(colors[1])]
+		[ft_atoi(colors[2])] = 1;
+	}
+}
 
 /**
  * @brief Set and store floor or ceiling color settings in the map information.
@@ -47,17 +63,9 @@ void	put_floor_ceil_color(t_Cub3d *cub, char *line, int n, int i)
 		i++;
 	}
 	if (n == 0)
-	{
-		cub->map->tex->floor_c[ft_atoi(colors[0])]
-		[ft_atoi(colors[1])]
-		[ft_atoi(colors[2])] = 1;
-	}
+		put_floor_ceil_color_utils(cub, 0, colors);
 	else
-	{
-		cub->map->tex->ceilling_c[ft_atoi(colors[0])]
-		[ft_atoi(colors[1])]
-		[ft_atoi(colors[2])] = 1;
-	}
+		put_floor_ceil_color_utils(cub, 1, colors);
 	ft_free_split(colors);
 	cub->map->tex->colors[n] = true;
 }

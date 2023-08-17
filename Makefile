@@ -6,7 +6,7 @@
 #    By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/08/17 09:18:58 by tsodre-p         ###   ########.fr        #
+#    Updated: 2023/08/17 11:39:26 by tsodre-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC =	src/main.c \
 		src/map_files/map_parser.c \
 		src/map_files/map_matrix.c \
 		src/map_files/map_parser_utils.c \
+		src/map_files/map_closed.c \
 		src/map_files/info_parser.c \
 		src/map_files/file_utils.c \
 

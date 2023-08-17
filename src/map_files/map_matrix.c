@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 11:39:08 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/08/17 09:31:57 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2023/08/17 14:16:57 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	fill_matrix(t_Cub3d *cub)
 	{
 		cub->map->matrix[y] = ft_calloc(cub->map->max_line_len, sizeof(char));
 		fill_matrix2(cub, line, y);
-		puts(cub->map->matrix[y]);
+		//puts(cub->map->matrix[y]);
 		y++;
 		free(line);
 		line = get_next_line(cub->map->temp_fd);
