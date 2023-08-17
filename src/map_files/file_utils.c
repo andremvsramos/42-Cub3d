@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:57:34 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/16 18:42:43 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/08/17 09:27:41 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	ft_open(t_Cub3d *cub)
 
 void	create_temp_map(t_Cub3d *cub, char *line)
 {
-	cub->map->temp_fd = open("./.map", O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+	cub->map->temp_fd = open("./.map", O_RDWR | O_CREAT
+			| O_TRUNC, S_IRUSR | S_IWUSR);
 	while (line)
 	{
 		write(cub->map->temp_fd, line, ft_strlen(line));
@@ -64,7 +65,7 @@ void	create_temp_map(t_Cub3d *cub, char *line)
  */
 static char	*skip_info2(t_Cub3d *cub, char *line, int *skip)
 {
-	if(ft_strchr("\n", line[0]))
+	if (ft_strchr("\n", line[0]))
 	{
 		cub->map->skip_counter++;
 		free(line);

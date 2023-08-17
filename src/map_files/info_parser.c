@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   info_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:45:39 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/16 18:36:21 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/08/17 09:31:56 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ void	put_floor_ceil_color(t_Cub3d *cub, char *line, int n, int i)
 	if (n == 0)
 	{
 		cub->map->tex->floor_c[ft_atoi(colors[0])]
-								[ft_atoi(colors[1])]
-								[ft_atoi(colors[2])] = 1;
+		[ft_atoi(colors[1])]
+		[ft_atoi(colors[2])] = 1;
 	}
 	else
 	{
 		cub->map->tex->ceilling_c[ft_atoi(colors[0])]
-								[ft_atoi(colors[1])]
-								[ft_atoi(colors[2])] = 1;
+		[ft_atoi(colors[1])]
+		[ft_atoi(colors[2])] = 1;
 	}
 	ft_free_split(colors);
 	cub->map->tex->colors[n] = true;
@@ -88,13 +88,15 @@ static int	has_valid_info3(t_Cub3d *cub, char *line)
 	{
 		if (!cub->map->tex->colors[0])
 			put_floor_ceil_color(cub, line, 0, 0);
-		else return (1);
+		else
+			return (1);
 	}
 	else if (!ft_strncmp("C ", line, 2))
 	{
 		if (!cub->map->tex->colors[1])
 			put_floor_ceil_color(cub, line, 1, 0);
-		else return (1);
+		else
+			return (1);
 	}
 	return (0);
 }
@@ -124,25 +126,29 @@ static int	has_valid_info2(t_Cub3d *cub, char *line)
 	{
 		if (!cub->map->tex->path_north)
 			cub->map->tex->path_north = ft_strtrim(ft_strdup(line + 3), " \t");
-		else return (1);
+		else
+			return (1);
 	}
 	else if (!ft_strncmp("SO ", line, 3))
 	{
 		if (!cub->map->tex->path_south)
 			cub->map->tex->path_south = ft_strtrim(ft_strdup(line + 3), " \t");
-		else return (1);
+		else
+			return (1);
 	}
 	else if (!ft_strncmp("WE ", line, 3))
 	{
 		if (!cub->map->tex->path_west)
 			cub->map->tex->path_west = ft_strtrim(ft_strdup(line + 3), " \t");
-		else return (1);
+		else
+			return (1);
 	}
 	else if (!ft_strncmp("EA ", line, 3))
 	{
 		if (!cub->map->tex->path_east)
 			cub->map->tex->path_east = ft_strtrim(ft_strdup(line + 3), " \t");
-		else return (1);
+		else
+			return (1);
 	}
 	return (0);
 }
@@ -176,7 +182,7 @@ int	has_valid_info(t_Cub3d *cub)
 	line = get_next_line(cub->map->fd);
 	while ((!cub->map->tex->path_north || !cub->map->tex->path_south
 			|| !cub->map->tex->path_east || !cub->map->tex->path_west)
-			|| (!cub->map->tex->colors[0] || !cub->map->tex->colors[1]))
+		|| (!cub->map->tex->colors[0] || !cub->map->tex->colors[1]))
 	{
 		if (ft_strchr("1\t ", line[0]))
 			return (1);

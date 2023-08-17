@@ -53,11 +53,12 @@ int	is_valid_map_file(t_Cub3d *cub)
  * This function performs various checks to validate the game map
  * configuration. It first retrieves the number of lines in the map and then
  * proceeds to parse the elements and boundaries of the map. For each valid
- * character encountered ('0', '1', 'N', 'S', 'E', 'W', newline, tab, or space),
- * it checks and sets the player's orientation accordingly using the
- * set_player_orientation function. If any checks fail or an invalid character
- * is encountered, indicating an invalid map, the function returns 1. Otherwise,
- * if all checks pass, it returns 0.
+ * character encountered ('0', '1', 'N', 'S', 'E', 'W',
+ * newline, tab, or space), it checks and sets the player's orientation
+ * accordingly using the set_player_orientation function.
+ * If any checks fail or an invalid character is encountered, indicating an
+ * invalid map, the function returns 1.
+ * Otherwise, if all checks pass, it returns 0.
  *
  * @param cub Pointer to the t_Cub3d structure containing program context
  * and data.
@@ -91,7 +92,7 @@ int	parse_elements(t_Cub3d *cub, int i)
 			if (!ft_strchr("01NSEW\n\t ", line[i]))
 				return (free(line), 1);
 			else if (set_player_orientation(cub, line[i]))
-					return (free(line), 1);
+				return (free(line), 1);
 			i++;
 		}
 		free(line);
@@ -195,7 +196,8 @@ int	check_map_validity(t_Cub3d *cub)
  * terminates the program with an error message, and sets the `crash` flag
  * to true to indicate an error.
  *
- * @param cub Pointer to the t_Cub3d structure containing program context and data.
+ * @param cub Pointer to the t_Cub3d structure containing program
+ * context and data.
  */
 int	parse_map_file(t_Cub3d *cub)
 {

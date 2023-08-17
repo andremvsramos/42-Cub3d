@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+         #
+#    By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/08/16 19:15:02 by andvieir         ###   ########.fr        #
+#    Updated: 2023/08/17 09:18:58 by tsodre-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,12 +77,13 @@ clean:
 			@$(RM) $(OBJ:%=bin/%)
 			@rm -r bin/src
 			@cd $(LIBFTDIR) && $(MAKE) -s clean
+			@$(RM) .map
 
 fclean:		clean
 			@$(RM) $(NAME) $(LIBFT) $(MLX)
 			@cd $(LIBFTDIR) && $(MAKE) -s fclean
 			@cd $(MLXDIR) && $(MAKE) -s fclean
-
+			@$(RM) .map
 
 aclean:		all clean
 

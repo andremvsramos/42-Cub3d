@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:03:12 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/16 19:01:49 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/08/17 09:31:56 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,13 @@ void	get_map_n_lines(t_Cub3d *cub, int i)
  * This function checks the validity of the top and bottom boundaries of the
  * game map. It examines the provided `line` and `index` to determine if the
  * boundary being checked is the top (index 0) or the bottom (index equal to
- * the total number of lines). The function ensures that the specified boundary
- * consists entirely of valid characters, which can include walls ('1'), tabs
- * ('\t'), and spaces (' ').
+ * the total number of lines). The function ensures that the specified
+ * boundary consists entirely of valid characters, which can include
+ * walls ('1'), tabs('\t'), and spaces (' ').
  *
- * If the boundary is valid, the function returns 0. If the boundary contains any
- * invalid characters, the function returns 1, indicating an invalid map boundary.
+ * If the boundary is valid, the function returns 0. If the boundary contains
+ * any invalid characters, the function returns 1, indicating an invalid map
+ * boundary.
  *
  * @param cub Pointer to the t_Cub3d structure containing program context
  * and data.

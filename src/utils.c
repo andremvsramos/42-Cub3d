@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:12:03 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/16 14:45:19 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/08/17 09:21:45 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@
  * additional cleanup for other resources (e.g., image data and window)
  * might be required.
  *
- * @param cub Pointer to the t_Cub3d structure containing program context and data.
+ * @param cub Pointer to the t_Cub3d structure containing program context
+ * and data.
  */
 void	free_main(t_Cub3d *cub)
 {

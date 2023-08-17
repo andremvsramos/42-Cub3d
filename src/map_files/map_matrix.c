@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_matrix.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 11:39:08 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/08/16 19:08:24 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/08/17 09:31:57 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	fill_matrix2(t_Cub3d *cub, char *line, int y)
 
 int	fill_matrix(t_Cub3d *cub)
 {
-	int	y;
+	int		y;
 	char	*line;
 
 	y = 0;

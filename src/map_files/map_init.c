@@ -95,5 +95,3 @@ void	map_init(t_Cub3d *cub, char *file)
 		shutdown("Error: fatal: matrix not created\n", true);
 	}
 }
-
-
