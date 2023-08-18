@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:12:03 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/17 09:21:45 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2023/08/18 18:09:32 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,22 @@
  */
 void	free_main(t_Cub3d *cub)
 {
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
 	close(cub->map->fd);
 	close(cub->map->temp_fd);
+	while (i <= cub->map->n_lines)
+	{
+		printf("%d | %d\n", i, cub->map->n_lines);
+		if (cub->map->matrix[i])
+			free(cub->map->matrix[i]);
+		i++;
+	}
+	if (cub->map->matrix)
+		free(cub->map->matrix);
 	if (cub->map->filename)
 		free(cub->map->filename);
 	if (cub->map->tex->path_east)

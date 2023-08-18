@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   info_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:45:39 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/17 10:18:07 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2023/08/18 17:23:10 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,31 +130,49 @@ static int	has_valid_info3(t_Cub3d *cub, char *line)
  */
 static int	has_valid_info2(t_Cub3d *cub, char *line)
 {
+	char	*temp;
+
 	if (!ft_strncmp("NO ", line, 3))
 	{
 		if (!cub->map->tex->path_north)
-			cub->map->tex->path_north = ft_strtrim(ft_strdup(line + 3), " \t");
+		{
+			temp = ft_strdup(line + 3);
+			cub->map->tex->path_north = ft_strtrim(temp, " \t");
+			free(temp);
+		}
 		else
 			return (1);
 	}
 	else if (!ft_strncmp("SO ", line, 3))
 	{
 		if (!cub->map->tex->path_south)
-			cub->map->tex->path_south = ft_strtrim(ft_strdup(line + 3), " \t");
+		{
+			temp = ft_strdup(line + 3);
+			cub->map->tex->path_south = ft_strtrim(temp, " \t");
+			free(temp);
+		}
 		else
 			return (1);
 	}
 	else if (!ft_strncmp("WE ", line, 3))
 	{
 		if (!cub->map->tex->path_west)
-			cub->map->tex->path_west = ft_strtrim(ft_strdup(line + 3), " \t");
+		{
+			temp = ft_strdup(line + 3);
+			cub->map->tex->path_west = ft_strtrim(temp, " \t");
+			free(temp);
+		}
 		else
 			return (1);
 	}
 	else if (!ft_strncmp("EA ", line, 3))
 	{
 		if (!cub->map->tex->path_east)
-			cub->map->tex->path_east = ft_strtrim(ft_strdup(line + 3), " \t");
+		{
+			temp = ft_strdup(line + 3);
+			cub->map->tex->path_east = ft_strtrim(temp, " \t");
+			free(temp);
+		}
 		else
 			return (1);
 	}
