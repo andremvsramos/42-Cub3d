@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   info_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:45:39 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/18 17:23:10 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/08/19 18:17:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,72 +108,85 @@ static int	has_valid_info3(t_Cub3d *cub, char *line)
 	}
 	return (0);
 }
+/**
+ * @brief Set and store texture path settings in the map information.
+ *
+ * This function processes and stores texture path settings for specific map
+ * elements within the scene description. It takes the provided `path` and
+ * extracts the relevant part of the string after the direction identifier
+ * (e.g., "NO ", "SO ", "WE ", "EA "). It then trims any leading whitespace
+ * characters and assigns the trimmed path to the appropriate member of the
+ * `t_TextureSetup` structure within the provided `t_Cub3d` context. The
+ * `direction` parameter determines which path member to update.
+ *
+ * If the path is successfully set, the function returns 0. If a path is
+ * already set for the specified direction, the function returns 1 to
+ * indicate a duplicate path setting. If an error occurs, the function
+ * frees the allocated memory and returns 1.
+ *
+ * @param cub Pointer to the t_Cub3d structure containing program
+ * context and data.
+ * @param path A pointer to the current line containing the texture path.
+ * @param direction An integer representing the direction identifier (1-4).
+ * @return Returns 0 if the texture path is set successfully,
+ * 1 if a duplicate or error occurs.
+ */
+static int	set_tex_path(t_Cub3d *cub, char *path, int direction)
+{
+	char	*temp;
+
+	temp = ft_strdup(path + 3);
+	if (direction == 1 && !cub->map->tex->path_north)
+		cub->map->tex->path_north = ft_strtrim(temp, " \t");
+	else if (direction == 2 && !cub->map->tex->path_south)
+		cub->map->tex->path_south = ft_strtrim(temp, " \t");
+	else if (direction == 3 && !cub->map->tex->path_west)
+		cub->map->tex->path_west = ft_strtrim(temp, " \t");
+	else if (direction == 4 && !cub->map->tex->path_east)
+		cub->map->tex->path_east = ft_strtrim(temp, " \t");
+	else
+		return (free(temp), 1);
+	return (free (temp), 0);
+}
 
 /**
- * @brief Check the validity of texture path settings in the map information.
+ * @brief Check the validity of texture path settings for map elements.
  *
- * This function validates the correctness of texture path settings for
- * specific map elements within the scene description. It checks for valid
- * texture paths for the north, south, east, and west sides of the map. If a
- * valid path is found, it stores the path in the appropriate member of the
- * `t_TextureSetup` structure within the provided `t_Cub3d` context.
+ * This function checks the correctness of texture path settings for specific
+ * map elements within the scene description. It examines the provided `line`
+ * to determine if it represents a valid texture path for the north (NO),
+ * south (SO), west (WE), or east (EA) side of the map. If a valid texture
+ * path is found, it invokes the `set_tex_path` function to store the path
+ * in the appropriate member of the `t_TextureSetup` structure within the
+ * provided `t_Cub3d` context. If the texture path setting is invalid or a
+ * duplicate, the function returns 1 to indicate an error.
  *
- * If the texture path setting is valid, the function returns 0.
- * If an invalid or duplicate path is encountered, the function returns 1,
- * indicating an error.
- *
- * @param cub Pointer to the t_Cub3d structure containing
- * program context and data.
+ * @param cub Pointer to the t_Cub3d structure containing program
+ * context and data.
  * @param line A pointer to the current line being processed from the map file.
  * @return Returns 0 if the texture path setting is valid,
  * or 1 if an error occurs.
  */
 static int	has_valid_info2(t_Cub3d *cub, char *line)
 {
-	char	*temp;
-
 	if (!ft_strncmp("NO ", line, 3))
 	{
-		if (!cub->map->tex->path_north)
-		{
-			temp = ft_strdup(line + 3);
-			cub->map->tex->path_north = ft_strtrim(temp, " \t");
-			free(temp);
-		}
-		else
+		if (set_tex_path(cub, line, 1))
 			return (1);
 	}
 	else if (!ft_strncmp("SO ", line, 3))
 	{
-		if (!cub->map->tex->path_south)
-		{
-			temp = ft_strdup(line + 3);
-			cub->map->tex->path_south = ft_strtrim(temp, " \t");
-			free(temp);
-		}
-		else
+		if (set_tex_path(cub, line, 2))
 			return (1);
 	}
 	else if (!ft_strncmp("WE ", line, 3))
 	{
-		if (!cub->map->tex->path_west)
-		{
-			temp = ft_strdup(line + 3);
-			cub->map->tex->path_west = ft_strtrim(temp, " \t");
-			free(temp);
-		}
-		else
+		if (set_tex_path(cub, line, 3))
 			return (1);
 	}
 	else if (!ft_strncmp("EA ", line, 3))
 	{
-		if (!cub->map->tex->path_east)
-		{
-			temp = ft_strdup(line + 3);
-			cub->map->tex->path_east = ft_strtrim(temp, " \t");
-			free(temp);
-		}
-		else
+		if (set_tex_path(cub, line, 4))
 			return (1);
 	}
 	return (0);

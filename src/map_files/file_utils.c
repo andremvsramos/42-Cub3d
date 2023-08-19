@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:57:34 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/17 09:27:41 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2023/08/19 18:13:59 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,19 @@ void	ft_open(t_Cub3d *cub)
 	}
 }
 
+/**
+ * Creates a temporary map file containing the map data extracted from the
+ * original map file.
+ *
+ * @param cub  A pointer to the Cub3d structure.
+ * @param line The current line of data from the original map file.
+ *
+ * @note This function opens a temporary map file named "./.map" and writes the
+ * map data extracted from the original map file into it. The function continues
+ * reading lines from the original map file using the `get_next_line` function
+ * and writing them to the temporary map file until the end ofthe file is
+ * reached. The provided `line` pointer will be freed after each write operation
+ */
 void	create_temp_map(t_Cub3d *cub, char *line)
 {
 	cub->map->temp_fd = open("./.map", O_RDWR | O_CREAT

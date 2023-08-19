@@ -3,15 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:03:12 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/17 17:08:01 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2023/08/19 18:42:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
 
+/**
+ * @brief Helper function to calculate maximum line length and update number of
+ * lines.
+ *
+ * This function is called by the get_map_n_lines function for each line read
+ * from the map file. It calculates the length of the line, considering tabs
+ * as four spaces, and updates the n_lines member of the cub->map data
+ * structure. Additionally, it compares the calculated line length to the
+ * current max_line_len value and updates it if the calculated length is larger.
+ *
+ * @param cub Pointer to the t_Cub3d structure containing program
+ * context and data.
+ * @param line A pointer to the current line being processed.
+ */
 static	void	get_map_n_lines_utils(t_Cub3d *cub, char *line)
 {
 	int	aux_len;
@@ -35,36 +49,23 @@ static	void	get_map_n_lines_utils(t_Cub3d *cub, char *line)
 }
 
 /**
- * @brief Calculate the number of lines and maximum line
- * length in the game map.
+ * @brief Calculate the number of lines in the map file.
  *
- * This function reads through the map file to determine the number of lines and
- * calculates the maximum line length in the game map. It iterates over each
- * line, incrementing the line count and updating the maximum line length based
- * on the characters encountered, accounting for tab characters that contribute
- * 4 spaces. The calculated values are stored in the t_Cub3d structure to
- * provide context for map processing and rendering.
+ * This function opens the map file and iterates through its lines using
+ * the get_next_line function. For each non-empty line, it increments the
+ * n_lines member in the cub->map data structure. After processing all lines,
+ * the function closes the file descriptor and frees allocated resources.
  *
- * @param cub Pointer to the t_Cub3d structure containing
- * program context and data.
+ * @param cub Pointer to the t_Cub3d structure containing program
+ * context and data.
  */
-void	get_map_n_lines(t_Cub3d *cub, int i)
+void	get_map_n_lines(t_Cub3d *cub)
 {
 	char	*line;
-	int		aux_len;
 
 	cub->map->n_lines = 0;
-	i = 0;
-	aux_len = 0;
-	//close(cub->map->temp_fd);
 	cub->map->temp_fd = open(".map", O_RDONLY);
 	line = get_next_line(cub->map->temp_fd);
-	/* while (cub->map->n_lines < cub->map->skip_counter)
-	{
-		cub->map->n_lines++;
-		free(line);
-		line = get_next_line(cub->map->fd);
-	} */
 	while (line)
 	{
 		get_map_n_lines_utils(cub, line);

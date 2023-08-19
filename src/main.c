@@ -44,6 +44,9 @@ int	main(int ac, char **av, char **env)
 		shutdown("Error: Run the program without extra arguments\n", true);
 	else if (ac < 2)
 		shutdown("Error: Please provide a map file\n", true);
-	map_init(&cub, av[1]);
-	//verificar se os numeros das cores estao entre 0 e 255
+	if (map_init(&cub, av[1]))
+	{
+		free_main(&cub);
+		shutdown("Error: Failed initializing map settings\n", true);
+	}
 }

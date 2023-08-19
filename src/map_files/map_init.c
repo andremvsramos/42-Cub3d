@@ -61,20 +61,29 @@ static void	player_init(t_Cub3d *cub)
 }
 
 /**
- * @brief Initialize map configuration data within the Cub3D context.
+ * @brief Initialize map configuration and data within the Cub3D context.
  *
- * This function initializes the map configuration data within the
+ * This function initializes the map configuration and data within the
  * Cub3D context. It allocates memory for a t_MapConfig structure and
  * initializes its members. The function sets the skip counter to 0 and
  * duplicates the provided filename. If memory allocation fails, the function
- * calls free_main to clean up allocated resources and terminates the program
+ * calls `free_main` to clean up allocated resources and terminates the program
  * with an error message.
+ *
+ * The function then initializes texture configuration and player data using
+ * the `tex_init` and `player_init` functions respectively. It proceeds to
+ * parse the map file using the `parse_map_file` function and fill the map
+ * matrix using the `fill_matrix` function. Finally, it checks if the map is
+ * properly enclosed by walls and has valid player movement areas using the
+ * `check_map_closed` function. If any step encounters an error, the function
+ * returns 1; otherwise, it returns 0 to indicate successful initialization.
  *
  * @param cub Pointer to the t_Cub3d structure containing
  * program context and data.
- * @param av Array of command-line arguments, where av[1] is the filename.
+ * @param file Name of the map file to be parsed.
+ * @return Returns 1 if any initialization step fails, else returns 0.
  */
-void	map_init(t_Cub3d *cub, char *file)
+int	map_init(t_Cub3d *cub, char *file)
 {
 	cub->map = ft_calloc(1, sizeof(t_MapConfig));
 	if (!cub->map)
@@ -90,13 +99,8 @@ void	map_init(t_Cub3d *cub, char *file)
 	//cub.img = ft_calloc(1, sizeof(t_ImageControl));
 	parse_map_file(cub);
 	if (fill_matrix(cub))
-	{
-		free_main(cub);
-		shutdown("Error: fatal: matrix not created\n", true);
-	}
+		return (1);
 	if (check_map_closed(cub))
-	{
-		free_main(cub);
-		shutdown("Error: map isn't surrounded by walls\n", true);
-	}
+		return (1);
+	return (0);
 }

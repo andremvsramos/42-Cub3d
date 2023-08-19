@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:12:03 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/18 18:09:32 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/08/19 16:43:45 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,8 @@
 void	free_main(t_Cub3d *cub)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
 	close(cub->map->fd);
 	close(cub->map->temp_fd);
 	while (i <= cub->map->n_lines)
