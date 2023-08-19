@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/08/18 17:02:24 by andvieir         ###   ########.fr        #
+#    Updated: 2023/08/19 20:01:40 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,8 @@ SRC =	src/main.c \
 		src/map_files/map_closed.c \
 		src/map_files/info_parser.c \
 		src/map_files/file_utils.c \
+		src/graphics/mlx_graphics.c \
+		src/hooks/mlx_hook_events.c \
 
 #----------COMMANDS----------#
 

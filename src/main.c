@@ -49,4 +49,11 @@ int	main(int ac, char **av, char **env)
 		free_main(&cub);
 		shutdown("Error: Failed initializing map settings\n", true);
 	}
+	if (boot(&cub))
+	{
+		free_main(&cub);
+		shutdown("Error: Failed booting graphics\n", true);
+	}
+	free_main(&cub);
+	shutdown("Closing CUB3D\n", false);
 }

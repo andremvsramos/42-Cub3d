@@ -146,11 +146,22 @@ int		fill_matrix(t_Cub3d *cub);
 int		check_map_closed(t_Cub3d *cub);
 
 // PLAYER MANAGEMENT FUNCTIONS
-int	set_player_orientation(t_Cub3d *cub, char c);
+int		set_player_orientation(t_Cub3d *cub, char c);
 
 // FILE MANAGEMENT FUNCTIONS
 // Section for managing file processes
 void	ft_open(t_Cub3d *cub);
 char	*skip_info(t_Cub3d *cub, char *line);
+
+// APPLICATION GRAPHICS FUNCTIONS
+// Functions for managing graphics and window
+int		boot(t_Cub3d *cub);
+int		graphics(t_Cub3d *cub);
+
+// EVENT HANDLING FUNCTIONS
+// Functions related to handling user input events
+int		hook_events(t_Cub3d *cub);
+int		deal_key(int key, t_Cub3d *cub);
+int		win_close(t_Cub3d *cub);
 
 #endif

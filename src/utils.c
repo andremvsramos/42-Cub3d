@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:12:03 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/19 16:43:45 by marvin           ###   ########.fr       */
+/*   Updated: 2023/08/19 19:46:27 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	free_main(t_Cub3d *cub)
 		free(cub->map->player);
 	if (cub->map)
 		free(cub->map);
-	/* if (cub->mlx_ptr)
+	if (cub->mlx_ptr)
 	{
 		mlx_destroy_image(cub->mlx_ptr, cub->img->img_ptr);
 		mlx_destroy_window(cub->mlx_ptr, cub->win_ptr);
@@ -73,5 +73,5 @@ void	free_main(t_Cub3d *cub)
 	if (cub->img->img_ptr)
 		free(cub->img->img_ptr);
 	if (cub->img)
-		free(cub->img); */
+		free(cub->img);
 }

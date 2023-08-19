@@ -96,7 +96,6 @@ int	map_init(t_Cub3d *cub, char *file)
 	cub->map->filename = ft_strdup(file);
 	tex_init(cub);
 	player_init(cub);
-	//cub.img = ft_calloc(1, sizeof(t_ImageControl));
 	parse_map_file(cub);
 	if (fill_matrix(cub))
 		return (1);
