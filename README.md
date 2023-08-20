@@ -44,8 +44,8 @@ Cub3D is an ongoing project that aims to recreate the 'immersive' gameplay exper
 
 ### Installation
 
-1. Clone this repository: `git clone <repository_url>`
-2. Navigate to the project directory: `cd Cub3D`
+1. Clone this repository as such: `git clone git@github.com:andremvsramos/42-Cub3d.git CUB3D`
+2. Navigate to the project directory: `cd CUB3D`
 3. Compile the project: `make`
 4. Run the game: `./cub3D <filename.cub>`
 
