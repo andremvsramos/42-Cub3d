@@ -34,6 +34,21 @@ int	win_close(t_Cub3d *cub)
 	return (0);
 }
 
+/**
+ * @brief Handle key events in the Cub3D application.
+ *
+ * The deal_key function is responsible for handling key events in the Cub3D
+ * application. When a key is pressed, the function checks if the key code
+ * matches the code for the 'Esc' key (65307). If the 'Esc' key is pressed,
+ * the function calls the win_close function to close the game window and
+ * perform necessary cleanup. The function returns 0 to indicate that the key
+ * event has been handled.
+ *
+ * @param key The key code corresponding to the pressed key.
+ * @param cub Pointer to the t_Cub3d structure containing program context and
+ * data.
+ * @return Returns 0 to indicate successful key event handling.
+ */
 int	deal_key(int key, t_Cub3d *cub)
 {
 	if (key == 65307)
@@ -42,23 +57,25 @@ int	deal_key(int key, t_Cub3d *cub)
 }
 
 /**
- * @brief Set up event hooks for handling user interactions in the Cub3D
- * application.
+ * @brief Set up event handlers and start the MiniLibX event loop.
  *
- * The hook_events function is responsible for setting up event hooks to capture
- * user interactions within the Cub3D application. It uses the mlx_hook function
- * to associate event types with their corresponding event handlers. The
- * KeyPress event is associated with the deal_key function, which handles
- * keyboard input events. Additionally, the DestroyNotify event, triggered when
- * the window is closed, is associated with the win_close function to handle
- * proper cleanup.
+ * The `hook_events` function configures event handlers to manage user
+ * interactions with the graphical window. It uses the `mlx_hook` function to
+ * associate the `deal_key` function with keyboard events and the `win_close`
+ * function with the window close event. Keyboard events are detected using
+ * event code `2`, and the window close event is detected using event code
+ * `17`. After setting up the event handlers, the function enters the MiniLibX
+ * event loop using `mlx_loop`, allowing the program to respond to user inputs
+ * and window events. The function returns 0 after the event loop completes.
  *
- * @param cub Pointer to the t_Cub3d structure containing program context and data.
+ * @param cub Pointer to the t_Cub3d structure containing program context and
+ * data.
+ * @return Always returns 0 to indicate successful event setup and execution.
  */
 int	hook_events(t_Cub3d *cub)
 {
 	mlx_hook(cub->win_ptr, 2, 1L << 0, deal_key, cub);
-	mlx_hook(cub->mlx_ptr,17, 1L << 0, win_close, cub);
+	mlx_hook(cub->mlx_ptr, 17, 1L << 0, win_close, cub);
 	mlx_loop(cub->mlx_ptr);
 	return (0);
 }

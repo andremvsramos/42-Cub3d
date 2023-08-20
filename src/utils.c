@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:12:03 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/19 19:46:27 by marvin           ###   ########.fr       */
+/*   Updated: 2023/08/20 17:35:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	free_main(t_Cub3d *cub)
 	close(cub->map->temp_fd);
 	while (i <= cub->map->n_lines)
 	{
-		printf("%d | %d\n", i, cub->map->n_lines);
 		if (cub->map->matrix[i])
 			free(cub->map->matrix[i]);
 		i++;
@@ -61,17 +60,17 @@ void	free_main(t_Cub3d *cub)
 		free(cub->map->player);
 	if (cub->map)
 		free(cub->map);
-	if (cub->mlx_ptr)
+	if (cub->graphics_ok)
 	{
 		mlx_destroy_image(cub->mlx_ptr, cub->img->img_ptr);
 		mlx_destroy_window(cub->mlx_ptr, cub->win_ptr);
 		mlx_destroy_display(cub->mlx_ptr);
 		free(cub->mlx_ptr);
+		if (cub->img->addr)
+			free(cub->img->addr);
+		if (cub->img->img_ptr)
+			free(cub->img->img_ptr);
+		if (cub->img)
+			free(cub->img);
 	}
-	if (cub->img->addr)
-		free(cub->img->addr);
-	if (cub->img->img_ptr)
-		free(cub->img->img_ptr);
-	if (cub->img)
-		free(cub->img);
 }

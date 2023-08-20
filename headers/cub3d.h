@@ -14,12 +14,14 @@
 # define CUB3D_H
 
 # include "../mlx/mlx.h"
+# include "../mlx/mlx_int.h"
 # include "libft.h"
 # include <math.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <sys/wait.h>
 # include <stdlib.h>
+# include <fcntl.h>
 
 # ifndef WINDOW_X
 #  define WINDOW_X 1024
@@ -120,6 +122,7 @@ typedef struct	s_Cub3d
 {
 	void			*mlx_ptr;
 	void			*win_ptr;
+	bool			graphics_ok;
 	t_ImageControl	*img;
 	t_MapConfig		*map;
 
@@ -157,6 +160,8 @@ char	*skip_info(t_Cub3d *cub, char *line);
 // Functions for managing graphics and window
 int		boot(t_Cub3d *cub);
 int		graphics(t_Cub3d *cub);
+int		check_tex_validity(t_Cub3d *cub);
+int		is_xpm(t_Cub3d *cub, int id);
 
 // EVENT HANDLING FUNCTIONS
 // Functions related to handling user input events

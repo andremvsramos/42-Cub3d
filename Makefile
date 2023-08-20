@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/08/19 20:01:40 by marvin           ###   ########.fr        #
+#    Updated: 2023/08/20 17:28:36 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC =	src/main.c \
 		src/map_files/info_parser.c \
 		src/map_files/file_utils.c \
 		src/graphics/mlx_graphics.c \
+		src/graphics/mlx_textures.c \
 		src/hooks/mlx_hook_events.c \
 
 #----------COMMANDS----------#

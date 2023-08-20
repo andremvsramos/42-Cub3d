@@ -49,10 +49,14 @@ int	main(int ac, char **av, char **env)
 		free_main(&cub);
 		shutdown("Error: Failed initializing map settings\n", true);
 	}
+	cub.graphics_ok = false;
 	if (boot(&cub))
 	{
 		free_main(&cub);
-		shutdown("Error: Failed booting graphics\n", true);
+		printf("Error: Failed booting graphics.\n");
+		printf("\tPlease check MiniLibX is installed on your system\n");
+		printf("\tPlease check the texture files, so they are XPM\n");
+		shutdown("", true);
 	}
 	free_main(&cub);
 	shutdown("Closing CUB3D\n", false);
