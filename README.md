@@ -1,4 +1,4 @@
-# 42_Cub3d
+# 42_Cub3d (WIP)
 NOTE:
 
 Since the subject of the project doesn't mention how we're supposed to parse tabulations, we are taking the liberty to apply the following rule:\
