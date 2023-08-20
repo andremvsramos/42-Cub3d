@@ -14,7 +14,7 @@ Welcome to the Cub3D project, a recreation of the nostalgic ambiance from the or
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
   - [Usage](#usage)
-- [Note on Parsing Tabulations](#note-on-parsing-tabulations)
+- [Note on Parsing Map File Tabulations](#note-on-parsing-tabulations)
 - [Collaborators](#collaborators)
 - [License](#license)
 
@@ -55,7 +55,7 @@ Cub3D is an ongoing project that aims to recreate the 'immersive' gameplay exper
 - Move around using the arrow keys (not yet implemented).
 - Interact with the environment (not yet implemented).
 
-## Note on Parsing Tabulations
+## Note on Parsing Map File Tabulations
 
 As the project guidelines do not specify how to parse tabulations, we have applied the following rule:
 - Each tab is equivalent to 8 spaces.
