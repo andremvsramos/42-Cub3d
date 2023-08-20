@@ -14,7 +14,7 @@ Welcome to the Cub3D project, a recreation of the nostalgic ambiance from the or
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
   - [Usage](#usage)
-- [Note on Parsing Map File Tabulations](#note-on-parsing-tabulations)
+- [Note on Parsing Map File Tabulations](#note-on-parsing-map-file-tabulations)
 - [Collaborators](#collaborators)
 - [License](#license)
 
