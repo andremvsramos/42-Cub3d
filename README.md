@@ -6,12 +6,12 @@ Welcome to the Cub3D project, a recreation of the nostalgic ambiance from the or
 
 - [Introduction](#introduction)
 - [Features](#features)
+- [Project Progress](#project-progress)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
   - [Usage](#usage)
 - [Note on Parsing Tabulations](#note-on-parsing-tabulations)
-- [Project Progress](#project-progress)
 - [Collaborators](#collaborators)
 - [License](#license)
 
@@ -24,6 +24,10 @@ Cub3D is an ongoing project that aims to recreate the 'immersive' gameplay exper
  - Cub3D utilizes perspective rendering techniques to provide a sense of depth in a 2D environment, delivering an experience reminiscent of the original games.
  - Experience familiar textures and environments through texture mapping, capturing the visual essence of the classic games.
  - Cub3D employs a map configuration system using `.cub` files as input. These files specify elements like textures, colors, and the layout of the game world.
+
+## Project Progress
+
+- The map parsing phase has been successfully completed and the map has been parsed into a 2D matrix. As of August 19, 2023, the project is currently focused on graphical booting using the MiniLibX screen display.
 
 ## Getting Started
 
@@ -38,7 +42,7 @@ Cub3D is an ongoing project that aims to recreate the 'immersive' gameplay exper
 3. Compile the project: `make`
 4. Run the game: `./cub3D <filename.cub>`
 
-## Usage
+### Usage
 
 - Launch the game by providing a `.cub` file as a command-line argument.
 - Move around using the arrow keys (not yet implemented).
@@ -50,10 +54,6 @@ As the project guidelines do not specify how to parse tabulations, we have appli
 - Each tab is equivalent to 8 spaces.
 - This rule is based on the common practice of text editors.
 - Please be aware that creating a map in VS Code may not accurately reflect the actual map appearance, as each tab in that editor is equal to 4 spaces.
-
-## Project Progress
-
-- The map parsing phase has been successfully completed and the map has been parsed into a 2D matrix. As of August 19, 2023, the project is currently focused on graphical booting using the MiniLibX screen display.
 
 ## Collaborators
 
