@@ -7,10 +7,13 @@ Welcome to the Cub3D project, a recreation of the nostalgic ambiance from the or
 - [Introduction](#introduction)
 - [Features](#features)
 - [Project Progress](#project-progress)
+- - [Parsing Phase Completion](#parsing-phase-completion)
+- - [Graphical Booting in Progress](#graphical-booting-in-progress)
+- - [Parsing Texture Files](#parsing-texture-files)
 - [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Usage](#usage)
+- - [Prerequisites](#prerequisites)
+- - [Installation](#installation)
+- - [Usage](#usage)
 - [Note on Parsing Tabulations](#note-on-parsing-tabulations)
 - [Collaborators](#collaborators)
 - [License](#license)
@@ -27,7 +30,11 @@ Cub3D is an ongoing project that aims to recreate the 'immersive' gameplay exper
 
 ## Project Progress
 
-- The map parsing phase has been successfully completed and the map has been parsed into a 2D matrix. As of August 19, 2023, the project is currently focused on graphical booting using the MiniLibX screen display.
+- **Parsing Phase Completion (August 19, 2023):** The map parsing phase has been successfully completed, and the map data has been successfully parsed into a 2D matrix. This crucial step lays the foundation for the game world.
+  
+- **Graphical Booting in Progress:** As of August 19, 2023, the project is currently focused on implementing graphical booting using the MiniLibX screen display. This phase involves setting up the graphics context and preparing for rendering.
+
+- **Parsing Texture Files:** Our next milestone is to implement the parsing of texture files, which will allow us to bring texture mapping to the game world. This step is essential to create visual depth and detail within the game environment.
 
 ## Getting Started
 
