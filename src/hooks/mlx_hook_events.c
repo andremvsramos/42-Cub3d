@@ -72,10 +72,8 @@ int	deal_key(int key, t_Cub3d *cub)
  * data.
  * @return Always returns 0 to indicate successful event setup and execution.
  */
-int	hook_events(t_Cub3d *cub)
+void	hook_events(t_Cub3d *cub)
 {
 	mlx_hook(cub->win_ptr, 2, 1L << 0, deal_key, cub);
 	mlx_hook(cub->mlx_ptr, 17, 1L << 2, win_close, cub);
-	mlx_loop(cub->mlx_ptr);
-	return (0);
 }

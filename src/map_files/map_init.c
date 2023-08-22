@@ -16,24 +16,28 @@
  * @brief Initialize texture setup data within the Cub3D context.
  *
  * This function initializes the texture setup data within the Cub3D context.
- * It allocates memory for a t_TextureSetup structure and initializes
- * its members. If memory allocation fails, the function calls free_main to
- * clean up allocated resources and terminates the program
- * with an error message.
+ * It allocates memory for t_TextureSetup structures and initializes
+ * their members. If memory allocation fails, the function calls free_main to
+ * clean up allocated resources, terminates the program,
+ * and displays an error message.
  *
  * @param cub Pointer to the t_Cub3d structure containing
  * program context and data.
  */
 static void	tex_init(t_Cub3d *cub)
 {
-	cub->map->tex = ft_calloc(1, sizeof(t_TextureSetup));
-	if (!cub->map->tex)
+	cub->map->tex_north = ft_calloc(1, sizeof(t_TextureSetup));
+	cub->map->tex_south = ft_calloc(1, sizeof(t_TextureSetup));
+	cub->map->tex_west = ft_calloc(1, sizeof(t_TextureSetup));
+	cub->map->tex_east = ft_calloc(1, sizeof(t_TextureSetup));
+	if (!cub->map->tex_north || !cub->map->tex_south
+		|| !cub->map->tex_west || !cub->map->tex_east)
 	{
 		free_main(cub);
 		shutdown("Error: fatal: t_TextureSetup not created\n", true);
 	}
-	cub->map->tex->colors[0] = false;
-	cub->map->tex->colors[1] = false;
+	cub->map->colors[0] = false;
+	cub->map->colors[1] = false;
 }
 
 /**

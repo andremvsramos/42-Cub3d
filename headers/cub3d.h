@@ -49,14 +49,19 @@ typedef struct	s_WindowConfig
 
 /**
  * @struct t_ImageControl
- * Structure for managing image data and properties in the Cub3D project.
- * It provides control over various image-related attributes for rendering.
+ * @brief Structure for managing image data and properties in the Cub3D
+ * project.
+ *
+ * The t_ImageControl structure provides control over various image-related
+ * attributes required for rendering in the Cub3D project.
  *
  * @param img_ptr A pointer to the image's pixel data.
  * @param addr A char pointer to the start of the image's pixel data.
  * @param bpp Bits per pixel for the image.
  * @param len Length of each image line in bytes.
  * @param endian The byte order in the image data (endianess).
+ * @param width Width of the image in pixels.
+ * @param height Height of the image in pixels.
  */
 typedef struct	s_ImageControl
 {
@@ -65,19 +70,37 @@ typedef struct	s_ImageControl
 	int		bpp;
 	int		len;
 	int		endian;
+	int		width;
+	int		height;
 }				t_ImageControl;
 
+/**
+ * @struct t_TextureSetup
+ * Structure for managing texture setup in the Cub3D project.
+ *
+ * This structure holds data related to texture paths and images.
+ *
+ * @param path Path to the texture file.
+ * @param xpm MiniLibX pointer to the texture image.
+ * @param img Pointer to the image control structure.
+ */
 typedef struct	s_TextureSetup
 {
-	char	*path_north;
-	char	*path_south;
-	char	*path_west;
-	char	*path_east;
-	int		floor_c[255][255][255];
-	int		ceilling_c[255][255][255];
-	bool	colors[2];
+	char			*path;
+	void			*xpm;
+	t_ImageControl	*img;
 }				t_TextureSetup;
 
+/**
+ * @struct t_PlayerConfig
+ * Structure for managing player configuration in the Cub3D map.
+ *
+ * This structure holds data related to the player's position and orientation.
+ *
+ * @param orientation Orientation of the player (e.g., 'N' for north).
+ * @param player_x X-coordinate of the player's position.
+ * @param player_y Y-coordinate of the player's position.
+ */
 typedef struct	s_PlayerConfig
 {
 	char	orientation;
@@ -87,11 +110,26 @@ typedef struct	s_PlayerConfig
 
 /**
  * @struct t_MapConfig
- * A structure representing the configuration and data of the game map.
+ * Structure for managing map configuration and data in the Cub3D project.
  *
- * @param fd The file descriptor associated with the map file.
- * @param n_lines The number of lines in the map.
- * @param filename The name of the map file being processed.
+ * This structure holds information about the map layout, textures,
+ * and player data.
+ *
+ * @param fd File descriptor for the map file.
+ * @param temp_fd Temporary file descriptor for parsing.
+ * @param n_lines Number of lines in the map file.
+ * @param max_line_len Maximum length of lines in the map.
+ * @param skip_counter Counter for skipped lines in the map.
+ * @param matrix A matrix representing the map layout.
+ * @param filename Name of the map file.
+ * @param floor_c Colors for floor tiles.
+ * @param ceilling_c Colors for ceiling tiles.
+ * @param colors Array indicating color presence.
+ * @param tex_north Texture setup for the north side.
+ * @param tex_south Texture setup for the south side.
+ * @param tex_east Texture setup for the east side.
+ * @param tex_west Texture setup for the west side.
+ * @param player Player configuration in the map.
  */
 typedef struct	s_MapConfig
 {
@@ -102,7 +140,13 @@ typedef struct	s_MapConfig
 	int				skip_counter;
 	char			**matrix;
 	char			*filename;
-	t_TextureSetup	*tex;
+	int				floor_c[255][255][255];
+	int				ceilling_c[255][255][255];
+	bool			colors[2];
+	t_TextureSetup	*tex_north;
+	t_TextureSetup	*tex_south;
+	t_TextureSetup	*tex_east;
+	t_TextureSetup	*tex_west;
 	t_PlayerConfig	*player;
 }				t_MapConfig;
 
@@ -123,8 +167,8 @@ typedef struct	s_Cub3d
 	void			*mlx_ptr;
 	void			*win_ptr;
 	bool			graphics_ok;
-	t_ImageControl	*img;
 	t_MapConfig		*map;
+	t_ImageControl	*img;
 
 }				t_Cub3d;
 
@@ -165,7 +209,7 @@ int		is_xpm(t_Cub3d *cub, int id);
 
 // EVENT HANDLING FUNCTIONS
 // Functions related to handling user input events
-int		hook_events(t_Cub3d *cub);
+void	hook_events(t_Cub3d *cub);
 int		deal_key(int key, t_Cub3d *cub);
 int		win_close(t_Cub3d *cub);
 

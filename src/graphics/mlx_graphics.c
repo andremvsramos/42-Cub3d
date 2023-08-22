@@ -13,38 +13,70 @@
 #include "../../headers/cub3d.h"
 
 /**
+ * @brief Initialize texture setup data for a specific texture within the
+ * Cub3D context.
+ *
+ * This function initializes the texture setup data for a specific texture
+ * within the Cub3D context. It allocates memory for a t_ImageControl structure
+ * to manage image data and initializes its members. If memory allocation fails
+ * for any step, the function cleans up allocated resources, terminates the
+ * program, and displays an error message.
+ *
+ * @param cub Pointer to the t_Cub3d structure containing
+ * program context and data.
+ * @param texture Pointer to the t_TextureSetup structure representing
+ * the texture.
+ * @return Returns 0 on success, or 1 on failure.
+ */
+static int	tex_setup(t_Cub3d *cub, t_TextureSetup *texture)
+{
+	texture->img = ft_calloc(1, sizeof(t_ImageControl));
+	if (!texture->img)
+		return (1);
+	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, texture->xpm, WINDOW_X/2, WINDOW_Y/2);
+	if (!texture->img->addr)
+		return (1);
+	return (0);
+}
+
+/**
  * @brief Initialize the graphics context for rendering in the Cub3D
  * application.
  *
- * The graphics function is responsible for setting up the graphics context of
- * the Cub3D application. It first calls the check_tex_validity function to
+ * The `graphics` function is responsible for setting up the graphics context of
+ * the Cub3D application. It first calls the `check_tex_validity` function to
  * validate the texture files. If the texture files are valid, the function
- * initializes the mlx library using mlx_init and creates a new window with a
- * specified resolution using mlx_new_window. Additionally, memory is allocated
- * for an image control structure to manage the application's image data. The
- * image structure is initialized with mlx_new_image, and its attributes are
- * obtained using mlx_get_data_addr. If any initialization step fails or the
- * texture files are invalid, the function returns 1; otherwise, it returns 0
- * to indicate successful graphics context setup.
+ * initializes the mlx library using `mlx_init` and creates a new window with a
+ * specified resolution using `mlx_new_window`. Additionally, memory is
+ * allocated for an `t_ImageControl` structure to manage the application's image
+ * data. The image structure is initialized with `mlx_new_image`, and its
+ * attributes are obtained using `mlx_get_data_addr`. If any initialization step
+ * fails or the texture files are invalid, the function returns 1; otherwise, it
+ * returns 0 to indicate successful graphics context setup.
  *
- * @param cub Pointer to the t_Cub3d structure containing program context and
+ * @param cub Pointer to the `t_Cub3d` structure containing program context and
  * data.
  * @return Returns 0 if the graphics context initializes successfully, or 1 if
- * there's an error.
+ * there's an error during setup.
  */
 int	graphics(t_Cub3d *cub)
 {
-	if (check_tex_validity(cub))
-		return (1);
 	cub->mlx_ptr = mlx_init();
 	cub->win_ptr = mlx_new_window(cub->mlx_ptr, WINDOW_X, WINDOW_Y, "CUB3D");
 	cub->img = ft_calloc(1, sizeof(t_ImageControl));
-	if (!cub->img)
-		return (1);
 	cub->img->img_ptr = mlx_new_image(cub->mlx_ptr, WINDOW_X, WINDOW_Y);
 	cub->img->addr = mlx_get_data_addr(cub->img->img_ptr, &cub->img->bpp,
 		&cub->img->len, &cub->img->endian);
+	if (check_tex_validity(cub))
+		return (1);
 	cub->graphics_ok = true;
+	if (tex_setup(cub, cub->map->tex_north) || tex_setup(cub, cub->map->tex_south)
+		|| tex_setup(cub, cub->map->tex_west) || tex_setup(cub, cub->map->tex_east))
+		return (1);
+	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->map->tex_north->img->img_ptr, WINDOW_X/2, WINDOW_Y/2);/*
+	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->map->tex_south->img->img_ptr, WINDOW_X/2, WINDOW_Y/2);
+	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->map->tex_west->img->img_ptr, WINDOW_X/2, WINDOW_Y/2);
+	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->map->tex_east->img->img_ptr, WINDOW_X/2, WINDOW_Y/2); */
 	return (0);
 }
 
