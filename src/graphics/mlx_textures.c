@@ -53,7 +53,7 @@ int	is_xpm(t_Cub3d *cub, int id)
 	else if (id == 4)
 		filename = ft_strdup(cub->map->tex->path_east);
 	i = 4;
-	len = ft_strlen(filename) - 1;
+	len = ft_strlen(filename) - 2;
 	while (i)
 		if (filename[len--] != filetype[--i])
 			return (free(filename), 1);
