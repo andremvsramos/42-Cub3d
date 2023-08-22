@@ -14,6 +14,7 @@
 
 /* void	convert_textures(t_Cub3d *cub)
 {
+	mlx_xpm_to_image()
 	mlx_xpm_file_to_image(cub->mlx_ptr, cub->map->tex->path_north);
 	mlx_xpm_file_to_image(cub->mlx_ptr, cub->map->tex->path_south);
 	mlx_xpm_file_to_image(cub->mlx_ptr, cub->map->tex->path_west);
@@ -54,6 +55,8 @@ int	is_xpm(t_Cub3d *cub, int id)
 		filename = ft_strdup(cub->map->tex->path_east);
 	i = 4;
 	len = ft_strlen(filename) - 1;
+		if (filename[len] == '\n')
+			len--;
 	while (i)
 		if (filename[len--] != filetype[--i])
 			return (free(filename), 1);
