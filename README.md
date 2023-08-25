@@ -8,8 +8,9 @@ Welcome to the Cub3D project, a recreation of the nostalgic ambiance from the or
 - [Features](#features)
 - [Project Progress](#project-progress)
   - [Parsing Phase Completion](#parsing-phase-completion)
-  - [Graphical Booting in Progress](#graphical-booting-in-progress)
-  - [Parsing Texture Files](#parsing-texture-files)
+  - [Texture Parsing Milestone](#texture-parsing-milestone)
+  - [Graphical Booting Milestone](#graphical-booting-milestone)
+  - [Raycasting Progress](#raycasting-progress)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
@@ -32,9 +33,11 @@ Cub3D is an ongoing project that aims to recreate the 'immersive' gameplay exper
 
 - **Parsing Phase Completion (August 19, 2023):** The map parsing phase has been successfully completed, and the map data has been successfully parsed into a 2D matrix. This crucial step lays the foundation for the game world.
   
-- **Graphical Booting in Progress:** As of August 19, 2023, the project is currently focused on implementing graphical booting using the MiniLibX screen display. This phase involves setting up the graphics context and preparing for rendering.
+- **Texture Parsing Milestone (August 23, 2023):** We're excited to share our recent accomplishment - the successful completion of the texture parsing phase on August 23, 2023. This advancement marks a pivotal moment in our journey, as we've triumphantly decoded texture files. This achievement opens the door to texture mapping within our gaming universe, a significant stride toward enriching visual depth and intricate detailing.
 
-- **Parsing Texture Files:** Our next milestone is to implement the parsing of texture files, which will allow us to bring texture mapping to the game world. This step is essential to create visual depth and detail within the game environment.
+- **Graphical Booting Milestone (August 23, 2023):** On August 23, 2023, we achieved a key milestone in our project. We successfully implemented graphical booting using the MiniLibX screen display. This accomplishment lays the groundwork for rendering. However, we're continuing our efforts to refine rendering processes, as detailed in our Raycasting Progress (as stated below).
+
+- **Raycasting Progress:** Our next endeavor takes us into the implementation of raycasting. With determination and focus, we're diving into the intricacies of raycasting. This advancement holds the potential for innovative texture rendering techniques, enhancing the overall immersive experience.
 
 ## Getting Started
 
