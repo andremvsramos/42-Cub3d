@@ -41,49 +41,25 @@ static void	tex_init(t_Cub3d *cub)
 }
 
 /**
- * @brief Initialize the player configuration in the map.
- *
- * This function initializes the player configuration within the map.
- * It allocates memory for a `t_PlayerConfig` structure and sets the player's
- * initial position to (0, 0) within the provided `t_Cub3d` context.
- * If memory allocation fails, the function terminates the program with
- * an error message.
- *
- * @param cub Pointer to the t_Cub3d structure containing
- * program context and data.
- */
-static void	player_init(t_Cub3d *cub)
-{
-	cub->map->player = ft_calloc(1, sizeof(t_PlayerConfig));
-	if (!cub->map->player)
-	{
-		free_main(cub);
-		shutdown("Error: fatal: t_PlayerConfig not created\n", true);
-	}
-	cub->map->player->player_x = 0;
-	cub->map->player->player_y = 0;
-}
-
-/**
  * @brief Initialize map configuration and data within the Cub3D context.
  *
  * This function initializes the map configuration and data within the
- * Cub3D context. It allocates memory for a t_MapConfig structure and
+ * Cub3D context. It allocates memory for a `t_MapConfig` structure and
  * initializes its members. The function sets the skip counter to 0 and
  * duplicates the provided filename. If memory allocation fails, the function
  * calls `free_main` to clean up allocated resources and terminates the program
  * with an error message.
  *
- * The function then initializes texture configuration and player data using
- * the `tex_init` and `player_init` functions respectively. It proceeds to
- * parse the map file using the `parse_map_file` function and fill the map
- * matrix using the `fill_matrix` function. Finally, it checks if the map is
- * properly enclosed by walls and has valid player movement areas using the
- * `check_map_closed` function. If any step encounters an error, the function
- * returns 1; otherwise, it returns 0 to indicate successful initialization.
+ * The function then initializes texture configuration using the `tex_init`
+ * function. It proceeds to parse the map file using the `parse_map_file`
+ * function and fill the map matrix using the `fill_matrix` function. Finally,
+ * it checks if the map is properly enclosed by walls and has valid player
+ * movement areas using the `check_map_closed` function. If any step encounters
+ * an error, the function returns 1; otherwise, it returns 0 to indicate
+ * successful initialization.
  *
- * @param cub Pointer to the t_Cub3d structure containing
- * program context and data.
+ * @param cub Pointer to the `t_Cub3d` structure containing program context
+ * and data.
  * @param file Name of the map file to be parsed.
  * @return Returns 1 if any initialization step fails, else returns 0.
  */
@@ -99,7 +75,6 @@ int	map_init(t_Cub3d *cub, char *file)
 	cub->map->max_line_len = 0;
 	cub->map->filename = ft_strdup(file);
 	tex_init(cub);
-	player_init(cub);
 	parse_map_file(cub);
 	if (fill_matrix(cub))
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:03:12 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/19 18:42:02 by marvin           ###   ########.fr       */
+/*   Updated: 2023/08/25 19:44:14 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ void	get_map_n_lines(t_Cub3d *cub)
  */
 int	set_player_orientation(t_Cub3d *cub, char c)
 {
-	if (ft_strchr("NSEW", c) && !cub->map->player->orientation)
-		cub->map->player->orientation = c;
+	if (ft_strchr("NSEW", c) && !cub->player->orientation)
+		cub->player->orientation = c;
 	else if (!ft_strchr("01\n\t ", c))
 		return (1);
 	return (0);

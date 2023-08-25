@@ -40,6 +40,8 @@ int	main(int ac, char **av, char **env)
 	t_Cub3d	cub;
 
 	(void)env;
+	cub.frame1 = 0;
+	cub.frame2 = 0;
 	if (ac > 2)
 		shutdown("Error: Run the program without extra arguments\n", true);
 	else if (ac < 2)
@@ -48,6 +50,11 @@ int	main(int ac, char **av, char **env)
 	{
 		free_main(&cub);
 		shutdown("Error: Failed initializing map settings\n", true);
+	}
+	if (player_init(cub))
+	{
+		free_main(&cub);
+		shutdown("Error: Failed initializing player settings\n", true);
 	}
 	cub.graphics_ok = false;
 	if (boot(&cub))

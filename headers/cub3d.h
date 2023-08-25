@@ -15,6 +15,7 @@
 
 # include "../mlx/mlx.h"
 # include "../mlx/mlx_int.h"
+# include "constants.h"
 # include "libft.h"
 # include <math.h>
 # include <stdio.h>
@@ -22,14 +23,6 @@
 # include <sys/wait.h>
 # include <stdlib.h>
 # include <fcntl.h>
-
-# ifndef WINDOW_X
-#  define WINDOW_X 1024
-# endif
-
-# ifndef WINDOW_Y
-#  define WINDOW_Y 768
-# endif
 
 /**
  * @struct t_WindowConfig
@@ -93,19 +86,23 @@ typedef struct	s_TextureSetup
 
 /**
  * @struct t_PlayerConfig
- * Structure for managing player configuration in the Cub3D map.
+ * @brief Structure for managing player configuration in the Cub3D map.
  *
  * This structure holds data related to the player's position and orientation.
  *
  * @param orientation Orientation of the player (e.g., 'N' for north).
- * @param player_x X-coordinate of the player's position.
- * @param player_y Y-coordinate of the player's position.
+ * @param pos_x X-coordinate of the player's position.
+ * @param pos_y Y-coordinate of the player's position.
  */
 typedef struct	s_PlayerConfig
 {
 	char	orientation;
-	int		player_x;
-	int		player_y;
+	int		pos_x;
+	int		pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	fov_x;
+	double	fov_y;
 }				t_PlayerConfig;
 
 /**
@@ -147,26 +144,53 @@ typedef struct	s_MapConfig
 	t_TextureSetup	*tex_south;
 	t_TextureSetup	*tex_east;
 	t_TextureSetup	*tex_west;
-	t_PlayerConfig	*player;
 }				t_MapConfig;
+
+typedef struct	s_CameraConfig
+{
+	double	camera_x;
+	double	raydir_x;
+	double	raydir_y;
+	int		map_x;
+	int		map_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	int		step_x;
+	int		step_y;
+	double	side_dist_x;
+	double	side_dist_y;
+}				t_CameraConfig;
 
 
 /**
  * @struct t_Cub3d
- * The main structure representing the context and data for the Cub3D project.
- * It holds essential information related to the game's execution and rendering.
+ * @brief The main structure representing the context and data for the Cub3D
+ * project.
  *
- * @param filename The name of the scene description file being processed.
+ * This structure holds essential information related to the game's execution
+ * and rendering.
+ *
  * @param mlx_ptr A pointer to the MinilibX context for graphics operations.
  * @param win_ptr A pointer to the game's main window created with MinilibX.
- * @param img A pointer to an image control structure for managing graphical data.
+ * @param graphics_ok Flag indicating successful graphics context setup.
+ * @param frame1 Timestamp of the previous frame for frame rate calculation.
+ * @param frame2 Timestamp of the current frame for frame rate calculation.
+ * @param fps Calculated frames per second.
+ * @param player A pointer to the structure holding player configuration.
  * @param map A pointer to the structure holding map configuration and data.
+ * @param img A pointer to an image control structure for managing graphical
+ * data.
  */
 typedef struct	s_Cub3d
 {
 	void			*mlx_ptr;
 	void			*win_ptr;
 	bool			graphics_ok;
+	double			frame1;
+	double			frame2;
+	double			fps;
+	t_CameraConfig	*cam;
+	t_PlayerConfig	*player;
 	t_MapConfig		*map;
 	t_ImageControl	*img;
 
@@ -212,5 +236,15 @@ int		is_xpm(t_Cub3d *cub, int id);
 void	hook_events(t_Cub3d *cub);
 int		deal_key(int key, t_Cub3d *cub);
 int		win_close(t_Cub3d *cub);
+
+// PLAYER HANDLING FUNCTIONS
+// Functions related to handling player events
+int		player_init(t_Cub3d *cub);
+void	set_player_position(t_Cub3d *cub);
+
+// CAMERA HANDLING FUNCTIONS
+// Functions related to handling camera events
+int		camera_init(t_Cub3d *cub);
+void	raycast_init(t_Cub3d *cub);
 
 #endif

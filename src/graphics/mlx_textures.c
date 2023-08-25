@@ -47,6 +47,8 @@ int	check_access(t_Cub3d *cub)
 
 static int	convert_textures(t_Cub3d *cub)
 {
+	cub->map->tex_north->img->width = 0;
+	cub->map->tex_north->img->height = 0;
 	cub->map->tex_north->xpm = mlx_xpm_file_to_image(cub->mlx_ptr,
 		cub->map->tex_north->path, &cub->map->tex_north->img->width, &cub->map->tex_north->img->height);/*
 	cub->map->tex_south->xpm = mlx_xpm_file_to_image(cub->mlx_ptr,
@@ -58,7 +60,7 @@ static int	convert_textures(t_Cub3d *cub)
 	if (!cub->map->tex_north->xpm /* || !cub->map->tex_south->xpm
 		|| !cub->map->tex_west->xpm || !cub->map->tex_east->xpm */)
 		return (1);
-	cub->map->tex_north->img->addr = mlx_get_data_addr(&cub->map->tex_north->img->img_ptr,
+	cub->map->tex_north->img->addr = mlx_get_data_addr(&cub->map->tex_north->xpm,
 		&cub->map->tex_north->img->bpp, &cub->map->tex_north->img->len, &cub->map->tex_north->img->endian);/*
 	cub->map->tex_south->img->addr = mlx_get_data_addr(&cub->map->tex_south->img->img_ptr,
 		&cub->map->tex_south->img->bpp, &cub->map->tex_south->img->len, &cub->map->tex_south->img->endian);
