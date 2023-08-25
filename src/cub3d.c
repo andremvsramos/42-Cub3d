@@ -38,13 +38,14 @@ static void	get_step_y(t_Cub3d *cub)
 	{
 		cub->cam->step_y = -1;
 		cub->cam->side_dist_y =
-			(cub->player->pos_y - cub->cam->map_y) * delta_dist_y;
+			(cub->player->pos_y - cub->cam->map_y) * cub->cam->delta_dist_y;
 	}
 	else
 	{
 		cub->cam->step_y = 1;
 		cub->cam->side_dist_y =
-			(cub->cam->map_y + 1.0 - cub->player->pos_y) * delta_dist_y;
+			(cub->cam->map_y + 1.0 - cub->player->pos_y) *
+			cub->cam->delta_dist_y;
 	}
 }
 
@@ -70,13 +71,14 @@ static void	get_step_x(t_Cub3d *cub)
 	{
 		cub->cam->step_x = -1;
 		cub->cam->side_dist_x =
-			(cub->player->pos_x - cub->cam->map_x) * delta_dist_x;
+			(cub->player->pos_x - cub->cam->map_x) * cub->cam->delta_dist_x;
 	}
 	else
 	{
 		cub->cam->step_x = 1;
 		cub->cam->side_dist_x =
-			(cub->cam->map_x + 1.0 - cub->player->pos_x) * delta_dist_x;
+			(cub->cam->map_x + 1.0 - cub->player->pos_x) *
+			cub->cam->delta_dist_x;
 	}
 }
 
@@ -115,24 +117,26 @@ static void	get_step_x(t_Cub3d *cub)
 int	gameloop(t_Cub3d *cub)
 {
 	int		x;
-	bool	hit;
-
+	//bool	hit;
+	//ATIVAR HIT FLAG E IF L:126/138/139
 	x = 0;
 	// UPDATE GAME STATE (PLAYER MOVEMENT, ETC)
 	while (x < WINDOW_X)
 	{
-		hit = false;
+		//hit = false;
 		cub->cam->camera_x = 2 * x / (double)WINDOW_X - 1;
-		cub->cam->raydir_x = cub->player->dir_x + cub->player->fov_x * camera_x;
-		cub->cam->raydir_y = cub->player->dir_y + cub->player->fov_y * camera_x; // This one is if we want to include complex vertical camera movement, jumping, etc...
+		cub->cam->raydir_x =
+			cub->player->dir_x + cub->player->fov_x *cub->cam->camera_x;
+		cub->cam->raydir_y =
+			cub->player->dir_y + cub->player->fov_y * cub->cam->camera_x; // This one is if we want to include complex vertical camera movement, jumping, etc...
 		cub->cam->map_x = (int)cub->player->pos_x;
 		cub->cam->map_y = (int)cub->player->pos_y;
-		cub->cam->delta_dist_x = ft_abs(1 / raydir_x);
-		cub->cam->delta_dist_y = ft_abs(1 / raydir_y); // This one is if we want to include complex vertical camera movement, jumping, etc...
+		cub->cam->delta_dist_x = ft_abs(1 / cub->cam->raydir_x);
+		cub->cam->delta_dist_y = ft_abs(1 / cub->cam->raydir_y); // This one is if we want to include complex vertical camera movement, jumping, etc...
 		get_step_x(cub);
 		get_step_y(cub);  // This one is if we want to include complex vertical camera movement, jumping, etc...
-		if (cub->map->matrix[cub->cam->map_y][cub->cam->map_x] == '1')
-			hit = true;
+		//if (cub->map->matrix[cub->cam->map_y][cub->cam->map_x] == '1')
+			//hit = true;
 
 		// Calculate the perpendicular distance to the wall
         // ... (calculate perp_wall_dist)
@@ -148,4 +152,5 @@ int	gameloop(t_Cub3d *cub)
 		x++;
 	}
 	// RENDER SCENE
+	return (0);
 }

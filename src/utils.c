@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:12:03 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/22 15:20:02 by marvin           ###   ########.fr       */
+/*   Updated: 2023/08/25 23:41:07 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ void	free_main(t_Cub3d *cub)
 		free(cub->map->matrix);
 	if (cub->map->filename)
 		free(cub->map->filename);
-	if (cub->map->player)
-		free(cub->map->player);
+	if (cub->player)
+		free(cub->player);
 	if (cub->map)
 		free(cub->map);
 }

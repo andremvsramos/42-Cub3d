@@ -51,7 +51,7 @@ int	main(int ac, char **av, char **env)
 		free_main(&cub);
 		shutdown("Error: Failed initializing map settings\n", true);
 	}
-	if (player_init(cub))
+	if (player_init(&cub))
 	{
 		free_main(&cub);
 		shutdown("Error: Failed initializing player settings\n", true);

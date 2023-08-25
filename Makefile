@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/08/20 17:28:36 by marvin           ###   ########.fr        #
+#    Updated: 2023/08/25 23:40:29 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ HEADERDIR = ./headers/
 MLXDIR = ./mlx/
 
 SRC =	src/main.c \
+		src/cub3d.c \
 		src/utils.c \
 		src/map_files/map_init.c \
 		src/map_files/map_parser.c \
@@ -33,6 +34,8 @@ SRC =	src/main.c \
 		src/graphics/mlx_graphics.c \
 		src/graphics/mlx_textures.c \
 		src/hooks/mlx_hook_events.c \
+		src/camera/camera_setup.c \
+		src/player/player_setup.c \
 
 #----------COMMANDS----------#
 

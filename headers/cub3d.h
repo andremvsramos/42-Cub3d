@@ -201,6 +201,7 @@ typedef struct	s_Cub3d
 // Section for functions managing program's start, execution, and termination.
 void	shutdown(char *str, bool crash);
 void	free_main(t_Cub3d *cub);
+int		gameloop(t_Cub3d *cub);
 
 // MAP AND FILE PARSING FUNCTIONS
 // Section for functions related to parsing map files and validating file types.
