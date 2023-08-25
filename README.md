@@ -35,7 +35,7 @@ Cub3D is an ongoing project that aims to recreate the 'immersive' gameplay exper
   
 - **Texture Parsing Milestone (August 23, 2023):** We're excited to share our recent accomplishment - the successful completion of the texture parsing phase on August 23, 2023. This advancement marks a pivotal moment in our journey, as we've triumphantly decoded texture files. This achievement opens the door to texture mapping within our gaming universe, a significant stride toward enriching visual depth and intricate detailing.
 
-- **Graphical Booting Milestone (August 23, 2023):** On August 23, 2023, we achieved a key milestone in our project. We successfully implemented graphical booting using the MiniLibX screen display. This accomplishment lays the groundwork for rendering. However, we're continuing our efforts to refine rendering processes, as detailed in our Raycasting Progress (as stated below).
+- **Graphical Booting Milestone (August 23, 2023):** On August 23, 2023, we achieved a key milestone in our project. We successfully implemented graphical booting using the MiniLibX screen display. This accomplishment lays the groundwork for rendering. However, we're continuing our efforts to refine rendering processes, as detailed in our [Raycasting Progress](#raycasting-progress) below.
 
 - **Raycasting Progress:** Our next endeavor takes us into the implementation of raycasting. With determination and focus, we're diving into the intricacies of raycasting. This advancement holds the potential for innovative texture rendering techniques, enhancing the overall immersive experience.
 
