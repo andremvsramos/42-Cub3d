@@ -7,10 +7,10 @@ Welcome to the Cub3D project, a recreation of the nostalgic ambiance from the or
 - [Introduction](#introduction)
 - [Features](#features)
 - [Project Progress](#project-progress)
-  - [Parsing Phase Completion](#parsing-phase-completion)
-  - [Texture Parsing Milestone](#texture-parsing-milestone)
-  - [Graphical Booting Milestone](#graphical-booting-milestone)
-  - [Raycasting Progress](#raycasting-progress)
+  - [Parsing Phase Completion]
+  - [Texture Parsing Milestone]
+  - [Graphical Booting Milestone]
+  - [Raycasting Progress]
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
