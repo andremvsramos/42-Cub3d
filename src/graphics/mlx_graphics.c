@@ -47,6 +47,7 @@ int	graphics(t_Cub3d *cub)
 {
 	t_WindowConfig	*win;
 
+	win = ft_calloc(1, sizeof(t_WindowConfig));
 	init_window(win);
 	win->mlx_ptr = mlx_init();
 	win->win_ptr = mlx_new_window(win->mlx_ptr, WINDOW_X, WINDOW_Y, "CUB3D");
