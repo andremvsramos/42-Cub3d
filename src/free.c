@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:12:03 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/25 23:41:07 by marvin           ###   ########.fr       */
+/*   Updated: 2023/08/28 14:33:36 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	free_textures(t_Cub3d *cub, t_TextureSetup *texture)
 	if (texture->img)
 	{
 		if (texture->img->img_ptr)
-			mlx_destroy_image(cub->mlx_ptr, texture->img->img_ptr);
+			mlx_destroy_image(cub->win->mlx_ptr, texture->img->img_ptr);
 		free(texture->img);
 		if (texture->xpm)
 			free(texture->xpm);
@@ -82,9 +82,9 @@ void	free_main(t_Cub3d *cub)
 		free_textures(cub, cub->map->tex_south);
 		free_textures(cub, cub->map->tex_west);
 		free_textures(cub, cub->map->tex_east);
-		mlx_destroy_window(cub->mlx_ptr, cub->win_ptr);
-		mlx_destroy_display(cub->mlx_ptr);
-		free(cub->mlx_ptr);
+		mlx_destroy_window(cub->win->mlx_ptr, cub->win->win_ptr);
+		mlx_destroy_display(cub->win->mlx_ptr);
+		free(cub->win->mlx_ptr);
 	}
 	if (cub->map->matrix)
 		free(cub->map->matrix);

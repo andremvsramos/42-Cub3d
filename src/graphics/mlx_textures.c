@@ -49,7 +49,7 @@ static int	convert_textures(t_Cub3d *cub)
 {
 	cub->map->tex_north->img->width = 0;
 	cub->map->tex_north->img->height = 0;
-	cub->map->tex_north->xpm = mlx_xpm_file_to_image(cub->mlx_ptr,
+	cub->map->tex_north->xpm = mlx_xpm_file_to_image(cub->win->mlx_ptr,
 		cub->map->tex_north->path, &cub->map->tex_north->img->width, &cub->map->tex_north->img->height);/*
 	cub->map->tex_south->xpm = mlx_xpm_file_to_image(cub->mlx_ptr,
 		cub->map->tex_south->path, &cub->map->tex_south->img->width, &cub->map->tex_south->img->height);

@@ -12,6 +12,15 @@
 
 #include "../../headers/cub3d.h"
 
+void	init_window(t_WindowConfig *win)
+{
+	win->aspect_ratio = 0;
+	win->height = 0;
+	win->mlx_ptr = 0;
+	win->width = 0;
+	win->win_ptr = 0;
+}
+
 /**
  * @brief Initialize the graphics context and camera for rendering in the Cub3D
  * application.
@@ -36,10 +45,13 @@
  */
 int	graphics(t_Cub3d *cub)
 {
-	cub->mlx_ptr = mlx_init();
-	cub->win_ptr = mlx_new_window(cub->mlx_ptr, WINDOW_X, WINDOW_Y, "CUB3D");
+	t_WindowConfig	*win;
+
+	init_window(win);
+	win->mlx_ptr = mlx_init();
+	win->win_ptr = mlx_new_window(win->mlx_ptr, WINDOW_X, WINDOW_Y, "CUB3D");
 	cub->img = ft_calloc(1, sizeof(t_ImageControl));
-	cub->img->img_ptr = mlx_new_image(cub->mlx_ptr, WINDOW_X, WINDOW_Y);
+	cub->img->img_ptr = mlx_new_image(win->mlx_ptr, WINDOW_X, WINDOW_Y);
 	cub->img->addr = mlx_get_data_addr(cub->img->img_ptr, &cub->img->bpp,
 		&cub->img->len, &cub->img->endian);
 	if (check_tex_validity(cub))
@@ -47,6 +59,8 @@ int	graphics(t_Cub3d *cub)
 	if (camera_init(cub))
 		return (1);
 	cub->graphics_ok = true;
+	cub->win = ft_calloc(1, sizeof(t_WindowConfig));
+	cub->win = win;
 	return (0);
 }
 
@@ -75,7 +89,7 @@ int	boot(t_Cub3d *cub)
 	if (graphics(cub))
 		return (1);
 	hook_events(cub);
-	mlx_loop_hook(cub->mlx_ptr, &gameloop, cub);
-	mlx_loop(cub->mlx_ptr);
+	mlx_loop_hook(cub->win->mlx_ptr, &gameloop, cub);
+	mlx_loop(cub->win->mlx_ptr);
 	return (0);
 }
