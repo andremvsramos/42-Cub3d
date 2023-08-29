@@ -12,6 +12,7 @@
 
 #include "../../headers/cub3d.h"
 
+
 /**
  * @brief Handle the window closing event in the Cub3D application.
  *
@@ -73,6 +74,6 @@ int	deal_key(int key, t_Cub3d *cub)
  */
 void	hook_events(t_Cub3d *cub)
 {
-	mlx_hook(cub->win->win_ptr, 2, 1L << 0, deal_key, cub);
-	mlx_hook(cub->win->mlx_ptr, 17, 1L << 2, win_close, cub);
+	mlx_hook(cub->win_ptr, 2, 1L << 0, deal_key, cub);
+	mlx_hook(cub->mlx_ptr, 17, 1L << 2, win_close, cub);
 }

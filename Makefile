@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/08/28 11:09:22 by tsodre-p         ###   ########.fr        #
+#    Updated: 2023/08/25 23:40:29 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ MLXDIR = ./mlx/
 
 SRC =	src/main.c \
 		src/cub3d.c \
-		src/free.c \
+		src/utils.c \
 		src/map_files/map_init.c \
 		src/map_files/map_parser.c \
 		src/map_files/map_matrix.c \
@@ -82,13 +82,14 @@ $(NAME):	$(OBJ) $(LIBFT) $(MLX)
 
 clean:
 			@$(RM) $(OBJ:%=bin/%)
+			@rm -r bin/src
 			@cd $(LIBFTDIR) && $(MAKE) -s clean
 			@$(RM) .map
 
 fclean:		clean
 			@$(RM) $(NAME) $(LIBFT) $(MLX)
 			@cd $(LIBFTDIR) && $(MAKE) -s fclean
-			@cd $(MLXDIR) && $(MAKE) -s clean
+			@cd $(MLXDIR) && $(MAKE) -s fclean
 			@$(RM) .map
 
 aclean:		all clean

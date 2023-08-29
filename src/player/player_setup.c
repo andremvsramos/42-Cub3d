@@ -39,7 +39,7 @@ int	player_init(t_Cub3d *cub)
 	cub->player->fov_x = 0;
 	cub->player->fov_y = 0.66;
 	set_player_position(cub);
-	//raycast_init(cub);
+	raycast_init(cub);
 	return (0);
 }
 
@@ -61,7 +61,6 @@ void	set_player_position(t_Cub3d *cub)
 	i = 0;
 	while (cub->map->matrix[i])
 	{
-		j = 0;
 		while (cub->map->matrix[i][j])
 		{
 			if (ft_strchr("NSEW", cub->map->matrix[i][j]))

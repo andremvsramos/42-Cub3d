@@ -35,11 +35,9 @@
  */
 typedef struct	s_WindowConfig
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
-	int		width;
-	int		height;
-	int		aspect_ratio;
+	int	width;
+	int	height;
+	int	aspect_ratio;
 }				t_WindowConfig;
 
 /**
@@ -67,7 +65,6 @@ typedef struct	s_ImageControl
 	int		endian;
 	int		width;
 	int		height;
-
 }				t_ImageControl;
 
 /**
@@ -186,6 +183,8 @@ typedef struct	s_CameraConfig
  */
 typedef struct	s_Cub3d
 {
+	void			*mlx_ptr;
+	void			*win_ptr;
 	bool			graphics_ok;
 	double			frame1;
 	double			frame2;
@@ -194,7 +193,6 @@ typedef struct	s_Cub3d
 	t_PlayerConfig	*player;
 	t_MapConfig		*map;
 	t_ImageControl	*img;
-	t_WindowConfig	*win;
 
 }				t_Cub3d;
 
