@@ -12,6 +12,30 @@
 
 #include "../../headers/cub3d.h"
 
+static void	set_player_direction(t_PlayerConfig *p, int i)
+{
+	if (i == 1)
+	{
+		p->dir_x = 0;
+		p->dir_y = 1;
+	}
+	else if (i == 2)
+	{
+		p->dir_x = 0;
+		p->dir_y = -1;
+	}
+	else if (i == 3)
+	{
+		p->dir_x = -1;
+		p->dir_y = 0;
+	}
+	else if (i == 4)
+	{
+		p->dir_x = 1;
+		p->dir_y = 0;
+	}
+}
+
 /**
  * @brief Initialize the player configuration in the map.
  *
@@ -36,10 +60,7 @@ int	player_init(t_Cub3d *cub)
 		return (1);
 	cub->player->pos_x = -1;
 	cub->player->pos_y = -1;
-	cub->player->fov_x = 0;
-	cub->player->fov_y = 0.66;
-	set_player_position(cub);
-	raycast_init(cub);
+	cub->player->orientation = 0;
 	return (0);
 }
 
@@ -61,10 +82,19 @@ void	set_player_position(t_Cub3d *cub)
 	i = 0;
 	while (cub->map->matrix[i])
 	{
+		j = 0;
 		while (cub->map->matrix[i][j])
 		{
 			if (ft_strchr("NSEW", cub->map->matrix[i][j]))
 			{
+				if (cub->map->matrix[i][j] == 'N')
+					set_player_direction(cub->player, 1);
+				else if (cub->map->matrix[i][j] == 'S')
+					set_player_direction(cub->player, 2);
+				else if (cub->map->matrix[i][j] == 'W')
+					set_player_direction(cub->player, 3);
+				else if (cub->map->matrix[i][j] == 'E')
+					set_player_direction(cub->player, 4);
 				cub->player->pos_y = i;
 				cub->player->pos_x = j;
 				return ;
@@ -73,4 +103,6 @@ void	set_player_position(t_Cub3d *cub)
 		}
 		i++;
 	}
+	cub->cam->plane_x = cub->player->dir_y * 0.66;  // Perpendicular to dir_x
+	cub->cam->plane_y = -cub->player->dir_x * 0.66; // Perpendicular to dir_y
 }

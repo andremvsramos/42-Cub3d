@@ -21,5 +21,7 @@
 # define SO_DIR 3 * PI / 2
 # define WE_DIR 0
 # define EA_DIR PI
+# define TEX_HEIGHT 64
+# define TEX_WIDTH 64
 
 #endif

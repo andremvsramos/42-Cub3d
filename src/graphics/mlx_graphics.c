@@ -40,8 +40,7 @@ int	graphics(t_Cub3d *cub)
 	cub->win_ptr = mlx_new_window(cub->mlx_ptr, WINDOW_X, WINDOW_Y, "CUB3D");
 	cub->img = ft_calloc(1, sizeof(t_ImageControl));
 	cub->img->img_ptr = mlx_new_image(cub->mlx_ptr, WINDOW_X, WINDOW_Y);
-	cub->img->addr = mlx_get_data_addr(cub->img->img_ptr, &cub->img->bpp,
-		&cub->img->len, &cub->img->endian);
+	set_player_position(cub);
 	if (check_tex_validity(cub))
 		return (1);
 	if (camera_init(cub))
@@ -75,7 +74,7 @@ int	boot(t_Cub3d *cub)
 	if (graphics(cub))
 		return (1);
 	hook_events(cub);
-	mlx_loop_hook(cub->mlx_ptr, &gameloop, cub);
+	//mlx_loop_hook(cub->mlx_ptr, &gameloop, cub);
 	mlx_loop(cub->mlx_ptr);
 	return (0);
 }

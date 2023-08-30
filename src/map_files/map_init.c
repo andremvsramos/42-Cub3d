@@ -75,6 +75,11 @@ int	map_init(t_Cub3d *cub, char *file)
 	cub->map->max_line_len = 0;
 	cub->map->filename = ft_strdup(file);
 	tex_init(cub);
+	if (player_init(cub))
+	{
+		free_main(cub);
+		shutdown("Error: Failed initializing player settings\n", true);
+	}
 	parse_map_file(cub);
 	if (fill_matrix(cub))
 		return (1);

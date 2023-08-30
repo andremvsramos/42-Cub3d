@@ -24,6 +24,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
+
 /**
  * @struct t_WindowConfig
  * Structure for configuring the window properties in the Cub3D project.
@@ -101,8 +102,6 @@ typedef struct	s_PlayerConfig
 	int		pos_y;
 	double	dir_x;
 	double	dir_y;
-	double	fov_x;
-	double	fov_y;
 }				t_PlayerConfig;
 
 /**
@@ -149,16 +148,26 @@ typedef struct	s_MapConfig
 typedef struct	s_CameraConfig
 {
 	double	camera_x;
+	double	plane_x;
+	double	plane_y;
 	double	raydir_x;
 	double	raydir_y;
+	double	i_ray_x;
+	double	i_ray_y;
 	int		map_x;
 	int		map_y;
-	double	delta_dist_x;
-	double	delta_dist_y;
+	double	ddist_x;
+	double	ddist_y;
+	double	s_dist_x;
+	double	s_dist_y;
+	double	perp_wd;
 	int		step_x;
 	int		step_y;
-	double	side_dist_x;
-	double	side_dist_y;
+	int		hit;
+	int		side;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
 }				t_CameraConfig;
 
 
@@ -246,6 +255,6 @@ void	set_player_position(t_Cub3d *cub);
 // CAMERA HANDLING FUNCTIONS
 // Functions related to handling camera events
 int		camera_init(t_Cub3d *cub);
-void	raycast_init(t_Cub3d *cub);
+void	cam_utils_init(t_CameraConfig *cam, t_PlayerConfig *p);
 
 #endif

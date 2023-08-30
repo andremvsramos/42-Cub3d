@@ -12,6 +12,22 @@
 
 #include "../../headers/cub3d.h"
 
+void	cam_utils_init(t_CameraConfig *cam, t_PlayerConfig *p)
+{
+	cam->s_dist_x = 0;
+	cam->s_dist_y = 0;
+	cam->perp_wd = 0;
+	cam->step_x = 0;
+	cam->step_y = 0;
+	cam->hit = 0;
+	cam->side = 0;
+	cam->i_ray_x = p->pos_x;
+	cam->i_ray_y = p->pos_y;
+	cam->line_height = 0;
+    cam->draw_start = 0;
+    cam->draw_end = 0;
+}
+
 /**
  * @brief Initialize the camera configuration.
  *
@@ -33,24 +49,4 @@ int	camera_init(t_Cub3d *cub)
 	if (!cub->cam)
 		return (1);
 	return (0);
-}
-
-/**
- * @brief Initialize ray direction based on player's direction and field of
- * view.
- *
- * The raycast_init function calculates the initial ray direction for the camera.
- * It adds the player's direction components (dir_x and dir_y) to the
- * corresponding field of view components (fov_x and fov_y) and assigns the
- * results to the ray's direction components (raydir_x and raydir_y) in the
- * camera configuration. This initial ray direction will be used as the starting
- * point for raycasting in the game loop.
- *
- * @param cub Pointer to the t_Cub3d structure containing program context
- * and data.
- */
-void	raycast_init(t_Cub3d *cub)
-{
-	cub->cam->raydir_x = cub->player->dir_x + cub->player->fov_x;
-	cub->cam->raydir_y = cub->player->dir_y + cub->player->fov_y; // This one is if we want to include complex vertical camera movement, jumping, etc...
 }
