@@ -6,7 +6,7 @@
 #    By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/09/04 11:34:48 by tsodre-p         ###   ########.fr        #
+#    Updated: 2023/09/04 14:55:33 by tsodre-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC =	src/main.c \
 		src/map_files/file_utils.c \
 		src/graphics/mlx_graphics.c \
 		src/graphics/mlx_textures.c \
+		src/graphics/mlx_draw.c \
 		src/hooks/mlx_hook_events.c \
 		src/camera/camera_setup.c \
 		src/player/player_setup.c \

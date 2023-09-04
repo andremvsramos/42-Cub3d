@@ -24,6 +24,8 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
+# define WALL_IMG "textures/wall.xpm"
+# define FLOOR_IMG "textures/floor.xpm"
 
 /**
  * @struct t_WindowConfig
@@ -194,6 +196,10 @@ typedef struct	s_Cub3d
 {
 	void			*mlx_ptr;
 	void			*win_ptr;
+	//testing purposes
+	void			*img_wall;
+	void			*img_floor;
+	// testing purposes
 	bool			graphics_ok;
 	double			frame1;
 	double			frame2;
@@ -256,5 +262,8 @@ void	set_player_position(t_Cub3d *cub);
 // Functions related to handling camera events
 int		camera_init(t_Cub3d *cub);
 void	cam_utils_init(t_CameraConfig *cam, t_PlayerConfig *p);
+
+//testing drawing map in 2d
+void	draw_2d_map(t_Cub3d *cub);
 
 #endif

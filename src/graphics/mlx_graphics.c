@@ -75,6 +75,7 @@ int	boot(t_Cub3d *cub)
 		return (1);
 	hook_events(cub);
 	//mlx_loop_hook(cub->mlx_ptr, &gameloop, cub);
+	draw_2d_map(cub);
 	mlx_loop(cub->mlx_ptr);
 	return (0);
 }
