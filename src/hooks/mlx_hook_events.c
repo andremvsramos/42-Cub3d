@@ -12,7 +12,6 @@
 
 #include "../../headers/cub3d.h"
 
-
 /**
  * @brief Handle the window closing event in the Cub3D application.
  *
