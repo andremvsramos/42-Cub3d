@@ -41,8 +41,8 @@ int	main(int ac, char **av, char **env)
 	t_Cub3d	cub;
 
 	(void)env;
-	cub.frame1 = 0;
-	cub.frame2 = 0;
+	cub.time = 0;
+	cub.oldtime = 0;
 	if (ac > 2)
 		shutdown("Error: Run the program without extra arguments\n", true);
 	else if (ac < 2)

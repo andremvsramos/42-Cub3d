@@ -12,6 +12,37 @@
 
 #include "../../headers/cub3d.h"
 
+static void	readmove(int key, t_Cub3d *cub)
+{
+	t_PlayerConfig *p;
+	t_MapConfig *m;
+
+	p = cub->player;
+	m = cub->map;
+	if (key == 65362) //N
+	{
+		if (!m->matrix[(int)(p->pos_x + p->dir_x * 10)][(int)p->pos_y])
+			p->pos_x += p->dir_x * 10;
+		if (!m->matrix[(int)p->pos_x][(int)(p->pos_y + p->dir_y * 10)])
+			p->pos_x += p->dir_y * 10;
+	}
+	if (key == 65364) //S
+	{
+		if (!m->matrix[(int)(p->pos_x - p->dir_x * 10)][(int)p->pos_y])
+			p->pos_x -= p->dir_x * 10;
+		if (!m->matrix[(int)p->pos_x][(int)(p->pos_y - p->dir_y * 10)])
+			p->pos_x -= p->dir_y * 10;
+	}
+	if (key == 65361) //W
+	{
+
+	}
+	if (key == 65363) //E
+	{
+
+	}
+}
+
 /**
  * @brief Handle the window closing event in the Cub3D application.
  *
@@ -50,8 +81,10 @@ int	win_close(t_Cub3d *cub)
  */
 int	deal_key(int key, t_Cub3d *cub)
 {
+	printf("%d\n", key);
 	if (key == 65307)
 		win_close(cub);
+	readmove(key, cub);
 	return (0);
 }
 

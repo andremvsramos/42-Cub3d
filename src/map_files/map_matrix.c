@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_matrix.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 11:39:08 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/08/19 18:40:14 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/05 12:28:02 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,11 @@ static void	fill_matrix2(t_Cub3d *cub, char *line, int y, int x)
 			tabs = 0;
 		}
 		else
+		{
+			if (tabs >= 7)
+				tabs = 0;
 			fill_matrix3(cub, line[i], y, &x);
+		}
 		i++;
 	}
 	cub->map->matrix[y][cub->map->max_line_len - 1] = '\0';

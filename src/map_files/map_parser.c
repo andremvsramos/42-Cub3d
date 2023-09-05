@@ -178,6 +178,6 @@ int	parse_map_file(t_Cub3d *cub)
 		free_main(cub);
 		shutdown("Error: Map is invalid or contains invalid elements\n", true);
 	}
-	return (printf("Success: Map has passed all validations\n"), 0);
+	return (0);
 	// TODO: Implement map file parsing and validation logic here.
 }

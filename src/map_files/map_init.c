@@ -82,8 +82,8 @@ int	map_init(t_Cub3d *cub, char *file)
 	}
 	parse_map_file(cub);
 	if (fill_matrix(cub))
-		return (1);
+		return (printf("Error: failed creating matrix\n"), 1);
 	if (check_map_closed(cub))
-		return (1);
+		return (printf("Error: map isn't closed off\n"), 1);
 	return (0);
 }

@@ -19,10 +19,10 @@
 	return color;
 } */
 
-/* static void	calculate_wall_height(t_CameraConfig *cam, int wall_height_px)
+static void	calculate_wall_height(t_CameraConfig *cam, int wall_height_px)
 {
 	cam->line_height = (int)(wall_height_px / cam->perp_wd);
-	cam->draw_start = cam->line_height / 2 + WINDOW_Y / 2;
+	cam->draw_start = -cam->line_height / 2 + WINDOW_Y / 2;
 	if (cam->draw_start < 0)
 		cam->draw_start = 0;
 	cam->draw_end = cam->line_height / 2 + WINDOW_Y / 2;
@@ -46,23 +46,13 @@ static void	apply_dda(t_CameraConfig *cam, t_MapConfig *m)
 			cam->map_y += cam->step_y;
 			cam->side = 1;
 		}
-		if (cam->map_x >= 0 && cam->map_x < m->max_line_len + 1
-			&& cam->map_y >= 0 && cam->map_y < m->n_lines + 1)
-		{
-			if (m->matrix[cam->map_y][cam->map_x] == '1')
-				cam->hit = 1;
-		}
+		if (m->matrix[cam->map_y][cam->map_x] == '1')
+			cam->hit = 1;
 	}
 	if (cam->side == 0)
-	{
-		cam->perp_wd = (cam->map_x - cam->i_ray_x + (1 - cam->step_x) / 2)
-			/ cam->raydir_x;
-	}
+		cam->perp_wd = cam->s_dist_x - cam->ddist_x;
 	else
-	{
-		cam->perp_wd = (cam->map_y - cam->i_ray_y + (1 - cam->step_y) / 2)
-			/ cam->raydir_y;
-	}
+		cam->perp_wd = cam->s_dist_y - cam->ddist_y;
 }
 
 static void	step_calculation(t_CameraConfig *cam, t_PlayerConfig *p)
@@ -91,37 +81,41 @@ static void	step_calculation(t_CameraConfig *cam, t_PlayerConfig *p)
 
 int	gameloop(t_Cub3d *cub)
 {
-	int	x;
-	int	y;
+	int				x;
+	int				y;
+	unsigned int	color;
 	t_CameraConfig *cam;
 
 	cam = cub->cam;
 	x = 0;
+	cam_utils_init(cam);
 	while (x < WINDOW_X)
 	{
-		cam->camera_x = 2 * x / (double)WINDOW_X - 1;
-		cam->raydir_x = cub->player->dir_x + cam->plane_x * cam->camera_x;
-		cam->raydir_y = cub->player->dir_y + cam->plane_y * cam->camera_x;
-
-		cam->map_x = (int)cub->player->pos_x;
-		cam->map_y = (int)cub->player->pos_y;
-
-		cam->ddist_x = fabs(1 / cam->raydir_x);
-		cam->ddist_y = fabs(1 / cam->raydir_y);
-
-		cam_utils_init(cam, cub->player);
+		ray_per_colum(cub, cam, x);
+		ray_map_pos(cub, cam);
+		cam->s_dist_x = 0;
+		cam->s_dist_y = 0;
+		ray_delt_dist(cam);
+		cam->step_x = 0;
+		cam->step_y = 0;
+		cam->hit = 0;
+		cam->side = 0;
+		cam->perp_wd = 0;
 		step_calculation(cam, cub->player);
 		apply_dda(cam, cub->map);
-		calculate_wall_height(cam, 150);
+		calculate_wall_height(cam, 300);
+		if (cam->side == 1)
+			color = 0x98FB98;
+		else
+			color = 0x01796F;
 		y = cam->draw_start;
 		while (y < cam->draw_end)
 		{
-			mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr,
-				cub->map->tex_north->xpm, x, y);
-			//mlx_pixel_put(cub->mlx_ptr, cub->win_ptr, x, y, 0xFFFFFF);
+			my_mlx_pixel_put(cub->img, x, y, color);
 			y++;
 		}
 		x++;
 	}
+	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img->img_ptr, 0, 0);
     return (0);
-} */
+}

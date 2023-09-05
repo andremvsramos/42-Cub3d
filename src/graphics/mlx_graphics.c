@@ -12,6 +12,64 @@
 
 #include "../../headers/cub3d.h"
 
+static unsigned int	get_color(int color[256][256][256])
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = 0;
+	while (r < 256)
+	{
+		g = 0;
+		while (g < 256)
+		{
+			b = 0;
+			while (b < 256)
+			{
+				if (color[r][g][b])
+					return (0x010000 * r + 0x000100 * g + b);
+				b++;
+			}
+			g++;
+		}
+		r++;
+	}
+	return (0);
+}
+
+void	my_mlx_pixel_put(t_ImageControl *img, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = img->addr + (y * img->len + x * (img->bpp / 8));
+	*(unsigned int*)dst = color;
+}
+
+static void	render_ceilling_floor(t_Cub3d *cub)
+{
+	int				x;
+	int				y;
+	unsigned int	cc;
+	unsigned int	fc;
+
+	x = 0;
+	cc = get_color(cub->map->ceilling_c);
+	fc = get_color(cub->map->floor_c);
+	while (x++ < WINDOW_X)
+	{
+		y = 0;
+		while (y++ <= WINDOW_Y / 2)
+			my_mlx_pixel_put(cub->img, x, y, cc);
+		while (y < WINDOW_Y)
+		{
+			my_mlx_pixel_put(cub->img, x, y, fc);
+			y++;
+		}
+	}
+	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img->img_ptr, 0, 0);
+}
+
 /**
  * @brief Initialize the graphics context and camera for rendering in the Cub3D
  * application.
@@ -40,6 +98,8 @@ int	graphics(t_Cub3d *cub)
 	cub->win_ptr = mlx_new_window(cub->mlx_ptr, WINDOW_X, WINDOW_Y, "CUB3D");
 	cub->img = ft_calloc(1, sizeof(t_ImageControl));
 	cub->img->img_ptr = mlx_new_image(cub->mlx_ptr, WINDOW_X, WINDOW_Y);
+	cub->img->addr = mlx_get_data_addr(cub->img->img_ptr, &cub->img->bpp, &cub->img->len, &cub->img->endian);
+	render_ceilling_floor(cub);
 	set_player_position(cub);
 	if (check_tex_validity(cub))
 		return (1);
@@ -74,8 +134,8 @@ int	boot(t_Cub3d *cub)
 	if (graphics(cub))
 		return (1);
 	hook_events(cub);
-	//mlx_loop_hook(cub->mlx_ptr, &gameloop, cub);
-	draw_2d_map(cub);
+	mlx_loop_hook(cub->mlx_ptr, &gameloop, cub);
+	//draw_2d_map(cub);
 	mlx_loop(cub->mlx_ptr);
 	return (0);
 }

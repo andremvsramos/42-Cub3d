@@ -138,8 +138,8 @@ typedef struct	s_MapConfig
 	int				skip_counter;
 	char			**matrix;
 	char			*filename;
-	int				floor_c[255][255][255];
-	int				ceilling_c[255][255][255];
+	int				floor_c[256][256][256];
+	int				ceilling_c[256][256][256];
 	bool			colors[2];
 	t_TextureSetup	*tex_north;
 	t_TextureSetup	*tex_south;
@@ -154,8 +154,8 @@ typedef struct	s_CameraConfig
 	double	plane_y;
 	double	raydir_x;
 	double	raydir_y;
-	double	i_ray_x;
-	double	i_ray_y;
+	double	olddir_x;
+	double	oldplane_x;
 	int		map_x;
 	int		map_y;
 	double	ddist_x;
@@ -201,8 +201,8 @@ typedef struct	s_Cub3d
 	void			*img_floor;
 	// testing purposes
 	bool			graphics_ok;
-	double			frame1;
-	double			frame2;
+	double			time;
+	double			oldtime;
 	double			fps;
 	t_CameraConfig	*cam;
 	t_PlayerConfig	*player;
@@ -246,6 +246,7 @@ int		boot(t_Cub3d *cub);
 int		graphics(t_Cub3d *cub);
 int		check_tex_validity(t_Cub3d *cub);
 int		is_xpm(t_Cub3d *cub, int id);
+void	my_mlx_pixel_put(t_ImageControl *img, int x, int y, int color);
 
 // EVENT HANDLING FUNCTIONS
 // Functions related to handling user input events
@@ -261,7 +262,12 @@ void	set_player_position(t_Cub3d *cub);
 // CAMERA HANDLING FUNCTIONS
 // Functions related to handling camera events
 int		camera_init(t_Cub3d *cub);
-void	cam_utils_init(t_CameraConfig *cam, t_PlayerConfig *p);
+void	cam_utils_init(t_CameraConfig *cam);
+
+// RAYCASTING FUNCTIONS
+void	ray_per_colum(t_Cub3d *cub, t_CameraConfig *cam, int x);
+void	ray_map_pos(t_Cub3d *cub, t_CameraConfig *cam);
+void	ray_delt_dist(t_CameraConfig *cam);
 
 //testing drawing map in 2d
 void	draw_2d_map(t_Cub3d *cub);

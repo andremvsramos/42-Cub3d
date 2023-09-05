@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+         #
+#    By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/09/04 14:55:33 by tsodre-p         ###   ########.fr        #
+#    Updated: 2023/09/05 15:08:06 by andvieir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRC =	src/main.c \
 		src/hooks/mlx_hook_events.c \
 		src/camera/camera_setup.c \
 		src/player/player_setup.c \
+		src/raycasting/rays.c \
 
 #----------COMMANDS----------#
 

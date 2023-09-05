@@ -12,7 +12,7 @@
 
 #include "../../headers/cub3d.h"
 
-void	cam_utils_init(t_CameraConfig *cam, t_PlayerConfig *p)
+void	cam_utils_init(t_CameraConfig *cam)
 {
 	cam->s_dist_x = 0;
 	cam->s_dist_y = 0;
@@ -21,8 +21,6 @@ void	cam_utils_init(t_CameraConfig *cam, t_PlayerConfig *p)
 	cam->step_y = 0;
 	cam->hit = 0;
 	cam->side = 0;
-	cam->i_ray_x = p->pos_x;
-	cam->i_ray_y = p->pos_y;
 	cam->line_height = 0;
     cam->draw_start = 0;
     cam->draw_end = 0;

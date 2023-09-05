@@ -88,9 +88,9 @@ void	set_player_position(t_Cub3d *cub)
 			if (ft_strchr("NSEW", cub->map->matrix[i][j]))
 			{
 				if (cub->map->matrix[i][j] == 'N')
-					set_player_direction(cub->player, 1);
-				else if (cub->map->matrix[i][j] == 'S')
 					set_player_direction(cub->player, 2);
+				else if (cub->map->matrix[i][j] == 'S')
+					set_player_direction(cub->player, 1);
 				else if (cub->map->matrix[i][j] == 'W')
 					set_player_direction(cub->player, 3);
 				else if (cub->map->matrix[i][j] == 'E')
@@ -103,6 +103,6 @@ void	set_player_position(t_Cub3d *cub)
 		}
 		i++;
 	}
-	cub->cam->plane_x = cub->player->dir_y * 0.66;  // Perpendicular to dir_x
-	cub->cam->plane_y = -cub->player->dir_x * 0.66; // Perpendicular to dir_y
+	cub->cam->plane_x = 0;  // Perpendicular to dir_x
+	cub->cam->plane_y = 0.66; // Perpendicular to dir_y
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_closed.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:35:38 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/04 09:50:18 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2023/09/05 12:26:57 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ static int	check_nullb_whitespaces(t_Cub3d *cub, int *i, int j)
 {
 	if (j == cub->map->max_line_len - 1)
 		(*i)++;
+	if (ft_strchr(" ", cub->map->matrix[*i][j]) && j == 0)
+		return (0);
 	if (ft_strchr(" ", cub->map->matrix[*i][j])
 		&& ft_strchr("0", cub->map->matrix[*i][j - 1]))
 		return (1);
