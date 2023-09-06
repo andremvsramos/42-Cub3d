@@ -108,8 +108,8 @@ typedef struct	s_PlayerConfig
 
 typedef struct s_MiniMap
 {
-	int	old_pos_x;
-	int	old_pos_y;
+	int	old_player_x;
+	int	old_player_y;
 	int	old_rot;
 }				t_MiniMap;
 
