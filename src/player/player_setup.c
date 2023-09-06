@@ -12,6 +12,19 @@
 
 #include "../../headers/cub3d.h"
 
+/**
+ * Set the player's direction vector based on an integer identifier.
+ *
+ * This function sets the player's direction vector (dir_x and dir_y) based on
+ * an integer identifier. The identifier maps to cardinal directions as follows:
+ * - 1: North (up)
+ * - 2: South (down)
+ * - 3: West (left)
+ * - 4: East (right)
+ *
+ * @param p A pointer to the PlayerConfig structure.
+ * @param i An integer identifier for the desired direction (1, 2, 3, or 4).
+ */
 static void	set_player_direction(t_PlayerConfig *p, int i)
 {
 	if (i == 1)
