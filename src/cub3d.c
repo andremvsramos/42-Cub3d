@@ -19,9 +19,12 @@
 	return color;
 } */
 
-static void	calculate_wall_height(t_CameraConfig *cam, int wall_height_px)
+static void	calculate_wall_height(t_CameraConfig *cam)
 {
-	cam->line_height = (int)(wall_height_px / cam->perp_wd);
+	if (cam->perp_wd)
+		cam->line_height = (int)(WINDOW_Y/ cam->perp_wd);
+	else
+		cam->line_height = WINDOW_Y;
 	cam->draw_start = -cam->line_height / 2 + WINDOW_Y / 2;
 	if (cam->draw_start < 0)
 		cam->draw_start = 0;
@@ -103,7 +106,7 @@ int	gameloop(t_Cub3d *cub)
 		cam->perp_wd = 0;
 		step_calculation(cam, cub->player);
 		apply_dda(cam, cub->map);
-		calculate_wall_height(cam, 300);
+		calculate_wall_height(cam);
 		if (cam->side == 1)
 			color = 0x98FB98;
 		else
