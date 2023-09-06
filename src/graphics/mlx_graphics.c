@@ -12,6 +12,17 @@
 
 #include "../../headers/cub3d.h"
 
+/**
+ * Get a color code from a 256x256x256 color array.
+ *
+ * This function takes a three-dimensional color array and searches for the
+ * first non-zero element (color). It then converts the RGB values to a
+ * hexadecimal color code and returns it. If no non-zero color is found, it
+ * returns 0 (black).
+ *
+ * @param color A 256x256x256 array representing colors (RGB format).
+ * @return An unsigned integer representing the color code in hexadecimal format (0xRRGGBB).
+ */
 static unsigned int	get_color(int color[256][256][256])
 {
 	int	r;
@@ -38,6 +49,18 @@ static unsigned int	get_color(int color[256][256][256])
 	return (0);
 }
 
+/**
+ * Set a pixel color in an image.
+ *
+ * This function sets the color of a pixel at the specified (x, y) coordinates
+ * in an image. It takes an image control structure (`img`), the (x, y) position
+ * of the pixel, and the color value to set.
+ *
+ * @param img A pointer to the ImageControl structure representing the image.
+ * @param x The x-coordinate of the pixel.
+ * @param y The y-coordinate of the pixel.
+ * @param color The color value to set (in integer format).
+ */
 void	my_mlx_pixel_put(t_ImageControl *img, int x, int y, int color)
 {
 	char	*dst;
@@ -46,6 +69,15 @@ void	my_mlx_pixel_put(t_ImageControl *img, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
+/**
+ * Render the ceiling and floor of the game window.
+ *
+ * This function renders the ceiling and floor of the game window by setting
+ * the pixel colors in the image buffer (`cub->img`) for the entire window area.
+ * It uses the colors defined in the `cub->map` structure for the ceiling and floor.
+ *
+ * @param cub A pointer to the Cub3d structure.
+ */
 static void	render_ceilling_floor(t_Cub3d *cub)
 {
 	int				x;
@@ -135,7 +167,7 @@ int	boot(t_Cub3d *cub)
 		return (1);
 	hook_events(cub);
 	mlx_loop_hook(cub->mlx_ptr, &gameloop, cub);
-	//draw_2d_map(cub);
+	mlx_loop_hook(cub->mlx_ptr, &draw_2d_map, cub);
 	mlx_loop(cub->mlx_ptr);
 	return (0);
 }

@@ -12,6 +12,15 @@
 
 #include "../../headers/cub3d.h"
 
+/**
+ * Load image textures for walls and floors.
+ *
+ * This function loads image textures for walls and floors from external files
+ * and stores them in the `cub` structure. It uses the mlx_xpm_file_to_image
+ * function from a graphics library (presumably mlx) to load the images.
+ *
+ * @param cub A pointer to the Cub3d structure.
+ */
 static void	get_images(t_Cub3d *cub)
 {
 	int		img_width;
@@ -29,6 +38,19 @@ static void	get_images(t_Cub3d *cub)
 			cub->mlx_ptr, FLOOR_IMG, width, height);
 }
 
+/**
+ * Display an image based on a miscellaneous character.
+ *
+ * This function displays an image on the window based on the value of the
+ * 'miscellaneous' character. If 'miscellaneous' is '1', it displays the wall
+ * image; otherwise, it displays the floor image. It uses the mlx_put_image_to_window
+ * function from a graphics library (presumably mlx) to display the image.
+ *
+ * @param cub A pointer to the Cub3d structure.
+ * @param miscellaneous A character indicating the type of image to display ('1' for wall, other for floor).
+ * @param x The x-coordinate of the image on the window.
+ * @param y The y-coordinate of the image on the window.
+ */
 static void	image_conditions(t_Cub3d *cub, char miscellaneous, int x, int y)
 {
 	if (miscellaneous == '1')
@@ -39,7 +61,17 @@ static void	image_conditions(t_Cub3d *cub, char miscellaneous, int x, int y)
 			cub->mlx_ptr, cub->win_ptr, cub->img_floor, x, y);
 }
 
-void	draw_2d_map(t_Cub3d *cub)
+/**
+ * Draw a 2D map representation of the game world.
+ *
+ * This function draws a 2D map representation of the game world using images
+ * loaded into the `cub` structure. It iterates through the game's map matrix,
+ * where '1' represents walls and '0' represents floor tiles, and uses the
+ * image_conditions function to display the appropriate images on the window.
+ *
+ * @param cub A pointer to the Cub3d structure.
+ */
+int	draw_2d_map(t_Cub3d *cub)
 {
 	get_images(cub);
 	int	i;
@@ -60,6 +92,5 @@ void	draw_2d_map(t_Cub3d *cub)
 		}
 		i++;
 	}
+	return (0);
 }
-
-

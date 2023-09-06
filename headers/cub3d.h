@@ -270,6 +270,6 @@ void	ray_map_pos(t_Cub3d *cub, t_CameraConfig *cam);
 void	ray_delt_dist(t_CameraConfig *cam);
 
 //testing drawing map in 2d
-void	draw_2d_map(t_Cub3d *cub);
+int	draw_2d_map(t_Cub3d *cub);
 
 #endif
