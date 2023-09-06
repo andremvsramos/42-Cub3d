@@ -22,9 +22,9 @@
 static void	calculate_wall_height(t_CameraConfig *cam)
 {
 	if (cam->perp_wd)
-		cam->line_height = (int)(WINDOW_Y/ cam->perp_wd);
+		cam->line_height = (int)(500 / cam->perp_wd);
 	else
-		cam->line_height = WINDOW_Y;
+		cam->line_height = cam->perp_wd;
 	cam->draw_start = -cam->line_height / 2 + WINDOW_Y / 2;
 	if (cam->draw_start < 0)
 		cam->draw_start = 0;
@@ -92,6 +92,7 @@ int	gameloop(t_Cub3d *cub)
 	cam = cub->cam;
 	x = 0;
 	cam_utils_init(cam);
+	draw_2d_map(cub);
 	while (x < WINDOW_X)
 	{
 		ray_per_colum(cub, cam, x);

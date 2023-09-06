@@ -25,27 +25,35 @@
  * @param p A pointer to the PlayerConfig structure.
  * @param i An integer identifier for the desired direction (1, 2, 3, or 4).
  */
-static void	set_player_direction(t_PlayerConfig *p, int i)
+static void	set_player_direction(t_CameraConfig *c, t_PlayerConfig *p, int i)
 {
 	if (i == 1)
 	{
 		p->dir_x = 0;
 		p->dir_y = 1;
+		c->plane_x = -c->fov;
+		c->plane_y = 0;
 	}
 	else if (i == 2)
 	{
 		p->dir_x = 0;
 		p->dir_y = -1;
+		c->plane_x = c->fov;
+		c->plane_y = 0;
 	}
 	else if (i == 3)
 	{
 		p->dir_x = -1;
 		p->dir_y = 0;
+		c->plane_x = 0;
+		c->plane_y = -c->fov;
 	}
 	else if (i == 4)
 	{
 		p->dir_x = 1;
 		p->dir_y = 0;
+		c->plane_x = 0;
+		c->plane_y = c->fov;
 	}
 }
 
@@ -101,13 +109,13 @@ void	set_player_position(t_Cub3d *cub)
 			if (ft_strchr("NSEW", cub->map->matrix[i][j]))
 			{
 				if (cub->map->matrix[i][j] == 'N')
-					set_player_direction(cub->player, 2);
+					set_player_direction(cub->cam, cub->player, 2);
 				else if (cub->map->matrix[i][j] == 'S')
-					set_player_direction(cub->player, 1);
+					set_player_direction(cub->cam, cub->player, 1);
 				else if (cub->map->matrix[i][j] == 'W')
-					set_player_direction(cub->player, 3);
+					set_player_direction(cub->cam, cub->player, 3);
 				else if (cub->map->matrix[i][j] == 'E')
-					set_player_direction(cub->player, 4);
+					set_player_direction(cub->cam, cub->player, 4);
 				cub->player->pos_y = i;
 				cub->player->pos_x = j;
 				return ;
@@ -115,7 +123,7 @@ void	set_player_position(t_Cub3d *cub)
 			j++;
 		}
 		i++;
-	}
+	}/*
 	cub->cam->plane_x = 0;  // Perpendicular to dir_x
-	cub->cam->plane_y = 0.66; // Perpendicular to dir_y
+	cub->cam->plane_y = 0.66; // Perpendicular to dir_y */
 }

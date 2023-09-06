@@ -132,10 +132,10 @@ int	graphics(t_Cub3d *cub)
 	cub->img->img_ptr = mlx_new_image(cub->mlx_ptr, WINDOW_X, WINDOW_Y);
 	cub->img->addr = mlx_get_data_addr(cub->img->img_ptr, &cub->img->bpp, &cub->img->len, &cub->img->endian);
 	render_ceilling_floor(cub);
+	if (camera_init(cub))
+		return (1);
 	set_player_position(cub);
 	if (check_tex_validity(cub))
-		return (1);
-	if (camera_init(cub))
 		return (1);
 	cub->graphics_ok = true;
 	return (0);
@@ -167,7 +167,7 @@ int	boot(t_Cub3d *cub)
 		return (1);
 	hook_events(cub);
 	mlx_loop_hook(cub->mlx_ptr, &gameloop, cub);
-	mlx_loop_hook(cub->mlx_ptr, &draw_2d_map, cub);
+	//mlx_loop_hook(cub->mlx_ptr, &draw_2d_map, cub);
 	mlx_loop(cub->mlx_ptr);
 	return (0);
 }

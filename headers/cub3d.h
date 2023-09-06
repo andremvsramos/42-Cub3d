@@ -149,6 +149,7 @@ typedef struct	s_MapConfig
 
 typedef struct	s_CameraConfig
 {
+	double	fov;
 	double	camera_x;
 	double	plane_x;
 	double	plane_y;
