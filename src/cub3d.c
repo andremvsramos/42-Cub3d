@@ -128,7 +128,7 @@ int	gameloop(t_Cub3d *cub)
 	cam = cub->cam;
 	x = 0;
 	cam_utils_init(cam);
-	draw_2d_map(cub);
+	draw_2d_map(cub, cam->camera_rot, cub->player->pos_x, cub->player->pos_y);
 	while (x < WINDOW_X)
 	{
 		ray_per_colum(cub, cam, x);

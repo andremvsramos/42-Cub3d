@@ -171,6 +171,7 @@ typedef struct	s_CameraConfig
 	double	s_dist_x;
 	double	s_dist_y;
 	double	perp_wd;
+	double	camera_rot;
 	int		step_x;
 	int		step_y;
 	int		hit;
@@ -278,6 +279,6 @@ void	ray_map_pos(t_Cub3d *cub, t_CameraConfig *cam);
 void	ray_delt_dist(t_CameraConfig *cam);
 
 //testing drawing map in 2d
-int	draw_2d_map(t_Cub3d *cub);
+int	draw_2d_map(t_Cub3d *cub, double new_rot, double new_x, double new_y);
 
 #endif

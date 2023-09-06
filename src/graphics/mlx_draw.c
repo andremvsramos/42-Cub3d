@@ -71,15 +71,15 @@ static void	image_conditions(t_Cub3d *cub, char miscellaneous, int x, int y)
  *
  * @param cub A pointer to the Cub3d structure.
  */
-int	draw_2d_map(t_Cub3d *cub)
+int	draw_2d_map(t_Cub3d *cub, double new_rot, double new_x, double new_y)
 {
 	int	i;
 	int	j;
 
 	get_images(cub);
 	if (cub->minimap->old_rot != new_rot ||
-		cub->minimap->old_player_x != new_player_x ||
-		cub->minimap->old_player_y != new_player_y)
+		cub->minimap->old_player_x != new_x ||
+		cub->minimap->old_player_y != new_y)
 	{
 		i = 0;
 		j = 0;
