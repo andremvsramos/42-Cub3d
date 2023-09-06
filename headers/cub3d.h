@@ -106,6 +106,13 @@ typedef struct	s_PlayerConfig
 	double	dir_y;
 }				t_PlayerConfig;
 
+typedef struct s_MiniMap
+{
+	int	old_pos_x;
+	int	old_pos_y;
+	int	old_rot;
+}				t_MiniMap;
+
 /**
  * @struct t_MapConfig
  * Structure for managing map configuration and data in the Cub3D project.
@@ -173,7 +180,6 @@ typedef struct	s_CameraConfig
 	int		draw_end;
 }				t_CameraConfig;
 
-
 /**
  * @struct t_Cub3d
  * @brief The main structure representing the context and data for the Cub3D
@@ -209,6 +215,7 @@ typedef struct	s_Cub3d
 	t_PlayerConfig	*player;
 	t_MapConfig		*map;
 	t_ImageControl	*img;
+	t_MiniMap		*minimap;
 
 }				t_Cub3d;
 

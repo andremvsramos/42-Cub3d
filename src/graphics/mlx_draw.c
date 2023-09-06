@@ -73,24 +73,29 @@ static void	image_conditions(t_Cub3d *cub, char miscellaneous, int x, int y)
  */
 int	draw_2d_map(t_Cub3d *cub)
 {
-	get_images(cub);
 	int	i;
 	int	j;
 
-	i = 0;
-	j = 0;
-	while (i < cub->map->n_lines + 1)
+	get_images(cub);
+	if (cub->minimap->old_rot != new_rot ||
+		cub->minimap->old_player_x != new_player_x ||
+		cub->minimap->old_player_y != new_player_y)
 	{
+		i = 0;
 		j = 0;
-		while (j < cub->map->max_line_len - 1)
+		while (i < cub->map->n_lines + 1)
 		{
-			if (cub->map->matrix[i][j] == '1')
-				image_conditions(cub, '1', j * 8, i * 8);
-			else
-				image_conditions(cub, '0', j * 8, i * 8);
-			j++;
+			j = 0;
+			while (j < cub->map->max_line_len - 1)
+			{
+				if (cub->map->matrix[i][j] == '1')
+					image_conditions(cub, '1', j * 8, i * 8);
+				else
+					image_conditions(cub, '0', j * 8, i * 8);
+				j++;
+			}
+			i++;
 		}
-		i++;
 	}
 	return (0);
 }

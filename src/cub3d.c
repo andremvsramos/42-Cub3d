@@ -19,6 +19,17 @@
 	return color;
 } */
 
+/**
+ * Calculate the height and rendering boundaries for a wall.
+ *
+ * This function calculates the height of a wall and the rendering boundaries
+ * based on the perpendicular distance (`perp_wd`) from the camera to the wall.
+ * It sets the `line_height` to determine how tall the wall should be rendered
+ * on the screen. It also calculates `draw_start` and `draw_end` to define the
+ * vertical range for rendering the wall on the screen.
+ *
+ * @param cam A pointer to the CameraConfig structure.
+ */
 static void	calculate_wall_height(t_CameraConfig *cam)
 {
 	if (cam->perp_wd)
@@ -33,6 +44,19 @@ static void	calculate_wall_height(t_CameraConfig *cam)
 		cam->draw_end = WINDOW_Y - 1;
 }
 
+/**
+ * Apply the Digital Differential Analyzer (DDA) algorithm to determine the first
+ * wall hit by a ray.
+ *
+ * This function applies the Digital Differential Analyzer (DDA) algorithm to
+ * determine the point of intersection between a ray cast from the camera and
+ * the game map. It calculates the distance to the first wall hit, the map cell
+ * coordinates where the hit occurs, and whether the hit is on a horizontal or
+ * vertical wall. It updates the camera configuration accordingly.
+ *
+ * @param cam A pointer to the CameraConfig structure.
+ * @param m A pointer to the MapConfig structure representing the game map.
+ */
 static void	apply_dda(t_CameraConfig *cam, t_MapConfig *m)
 {
 	while (!cam->hit)
@@ -58,6 +82,18 @@ static void	apply_dda(t_CameraConfig *cam, t_MapConfig *m)
 		cam->perp_wd = cam->s_dist_y - cam->ddist_y;
 }
 
+/**
+ * Calculate step and initial side distance values for raycasting.
+ *
+ * This function calculates the step values (step_x and step_y) for raycasting
+ * and initializes the side distance values (s_dist_x and s_dist_y) based on the
+ * direction of the camera's ray (raydir_x and raydir_y) and the player's position.
+ * It determines whether the ray is moving left or right in the X direction and up
+ * or down in the Y direction and sets the step and side distance values accordingly.
+ *
+ * @param cam A pointer to the CameraConfig structure.
+ * @param p A pointer to the PlayerConfig structure representing the player's position.
+ */
 static void	step_calculation(t_CameraConfig *cam, t_PlayerConfig *p)
 {
 	if (cam->raydir_x < 0)
