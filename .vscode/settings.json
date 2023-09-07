@@ -3,7 +3,9 @@
 		"cub3d.h": "c",
 		"glu.h": "c",
 		"constants.h": "c",
-		"fcntl.h": "c"
+		"fcntl.h": "c",
+		"mlx_int.h": "c",
+		"mlx.h": "c"
 	},
 	"C_Cpp.errorSquiggles": "disabled"
 }

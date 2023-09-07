@@ -13,35 +13,62 @@
 #include "../../headers/cub3d.h"
 
 /**
- * Set the player's direction vector based on an integer identifier.
+ * @brief Set the player's direction and camera plane for North or South
+ * orientation.
  *
- * This function sets the player's direction vector (dir_x and dir_y) based on
- * an integer identifier. The identifier maps to cardinal directions as follows:
- * - 1: North (up)
- * - 2: South (down)
- * - 3: West (left)
- * - 4: East (right)
+ * The `set_ns_direction` function is responsible for configuring the player's
+ * direction and the camera's plane based on the provided orientation `i`. When
+ * `i` is equal to 1, it sets the player's direction to North (facing upward)
+ * and the camera's plane to create a leftward field of view. When `i` is equal
+ * to 2, it sets the player's direction to South (facing downward) and the
+ * camera's plane to create a rightward field of view.
  *
- * @param p A pointer to the PlayerConfig structure.
- * @param i An integer identifier for the desired direction (1, 2, 3, or 4).
+ * @param c Pointer to the `t_CameraConfig` structure containing camera
+ * configuration data.
+ * @param p Pointer to the `t_PlayerConfig` structure containing player
+ * configuration data.
+ * @param i An integer representing the desired orientation (1 for North,
+ * 2 for South).
  */
-static void	set_player_direction(t_CameraConfig *c, t_PlayerConfig *p, int i)
+static void	set_ns_direction(t_CameraConfig *c, t_PlayerConfig *p, int i)
 {
 	if (i == 1)
 	{
 		p->dir_x = 0;
-		p->dir_y = 1;
+		p->dir_y = -1;
 		c->plane_x = -c->fov;
 		c->plane_y = 0;
 	}
 	else if (i == 2)
 	{
 		p->dir_x = 0;
-		p->dir_y = -1;
+		p->dir_y = 1;
 		c->plane_x = c->fov;
 		c->plane_y = 0;
 	}
-	else if (i == 3)
+}
+
+/**
+ * @brief Set the player's direction and camera plane for West or East
+ * orientation.
+ *
+ * The `set_we_direction` function is responsible for configuring the player's
+ * direction and the camera's plane based on the provided orientation `i`. When
+ * `i` is equal to 3, it sets the player's direction to West (facing left) and
+ * the camera's plane to create an upward field of view. When `i` is equal to 4,
+ * it sets the player's direction to East (facing right) and the camera's plane
+ * to create a downward field of view.
+ *
+ * @param c Pointer to the `t_CameraConfig` structure containing camera
+ * configuration data.
+ * @param p Pointer to the `t_PlayerConfig` structure containing player
+ * configuration data.
+ * @param i An integer representing the desired orientation (3 for West,
+ * 4 for East).
+ */
+static void	set_we_direction(t_CameraConfig *c, t_PlayerConfig *p, int i)
+{
+	if (i == 3)
 	{
 		p->dir_x = -1;
 		p->dir_y = 0;
@@ -109,13 +136,13 @@ void	set_player_position(t_Cub3d *cub)
 			if (ft_strchr("NSEW", cub->map->matrix[i][j]))
 			{
 				if (cub->map->matrix[i][j] == 'N')
-					set_player_direction(cub->cam, cub->player, 2);
+					set_ns_direction(cub->cam, cub->player, 1);
 				else if (cub->map->matrix[i][j] == 'S')
-					set_player_direction(cub->cam, cub->player, 1);
+					set_ns_direction(cub->cam, cub->player, 2);
 				else if (cub->map->matrix[i][j] == 'W')
-					set_player_direction(cub->cam, cub->player, 3);
+					set_we_direction(cub->cam, cub->player, 3);
 				else if (cub->map->matrix[i][j] == 'E')
-					set_player_direction(cub->cam, cub->player, 4);
+					set_we_direction(cub->cam, cub->player, 4);
 				cub->player->pos_y = i;
 				cub->player->pos_x = j;
 				return ;

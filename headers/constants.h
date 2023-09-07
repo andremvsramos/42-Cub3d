@@ -16,6 +16,15 @@
 # define WINDOW_X 1024
 # define WINDOW_Y 768
 
+# define WHITE 0x00FFFFFF
+# define BLACK 0x00000000
+
+#define UP 119
+#define DOWN 115
+#define LEFT 97
+#define RIGHT 100
+#define ESC 65307
+
 # define PI 0x3F
 # define NO_DIR PI / 2
 # define SO_DIR 3 * PI / 2

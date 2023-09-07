@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_matrix.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 11:39:08 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/05 12:28:02 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/07 15:38:12 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,21 @@ static void	fill_matrix3(t_Cub3d *cub, char c, int y, int *x)
 }
 
 /**
- * @brief Fill the matrix with characters, handling tabulation and characters.
+ * @brief Fill the game map matrix with formatted data from a line.
  *
- * This function iterates over each character in the input line and processes
- * them. For tab characters, it replaces them with the appropriate number of
- * spaces based on tabulation rules. For other characters, it calls the
- * fill_matrix3 function to fill the matrix with the character or space. After
- * processing the line, it updates the matrix row index and frees allocated
- * memory for the line.
+ * The `fill_matrix2` function is responsible for parsing a line of formatted
+ * data and filling the game map matrix accordingly. It processes the line
+ * character by character, handling tabs and regular characters differently.
+ * When a tab character is encountered, it ensures that the corresponding number
+ * of spaces is inserted into the matrix. For non-tab characters, it delegates
+ * the task to the `fill_matrix3` function to handle map data formatting. This
+ * function is crucial for correctly initializing the game map for rendering.
  *
- * @param cub Pointer to the t_Cub3d structure containing program
- * context and data.
- * @param line The current line from the map file.
- * @param y The current row index in the matrix being processed.
- * @param x The current column index in the matrix being processed.
+ * @param cub Pointer to the `t_Cub3d` structure containing program context and
+ * data.
+ * @param line A pointer to the input line containing map data.
+ * @param y The current row index within the map matrix.
+ * @param x A pointer to the current column index within the map matrix.
  */
 static void	fill_matrix2(t_Cub3d *cub, char *line, int y, int x)
 {

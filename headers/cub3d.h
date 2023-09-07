@@ -24,9 +24,6 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-# define WHITE 0x00FFFFFF
-# define BLACK 0x00000000
-
 /**
  * @struct t_WindowConfig
  * Structure for configuring the window properties in the Cub3D project.
@@ -104,6 +101,10 @@ typedef struct	s_PlayerConfig
 	int		pos_y;
 	double	dir_x;
 	double	dir_y;
+	int		up;
+	int		down;
+	int		left;
+	int		right;
 }				t_PlayerConfig;
 
 typedef struct s_MiniMap
@@ -268,6 +269,11 @@ int		win_close(t_Cub3d *cub);
 // Functions related to handling player events
 int		player_init(t_Cub3d *cub);
 void	set_player_position(t_Cub3d *cub);
+int		readmove(t_Cub3d *cub, t_PlayerConfig *p);
+void	apply_for_back_move(t_Cub3d *cub, t_PlayerConfig *p, int dir);
+void	apply_left_right_move(t_Cub3d *cub, t_PlayerConfig *p, int dir);
+void	check_wall_hit(t_Cub3d *cub, double temp_x, double temp_y);
+
 
 // CAMERA HANDLING FUNCTIONS
 // Functions related to handling camera events
@@ -275,9 +281,13 @@ int		camera_init(t_Cub3d *cub);
 void	cam_utils_init(t_CameraConfig *cam);
 
 // RAYCASTING FUNCTIONS
+void	draw_rays(t_Cub3d *cub);
 void	ray_per_colum(t_Cub3d *cub, t_CameraConfig *cam, int x);
 void	ray_map_pos(t_Cub3d *cub, t_CameraConfig *cam);
 void	ray_delt_dist(t_CameraConfig *cam);
+void	step_calculation(t_CameraConfig *cam, t_PlayerConfig *p);
+void	apply_dda(t_CameraConfig *cam, t_MapConfig *m);
+void	calculate_wall_height(t_CameraConfig *cam);
 
 // MINIMAP FUNCTIONS
 //Functions related to minimap drawing

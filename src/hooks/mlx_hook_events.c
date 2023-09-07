@@ -12,100 +12,125 @@
 
 #include "../../headers/cub3d.h"
 
-static void	readmove(int key, t_Cub3d *cub)
-{
-	t_PlayerConfig *p;
-	t_MapConfig *m;
-
-	p = cub->player;
-	m = cub->map;
-	if (key == 65362) //N
-	{
-		if (!m->matrix[(int)(p->pos_x + p->dir_x * 10)][(int)p->pos_y])
-			p->pos_x += p->dir_x * 10;
-		if (!m->matrix[(int)p->pos_x][(int)(p->pos_y + p->dir_y * 10)])
-			p->pos_x += p->dir_y * 10;
-	}
-	if (key == 65364) //S
-	{
-		if (!m->matrix[(int)(p->pos_x - p->dir_x * 10)][(int)p->pos_y])
-			p->pos_x -= p->dir_x * 10;
-		if (!m->matrix[(int)p->pos_x][(int)(p->pos_y - p->dir_y * 10)])
-			p->pos_x -= p->dir_y * 10;
-	}
-	if (key == 65361) //W
-	{
-
-	}
-	if (key == 65363) //E
-	{
-
-	}
-}
-
 /**
- * @brief Handle the window closing event in the Cub3D application.
+ * @brief Handle the key press event to initiate player movement.
  *
- * The win_close function is responsible for handling the window closing event
- * within the Cub3D application. When triggered, it performs cleanup operations
- * by calling the free_main function to release allocated resources and ensure
- * a clean shutdown of the application. Additionally, it displays a message
- * indicating the closure of the application. The 'false' parameter passed to
- * the shutdown function indicates that the application should exit with a
- * successful status (EXIT_SUCCESS), preventing it from crashing due to errors.
+ * The `move_press` function is called when a key press event is detected. It
+ * checks the key code and sets the corresponding player movement flag to
+ * indicate the direction of movement. This function is primarily used for
+ * initiating player movement when keys like UP, DOWN, LEFT, or RIGHT are
+ * pressed.
  *
- * @param cub Pointer to the t_Cub3d structure containing program context
- * and data.
- */
-int	win_close(t_Cub3d *cub)
-{
-	free_main(cub);
-	shutdown("Closing CUB3D\n", false);
-	return (0);
-}
-
-/**
- * @brief Handle key events in the Cub3D application.
- *
- * The deal_key function is responsible for handling key events in the Cub3D
- * application. When a key is pressed, the function checks if the key code
- * matches the code for the 'Esc' key (65307). If the 'Esc' key is pressed,
- * the function calls the win_close function to close the game window and
- * perform necessary cleanup. The function returns 0 to indicate that the key
- * event has been handled.
- *
- * @param key The key code corresponding to the pressed key.
- * @param cub Pointer to the t_Cub3d structure containing program context and
+ * @param key The key code of the pressed key.
+ * @param cub Pointer to the `t_Cub3d` structure containing program context and
  * data.
- * @return Returns 0 to indicate successful key event handling.
+ * @return Returns 0 after setting the player movement flag, or 1 if an invalid
+ * key code is provided.
  */
-int	deal_key(int key, t_Cub3d *cub)
+int	move_press(int key, t_Cub3d *cub)
 {
-	printf("%d\n", key);
-	if (key == 65307)
+	if (key == UP)
+		return (cub->player->up = 1, 0);
+	else if (key == DOWN)
+		return (cub->player->down = 1, 0);
+	else if (key == LEFT)
+		return (cub->player->left = 1, 0);
+	else if (key == RIGHT)
+		return (cub->player->right = 1, 0);
+	return (1);
+}
+
+/**
+ * @brief Handle the key release event to stop player movement.
+ *
+ * The `move_release` function is called when a key release event is detected.
+ * It checks the key code and clears the corresponding player movement flag to
+ * indicate that the movement in that direction should stop. This function is
+ * primarily used for stopping player movement when keys like UP, DOWN, LEFT,
+ * or RIGHT are released.
+ *
+ * @param key The key code of the released key.
+ * @param cub Pointer to the `t_Cub3d` structure containing program context and
+ * data.
+ * @return Returns 0 after clearing the player movement flag, or 1 if an invalid
+ * key code is provided.
+ */
+int	move_release(int key, t_Cub3d *cub)
+{
+	if (key == UP)
+		return (cub->player->up = 0, 0);
+	else if (key == DOWN)
+		return (cub->player->down = 0, 0);
+	else if (key == LEFT)
+		return (cub->player->left = 0, 0);
+	else if (key == RIGHT)
+		return (cub->player->right = 0, 0);
+	return (1);
+}
+
+/**
+ * @brief Handle key press events, including game actions and player movement.
+ *
+ * The `on_key_press` function is responsible for processing key press events.
+ * It checks the key code and performs corresponding actions such as closing the
+ * window when the ESC key is pressed. Additionally, it invokes the `move_press`
+ * function to handle player movement based on the pressed keys.
+ *
+ * @param key The key code of the pressed key.
+ * @param cub Pointer to the `t_Cub3d` structure containing program context and
+ * data.
+ * @return Returns 0 after processing the key press event, or 1 if an invalid
+ * key code is provided.
+ */
+int	on_key_press(int key, t_Cub3d *cub)
+{
+	puts(ft_itoa(key));
+	if (key == ESC)
 		win_close(cub);
-	readmove(key, cub);
+	if (move_press(key, cub))
+		return (0);
 	return (0);
 }
 
 /**
- * @brief Set up event handlers and start the MiniLibX event loop.
+ * @brief Handle key release events, including stopping player movement.
  *
- * The `hook_events` function configures event handlers to manage user
- * interactions with the graphical window. It uses the `mlx_hook` function to
- * associate the `deal_key` function with keyboard events and the `win_close`
- * function with the window close event. Keyboard events are detected using
- * event code `2`, and the window close event is detected using event code
- * `17`. After setting up the event handlers, the function enters the MiniLibX
- * event loop using `mlx_loop`, allowing the program to respond to user inputs
- * and window events. The function returns 0 after the event loop completes.
+ * The `on_key_release` function is responsible for processing key release
+ * events. It checks the key code and performs corresponding actions such as
+ * closing the window when the ESC key is released. Additionally, it invokes
+ * the `move_release` function to stop player movement based on the released
+ * keys.
  *
- * @param cub Pointer to the t_Cub3d structure containing program context and
+ * @param key The key code of the released key.
+ * @param cub Pointer to the `t_Cub3d` structure containing program context and
  * data.
- * @return Always returns 0 to indicate successful event setup and execution.
+ * @return Returns 0 after processing the key release event, or 1 if an invalid
+ * key code is provided.
+ */
+int	on_key_release(int key, t_Cub3d *cub)
+{
+	if (key == ESC)
+		win_close(cub);
+	if (move_release(key, cub))
+		return (0);
+	return (0);
+}
+
+/**
+ * @brief Register event hooks for keyboard inputs and window closing.
+ *
+ * The `hook_events` function is responsible for registering event hooks for
+ * keyboard inputs (both key press and key release) and window closing. It uses
+ * the MiniLibX functions `mlx_hook` to set up event handling. Keyboard input
+ * events are directed to the `on_key_press` and `on_key_release` functions,
+ * while window closing events are handled by the `win_close` function.
+ *
+ * @param cub Pointer to the `t_Cub3d` structure containing program context and
+ * data.
  */
 void	hook_events(t_Cub3d *cub)
 {
-	mlx_hook(cub->win_ptr, 2, 1L << 0, deal_key, cub);
-	mlx_hook(cub->mlx_ptr, 17, 1L << 2, win_close, cub);
+	mlx_hook(cub->win_ptr, DestroyNotify, NoEventMask, win_close, cub);
+	mlx_hook(cub->win_ptr, KeyPress, KeyPressMask, on_key_press, cub);
+	mlx_hook(cub->win_ptr, KeyRelease, KeyReleaseMask, on_key_release, cub);
 }

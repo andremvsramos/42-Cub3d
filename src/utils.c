@@ -6,11 +6,67 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:12:03 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/25 23:41:07 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/07 15:57:05 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/cub3d.h"
+
+/**
+ * @brief Free resources allocated for graphics and textures in the Cub3D
+ * application.
+ *
+ * The `free_graphics` function is responsible for releasing memory and
+ * resources associated with graphics and textures in the Cub3D application.
+ * It checks if the `graphics_ok` flag is set to ensure that the graphics
+ * context and textures were successfully initialized. If so, it proceeds to
+ * free the textures for north, south, west, and east walls using the
+ * `free_textures` function. After freeing the textures, it destroys the
+ * application window using `mlx_destroy_window`, releases the display, and
+ * frees the memory allocated for the MiniLibX context.
+ *
+ * @param cub Pointer to the `t_Cub3d` structure containing program context and data.
+ */
+static void	free_graphics(t_Cub3d *cub)
+{
+	if (cub->graphics_ok)
+	{
+		free_textures(cub, cub->map->tex_north);
+		free_textures(cub, cub->map->tex_south);
+		free_textures(cub, cub->map->tex_west);
+		free_textures(cub, cub->map->tex_east);
+		mlx_destroy_window(cub->mlx_ptr, cub->win_ptr);
+		mlx_destroy_display(cub->mlx_ptr);
+		free(cub->mlx_ptr);
+	}
+}
+
+/**
+ * @brief Free resources allocated for the map and close file descriptors.
+ *
+ * The `free_map` function is responsible for releasing memory and resources
+ * associated with the map data in the Cub3D application. It first closes the
+ * file descriptors for the map file and its temporary counterpart. Then, it
+ * iterates through the matrix holding the map data and frees the memory for
+ * each row.
+ *
+ * @param cub Pointer to the `t_Cub3d` structure containing program context and
+ * data.
+ */
+static void free_map(t_Cub3d *cub)
+{
+	int	i;
+
+	i = 0;
+	close(cub->map->fd);
+	close(cub->map->temp_fd);
+	while (i <= cub->map->n_lines)
+	{
+		if (cub->map->matrix[i])
+			free(cub->map->matrix[i]);
+		i++;
+	}
+}
 
 /**
  * @brief Free allocated resources related to a texture setup in the Cub3D
@@ -65,27 +121,8 @@ static void	free_textures(t_Cub3d *cub, t_TextureSetup *texture)
  */
 void	free_main(t_Cub3d *cub)
 {
-	int	i;
-
-	i = 0;
-	close(cub->map->fd);
-	close(cub->map->temp_fd);
-	while (i <= cub->map->n_lines)
-	{
-		if (cub->map->matrix[i])
-			free(cub->map->matrix[i]);
-		i++;
-	}
-	if (cub->graphics_ok)
-	{
-		free_textures(cub, cub->map->tex_north);
-		free_textures(cub, cub->map->tex_south);
-		free_textures(cub, cub->map->tex_west);
-		free_textures(cub, cub->map->tex_east);
-		mlx_destroy_window(cub->mlx_ptr, cub->win_ptr);
-		mlx_destroy_display(cub->mlx_ptr);
-		free(cub->mlx_ptr);
-	}
+	free_map(cub);
+	free_graphics(cub);
 	if (cub->map->matrix)
 		free(cub->map->matrix);
 	if (cub->map->filename)

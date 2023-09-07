@@ -21,7 +21,8 @@
  * returns 0 (black).
  *
  * @param color A 256x256x256 array representing colors (RGB format).
- * @return An unsigned integer representing the color code in hexadecimal format (0xRRGGBB).
+ * @return An unsigned integer representing the color code in hexadecimal format
+ * (0xRRGGBB).
  */
 static unsigned int	get_color(int color[256][256][256])
 {
@@ -74,7 +75,8 @@ void	my_mlx_pixel_put(t_ImageControl *img, int x, int y, int color)
  *
  * This function renders the ceiling and floor of the game window by setting
  * the pixel colors in the image buffer (`cub->img`) for the entire window area.
- * It uses the colors defined in the `cub->map` structure for the ceiling and floor.
+ * It uses the colors defined in the `cub->map` structure for the ceiling and
+ * floor.
  *
  * @param cub A pointer to the Cub3d structure.
  */
@@ -103,21 +105,20 @@ static void	render_ceilling_floor(t_Cub3d *cub)
 }
 
 /**
- * @brief Initialize the graphics context and camera for rendering in the Cub3D
- * application.
+ * @brief Initialize the graphics context and prepare essential components for
+ * rendering.
  *
- * The `graphics` function is responsible for setting up the graphics context of
- * the Cub3D application. It first calls the `check_tex_validity` function to
- * validate the texture files. If the texture files are valid, the function
- * initializes the mlx library using `mlx_init` and creates a new window with a
- * specified resolution using `mlx_new_window`. Additionally, memory is
- * allocated for a `t_ImageControl` structure to manage the application's image
- * data. The image structure is initialized with `mlx_new_image`, and its
- * attributes are obtained using `mlx_get_data_addr`. The function then
- * initializes the camera using the `camera_init` function. If any
- * initialization step fails or the texture files are invalid, the function
- * returns 1; otherwise, it returns 0 to indicate a successful graphics
- * context setup.
+ * The `graphics` function sets up the graphics context for the Cub3D
+ * application. It begins by initializing the MLX (MiniLibX) library using
+ * `mlx_init`. Then, it creates a new application window with the specified
+ * resolution using `mlx_new_window`. Memory is allocated for a `t_ImageControl`
+ * structure to manage image data, which is initialized with `mlx_new_image`.
+ * The image attributes are obtained using `mlx_get_data_addr`. The function
+ * also renders the ceiling and floor using `render_ceiling_floor`. If the
+ * camera initialization via `camera_init` succeeds, the player's position is
+ * set with `set_player_position`. Finally, the function checks the validity of
+ * texture files using `check_tex_validity`, and if all initialization steps are
+ * successful, it sets `cub->graphics_ok` to `true`.
  *
  * @param cub Pointer to the `t_Cub3d` structure containing program context and
  * data.
@@ -145,29 +146,22 @@ int	graphics(t_Cub3d *cub)
  * @brief Initialize essential components and start the Cub3D application.
  *
  * The `boot` function serves as the entry point to the Cub3D application. It
- * orchestrates the initialization of essential components such as the graphics
- * context and event hooks. First, it calls the `graphics` function to set up the
- * graphics context, including creating the main application window and image
- * control structures. If the graphics initialization fails, the function
- * returns 1 to indicate an error. Next, it calls the `hook_events` function to
- * set up event hooks for keyboard inputs and window closing. If both
- * initialization steps succeed, the function starts the main game loop by
- * registering the `gameloop` function via `mlx_loop_hook`. It then enters the
- * event loop using `mlx_loop`, which continuously updates the game state and
- * renders the scene. The function does not return until the application is
- * exited.
+ * orchestrates the initialization of essential components, including the
+ * graphics context, and event hooks. It calls the `graphics` function to set up
+ * the graphics context, create the main application window, and initialize
+ * image control structures. If the graphics initialization fails, the function
+ * returns 1 to indicate an error. Otherwise, it returns 0 to indicate a
+ * successful initialization. The `boot` function does not directly start the
+ * game loop but prepares the application for rendering.
  *
- * @param cub Pointer to the `t_Cub3d` structure containing program context
- * and data.
- * @return Returns 0 if the application boots successfully.
+ * @param cub Pointer to the `t_Cub3d` structure containing program context and
+ * data.
+ * @return Returns 0 if the application initialization is successful, or 1 if
+ * there's an error during setup.
  */
 int	boot(t_Cub3d *cub)
 {
 	if (graphics(cub))
 		return (1);
-	hook_events(cub);
-	mlx_loop_hook(cub->mlx_ptr, &gameloop, cub);
-	//mlx_loop_hook(cub->mlx_ptr, &draw_2d_map, cub);
-	mlx_loop(cub->mlx_ptr);
 	return (0);
 }

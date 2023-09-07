@@ -3,28 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:03:12 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/05 12:09:28 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/07 15:39:37 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
 
 /**
- * @brief Helper function to calculate maximum line length and update number of
- * lines.
+ * @brief Utility function to calculate the maximum line length and total lines
+ * in the game map.
  *
- * This function is called by the get_map_n_lines function for each line read
- * from the map file. It calculates the length of the line, considering tabs
- * as four spaces, and updates the n_lines member of the cub->map data
- * structure. Additionally, it compares the calculated line length to the
- * current max_line_len value and updates it if the calculated length is larger.
+ * The `get_map_n_lines_utils` function is a utility used during the map parsing
+ * process to calculate the maximum line length and the total number of lines in
+ * the game map. It iterates through the characters in a line, considering both
+ * tabs and regular characters. Tabs are used for formatting the map, and their
+ * count is used to ensure consistent formatting. For each character, the
+ * function updates the auxiliary length and counts tabs. When a tab character
+ * is encountered, it checks for the formatting rules. If a tab is part of a
+ * series of tabs that exceeds the formatting rule, it contributes to the
+ * auxiliary length, ensuring consistent spacing in the map. Finally, the
+ * function updates the maximum line length in the map configuration structure
+ * and increments the total line count.
  *
- * @param cub Pointer to the t_Cub3d structure containing program
- * context and data.
- * @param line A pointer to the current line being processed.
+ * @param cub Pointer to the `t_Cub3d` structure containing program context and
+ * data.
+ * @param line A pointer to the input line containing map data.
  */
 static	void	get_map_n_lines_utils(t_Cub3d *cub, char *line)
 {
@@ -35,8 +41,6 @@ static	void	get_map_n_lines_utils(t_Cub3d *cub, char *line)
 	i = 0;
 	aux_len = 0;
 	cub->map->n_lines++;
-	aux_len = 0;
-	i = 0;
 	while (line[i])
 	{
 		tabs++;

@@ -12,6 +12,16 @@
 
 #include "../../headers/cub3d.h"
 
+/**
+ * @brief Initializes the camera configuration parameters.
+ *
+ * The cam_utils_init function sets the camera's configuration parameters to
+ * their initial values. This function is typically called before raycasting
+ * and collision detection to ensure that camera-related variables start with
+ * proper values.
+ *
+ * @param cam Pointer to the t_CameraConfig structure to be initialized.
+ */
 void	cam_utils_init(t_CameraConfig *cam)
 {
 	cam->s_dist_x = 0;
