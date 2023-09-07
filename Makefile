@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: programming-pc <programming-pc@student.    +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/09/07 11:49:30 by programming      ###   ########.fr        #
+#    Updated: 2023/09/07 14:44:46 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,6 @@ HEADERDIR = ./headers/
 MLXDIR = ./mlx/
 
 SRC =	src/main.c \
-		src/cub3d.c \
 		src/utils.c \
 		src/map_files/map_init.c \
 		src/map_files/map_parser.c \
@@ -37,13 +36,15 @@ SRC =	src/main.c \
 		src/hooks/mlx_hook_events.c \
 		src/camera/camera_setup.c \
 		src/player/player_setup.c \
+		src/player/player_movement.c \
 		src/raycasting/rays.c \
+		src/raycasting/rays_utils.c \
 
 #----------COMMANDS----------#
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g
-AR = ar rcs
+
 RM = rm -rf
 MLXFLAGS = -L -lmlx -lXext -lX11
 MATH = -lm
@@ -76,11 +77,14 @@ $(LIBFT):
 			@echo "$(YELLOW)$(LFT)"
 
 $(MLX):
-			@cd $(MLXDIR) && chmod 777 configure && ./configure && $(MAKE)
+			@cd $(MLXDIR) && $(MAKE)
 			@echo "$(RED)$(MINILBX)"
 
 $(NAME):	$(OBJ) $(LIBFT) $(MLX)
 			@$(CC) $(CFLAGS) $(OBJ:%=bin/%) $(LIBFTDIR)$(LIBFT) $(MLXDIR)$(MLX) $(MLXFLAGS) $(MATH) -o $(NAME)
+
+mlxconfig:
+			@cd $(MLXDIR) && chmod 777 configure && ./configure
 
 clean:
 			@$(RM) $(OBJ:%=bin/%)
