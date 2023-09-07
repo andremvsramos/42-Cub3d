@@ -36,14 +36,14 @@ static void	set_ns_direction(t_CameraConfig *c, t_PlayerConfig *p, int i)
 	{
 		p->dir_x = 0;
 		p->dir_y = -1;
-		c->plane_x = -c->fov;
+		c->plane_x = c->fov;
 		c->plane_y = 0;
 	}
 	else if (i == 2)
 	{
 		p->dir_x = 0;
 		p->dir_y = 1;
-		c->plane_x = c->fov;
+		c->plane_x = -c->fov;
 		c->plane_y = 0;
 	}
 }

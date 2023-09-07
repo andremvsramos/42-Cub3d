@@ -13,8 +13,8 @@
 #ifndef CONSTANTS_H
 # define CONSTANTS_H
 
-# define WINDOW_X 1024
-# define WINDOW_Y 768
+# define WINDOW_X 1920
+# define WINDOW_Y 1080
 
 # define WHITE 0x00FFFFFF
 # define BLACK 0x00000000

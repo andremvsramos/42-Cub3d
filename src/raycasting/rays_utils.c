@@ -33,9 +33,9 @@
 void	calculate_wall_height(t_CameraConfig *cam)
 {
 	if (cam->perp_wd)
-		cam->line_height = (int)(500 / cam->perp_wd);
+		cam->line_height = (int)(600 / cam->perp_wd);
 	else
-		cam->line_height = cam->perp_wd;
+		cam->line_height = 600;
 	cam->draw_start = -cam->line_height / 2 + WINDOW_Y / 2;
 	if (cam->draw_start < 0)
 		cam->draw_start = 0;
@@ -77,9 +77,9 @@ void	apply_dda(t_CameraConfig *cam, t_MapConfig *m)
 			cam->hit = 1;
 	}
 	if (cam->side == 0)
-		cam->perp_wd = cam->s_dist_x - cam->ddist_x;
+		cam->perp_wd = (cam->s_dist_x - cam->ddist_x);
 	else
-		cam->perp_wd = cam->s_dist_y - cam->ddist_y;
+		cam->perp_wd = (cam->s_dist_y - cam->ddist_y);
 }
 
 /**
@@ -96,6 +96,7 @@ void	apply_dda(t_CameraConfig *cam, t_MapConfig *m)
  */
 void	step_calculation(t_CameraConfig *cam, t_PlayerConfig *p)
 {
+	cam->hit = 0;
 	if (cam->raydir_x < 0)
 	{
 		cam->step_x = -1;
@@ -104,7 +105,7 @@ void	step_calculation(t_CameraConfig *cam, t_PlayerConfig *p)
 	else
 	{
 		cam->step_x = 1;
-		cam->s_dist_x = (cam->map_x + 1 - p->pos_x) * cam->ddist_x;
+		cam->s_dist_x = (cam->map_x + 1.0 - p->pos_x) * cam->ddist_x;
 	}
 	if (cam->raydir_y < 0)
 	{
@@ -114,6 +115,6 @@ void	step_calculation(t_CameraConfig *cam, t_PlayerConfig *p)
 	else
 	{
 		cam->step_y = 1;
-		cam->s_dist_y = (cam->map_y + 1 - p->pos_y) * cam->ddist_y;
+		cam->s_dist_y = (cam->map_y + 1.0 - p->pos_y) * cam->ddist_y;
 	}
 }
