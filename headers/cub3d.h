@@ -24,8 +24,8 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-# define WALL_IMG "textures/wall.xpm"
-# define FLOOR_IMG "textures/floor.xpm"
+# define WHITE 0x00FFFFFF
+# define BLACK 0x00000000
 
 /**
  * @struct t_WindowConfig
@@ -108,9 +108,10 @@ typedef struct	s_PlayerConfig
 
 typedef struct s_MiniMap
 {
-	int	old_player_x;
-	int	old_player_y;
-	int	old_rot;
+	t_ImageControl	*img;
+	int				width;
+	int				height;
+	int				map_size;
 }				t_MiniMap;
 
 /**
@@ -278,7 +279,8 @@ void	ray_per_colum(t_Cub3d *cub, t_CameraConfig *cam, int x);
 void	ray_map_pos(t_Cub3d *cub, t_CameraConfig *cam);
 void	ray_delt_dist(t_CameraConfig *cam);
 
-//testing drawing map in 2d
-int	draw_2d_map(t_Cub3d *cub, double new_rot, double new_x, double new_y);
+// MINIMAP FUNCTIONS
+//Functions related to minimap drawing
+void	draw_minimap(t_Cub3d *cub);
 
 #endif

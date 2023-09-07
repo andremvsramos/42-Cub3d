@@ -128,7 +128,6 @@ int	gameloop(t_Cub3d *cub)
 	cam = cub->cam;
 	x = 0;
 	cam_utils_init(cam);
-	draw_2d_map(cub, cam->camera_rot, cub->player->pos_x, cub->player->pos_y);
 	while (x < WINDOW_X)
 	{
 		ray_per_colum(cub, cam, x);
@@ -156,6 +155,7 @@ int	gameloop(t_Cub3d *cub)
 		}
 		x++;
 	}
+	draw_minimap(cub);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img->img_ptr, 0, 0);
     return (0);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+         #
+#    By: programming-pc <programming-pc@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/09/05 15:08:06 by andvieir         ###   ########.fr        #
+#    Updated: 2023/09/07 11:49:30 by programming      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRC =	src/main.c \
 		src/map_files/file_utils.c \
 		src/graphics/mlx_graphics.c \
 		src/graphics/mlx_textures.c \
-		src/graphics/mlx_draw.c \
+		src/graphics/minimap.c \
 		src/hooks/mlx_hook_events.c \
 		src/camera/camera_setup.c \
 		src/player/player_setup.c \
