@@ -292,5 +292,6 @@ void	calculate_wall_height(t_CameraConfig *cam);
 // MINIMAP FUNCTIONS
 //Functions related to minimap drawing
 void	draw_minimap(t_Cub3d *cub);
+void	init_minimap(t_Cub3d *cub);
 
 #endif

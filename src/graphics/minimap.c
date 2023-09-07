@@ -1,18 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minimap.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: programming-pc <programming-pc@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/07 10:54:18 by programming       #+#    #+#             */
-/*   Updated: 2023/09/07 12:14:25 by programming      ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../headers/cub3d.h"
 
-/* static void	draw_line(t_all *data, t_stk pos1, t_stk pos2, long color)
+/* static void	draw_line(t_Cub3d *cub, t_stk pos1, t_stk pos2, long color)
 {
 	double	delta_x;
 	double	delta_y;
@@ -30,7 +18,7 @@
 		|| fabs(pos2.y - pos1.y) > fabs(delta_y))
 	{
 		coord = floor(pos1.y) * floor(data->minimap.width) + floor(pos1.x);
-		data->minimap.img.adr[coord] = color;
+		cub->minimap->img->addr[coord] = color;
 		pos1.x += delta_x;
 		pos1.y += delta_y;
 	}
@@ -82,7 +70,7 @@
 	}
 	draw_rectangle(data, (int)data->pos_x, (int)data->pos_y, RED);
 } */
-static void	init_minimap(t_Cub3d *cub)
+void	init_minimap(t_Cub3d *cub)
 {
 	int	bpp;
 	int	sl;
@@ -90,7 +78,7 @@ static void	init_minimap(t_Cub3d *cub)
 
 	cub->minimap = ft_calloc(1, sizeof(t_MiniMap));
 	cub->minimap->img = ft_calloc(1, sizeof(t_ImageControl));
-	cub->minimap->map_size = 16;
+	cub->minimap->map_size = 12;
 	cub->minimap->width = cub->map->max_line_len * cub->minimap->map_size;
 	cub->minimap->height = cub->map->n_lines * cub->minimap->map_size;
 	cub->minimap->img->img_ptr = mlx_new_image(cub->mlx_ptr,
@@ -115,12 +103,14 @@ static void	draw_rectangle(t_Cub3d *cub, int x, int y, long color)
 			cub->minimap->img->addr[(y + i) * cub->map->max_line_len
 				* cub->minimap->map_size + x + j] = color;
 			j++;
+			/* mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr,
+				cub->minimap->img->img_ptr, 20, 20); */
 		}
 		i++;
 	}
 }
 
-static void	draw_rectangles(t_Cub3d *cub)
+void	draw_minimap(t_Cub3d *cub)
 {
 	int		i;
 	int		j;
@@ -139,10 +129,4 @@ static void	draw_rectangles(t_Cub3d *cub)
 		}
 		i++;
 	}
-}
-
-void	draw_minimap(t_Cub3d *cub)
-{
-	init_minimap(cub);
-	draw_rectangles(cub);
 }
