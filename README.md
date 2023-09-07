@@ -33,7 +33,13 @@ Cub3D is an ongoing project that aims to recreate the 'immersive' gameplay exper
 
 - **Graphical Booting Milestone (August 23, 2023):** On August 23, 2023, we achieved a key milestone in our project. We successfully implemented graphical booting using the MiniLibX screen display. This accomplishment lays the groundwork for rendering. However, we're continuing our efforts to refine rendering processes, as detailed in our raycasting progress below.
 
-- **Raycasting Progress:** Our next endeavor takes us into the implementation of raycasting. With determination and focus, we're diving into the intricacies of raycasting. This advancement holds the potential for innovative texture rendering techniques, enhancing the overall immersive experience.
+- **Minimap Prototype (September 06, 2023):** We've added a prototype for a minimap bonus feature (commented out of the rendering). This feature will provide players with a top-down view of the game world, enhancing navigation and orientation.
+
+- **Raycasting Implementation (September 06, 2023):** We're thrilled to announce that raycasting has been successfully implemented as of September 06, 2023. This marks a significant milestone in our project, as it forms the basis for rendering the 3D environment and creating immersive gameplay.
+
+- **Erratic Movement (In Progress):** While basic player movement exists, it currently exhibits erratic behavior. Movement speed is excessively fast, and there are issues with screen rendering when applying movement in certain directions. We are actively working on resolving these issues to ensure smooth and accurate movement within the game world.
+
+- **Texture Implementation (Future Feature):** Our next major goal is to start implementing external textures using XPM files. This will significantly enhance the visual quality of the game, replacing simple colors for walls and opening the door to exciting future features like doors, textures, and more.
 
 ## Getting Started
 
@@ -64,8 +70,6 @@ As the project guidelines do not specify how to parse tabulations, we have appli
 ## Collaborators
 
 - [Tiago Pereira](https://github.com/t-pereira06)
-- [Rafael Soares](https://github.com/RafaSoares1)
-- [José Pedro](https://github.com/ZPedro99)
 
 ## License
 
