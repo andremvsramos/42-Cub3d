@@ -80,7 +80,7 @@ void	my_mlx_pixel_put(t_ImageControl *img, int x, int y, int color)
  *
  * @param cub A pointer to the Cub3d structure.
  */
-static void	render_ceilling_floor(t_Cub3d *cub)
+void	render_ceilling_floor(t_Cub3d *cub)
 {
 	int				x;
 	int				y;
@@ -132,7 +132,6 @@ int	graphics(t_Cub3d *cub)
 	cub->img = ft_calloc(1, sizeof(t_ImageControl));
 	cub->img->img_ptr = mlx_new_image(cub->mlx_ptr, WINDOW_X, WINDOW_Y);
 	cub->img->addr = mlx_get_data_addr(cub->img->img_ptr, &cub->img->bpp, &cub->img->len, &cub->img->endian);
-	render_ceilling_floor(cub);
 	if (camera_init(cub))
 		return (1);
 	set_player_position(cub);

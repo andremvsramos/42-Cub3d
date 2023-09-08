@@ -156,6 +156,14 @@ typedef struct	s_MapConfig
 	t_TextureSetup	*tex_west;
 }				t_MapConfig;
 
+
+typedef struct	s_Transform
+{
+	double	x;
+	double	y;
+	double	z;
+}				t_Transform;
+
 typedef struct	s_CameraConfig
 {
 	double	fov;
@@ -293,5 +301,8 @@ void	calculate_wall_height(t_CameraConfig *cam);
 //Functions related to minimap drawing
 void	draw_minimap(t_Cub3d *cub);
 void	init_minimap(t_Cub3d *cub);
+
+// TEXTURE AND COLOR FUNCTIONS
+void	render_ceilling_floor(t_Cub3d *cub);
 
 #endif

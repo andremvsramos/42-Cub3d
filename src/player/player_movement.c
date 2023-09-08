@@ -12,6 +12,30 @@
 
 #include "../../headers/cub3d.h"
 
+void	rotate_player(t_Cub3d *cub, int dir)
+{
+	t_PlayerConfig	*p;
+	t_CameraConfig	*c;
+	t_Transform		rot_dir;
+	t_Transform		rot_plane;
+	double			angle;
+
+	c = cub->cam;
+	p = cub->player;
+	if (dir)
+		angle = 0.0349;
+	else
+		angle = -0.0349;
+	rot_dir.x = p->dir_x * cos(angle) - p->dir_y * sin(angle);
+	rot_dir.y = p->dir_x * sin(angle) + p->dir_y * cos(angle);
+	p->dir_x = rot_dir.x;
+	p->dir_y = rot_dir.y;
+	rot_plane.x = c->plane_x * cos(angle) - c->plane_y * sin(angle);
+	rot_plane.y = c->plane_x * sin(angle) + c->plane_y * cos(angle);
+	c->plane_x = rot_plane.x;
+	c->plane_y = rot_plane.y;
+}
+
 /**
  * @brief Check for wall collisions and update player position accordingly.
  *
@@ -59,11 +83,16 @@ void	apply_for_back_move(t_Cub3d *cub, t_PlayerConfig *p, int dir)
 	puts("forback");
 	double	temp_x;
 	double	temp_y;
+	int		signal;
 
 	temp_x = p->pos_x;
 	temp_y = p->pos_y;
-	p->pos_x = p->pos_x + (dir) * p->dir_x * 0.001;
-	p->pos_y = p->pos_y + (dir) * p->dir_y * 0.001;
+	if (dir)
+		signal = 1;
+	else
+		signal = -1;
+	p->pos_x = p->pos_x + (signal) * p->dir_x * 0.035;
+	p->pos_y = p->pos_y + (signal) * p->dir_y * 0.035;
 	check_wall_hit(cub, temp_x, temp_y);
 }
 
@@ -91,15 +120,17 @@ void	apply_left_right_move(t_Cub3d *cub, t_PlayerConfig *p, int dir)
 
 	temp_x = p->pos_x;
 	temp_y = p->pos_y;
-	if (dir > 0)
+	if (dir)
 	{
-		p->pos_x += p->dir_y * 0.001;
-		p->pos_y += -p->dir_x * 0.001;
+		//p->pos_x += p->dir_y * 0.035;
+		//p->pos_y += -p->dir_x * 0.035;
+		rotate_player(cub, 0);
 	}
 	else
 	{
-		p->pos_x += -p->dir_y * 0.001;
-		p->pos_y += p->dir_x * 0.001;
+		//p->pos_x += -p->dir_y * 0.035;
+		//p->pos_y += p->dir_x * 0.035;
+		rotate_player(cub, 1);
 	}
 	check_wall_hit(cub, temp_x, temp_y);
 }
@@ -125,14 +156,15 @@ void	apply_left_right_move(t_Cub3d *cub, t_PlayerConfig *p, int dir)
  */
 int	readmove(t_Cub3d *cub, t_PlayerConfig *p)
 {
+	printf("PX : %d | PY : %d | DIRX: %f | DIRY: %f\n", cub->player->pos_x, cub->player->pos_y, cub->player->dir_x, cub->player->dir_y);
 	if (p->up)
 		apply_for_back_move(cub, p, 1);
 	if (p->down)
-		apply_for_back_move(cub, p, -1);
+		apply_for_back_move(cub, p, 0);
 	if (p->left)
 		apply_left_right_move(cub, p, 1);
 	if (p->right)
-		apply_left_right_move(cub, p, -1);
+		apply_left_right_move(cub, p, 0);
 	if (p->up || p->down || p->left || p->right)
 		return (0);
 	return (1);

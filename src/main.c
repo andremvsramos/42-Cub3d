@@ -113,8 +113,8 @@ int	gameloop(t_Cub3d *cub)
 {
 	if (readmove(cub, cub->player))
 		return (0);
-	//mlx_destroy_image(cub->mlx_ptr, cub->img->img_ptr);
-	//cub->img->img_ptr = mlx_new_image(cub->mlx_ptr, WINDOW_X, WINDOW_Y);
+	mlx_destroy_image(cub->mlx_ptr, cub->img->img_ptr);
+	cub->img->img_ptr = mlx_new_image(cub->mlx_ptr, WINDOW_X, WINDOW_Y);
 	//ft_bzero(cub->img->addr, (WINDOW_X * WINDOW_Y * (cub->img->bpp / 8)));
 	draw_rays(cub);
 	draw_minimap(cub);

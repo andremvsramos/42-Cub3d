@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 14:45:15 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/07 14:24:35 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/08 10:27:49 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	draw_rays(t_Cub3d *cub)
 	cam = cub->cam;
 	x = 0;
 	cam_utils_init(cam);
+	render_ceilling_floor(cub);
 	while (x < WINDOW_X)
 	{
 		ray_per_colum(cub, cam, x);
