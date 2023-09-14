@@ -12,23 +12,48 @@
 
 #include "../../headers/cub3d.h"
 
-/* static int	mlx_pixel_get(t_ImageControl *img, int x, int y)\
+/**
+ * @brief Determine the direction of the wall hit by the ray.
+ *
+ * The `get_wall_direction` function determines the direction of the wall hit
+ * by the ray. It assigns a specific code to `wall_dir` based on whether the ray
+ * hits a wall in the north, south, east, or west direction. This information is
+ * useful for texture mapping and rendering walls correctly.
+ *
+ * @param c Pointer to the `t_CameraConfig` structure containing camera
+ * configuration data.
+ */
+void	get_wall_direction(t_CameraConfig *c)
 {
-	char *dst = img->addr + (y * img->width * (img->bpp / 8)) + (x * (img->bpp / 8));
-	unsigned int color = *(unsigned int *)dst;
-	return color;
-} */
+	if (c->side == 1)
+	{
+		if (c->raydir_y < 0)
+			c->wall_dir = 1;
+		else
+			c->wall_dir = 2;
+	}
+	else
+	{
+		if (c->raydir_x < 0)
+			c->wall_dir = 3;
+		else
+			c->wall_dir = 4;
+	}
+}
 
 /**
- * Calculate the height and rendering boundaries for a wall.
+ * @brief Calculate the height and rendering parameters for a wall segment.
  *
- * This function calculates the height of a wall and the rendering boundaries
- * based on the perpendicular distance (`perp_wd`) from the camera to the wall.
- * It sets the `line_height` to determine how tall the wall should be rendered
- * on the screen. It also calculates `draw_start` and `draw_end` to define the
- * vertical range for rendering the wall on the screen.
+ * The `calculate_wall_height` function is responsible for determining the height
+ * of a wall segment on the screen and setting up the rendering parameters for
+ * that segment. This function calculates the perpendicular wall distance
+ * (`perp_wd`) based on the camera's view and distance to the wall. It then
+ * calculates the `line_height` which represents the height of the wall on the
+ * screen. The `draw_start` and `draw_end` values are set to specify where the
+ * wall segment should be drawn within the screen's vertical space.
  *
- * @param cam A pointer to the CameraConfig structure.
+ * @param cam Pointer to the `t_CameraConfig` structure containing camera
+ * configuration data.
  */
 void	calculate_wall_height(t_CameraConfig *cam)
 {
@@ -49,17 +74,20 @@ void	calculate_wall_height(t_CameraConfig *cam)
 }
 
 /**
- * Apply the Digital Differential Analyzer (DDA) algorithm to determine the first
- * wall hit by a ray.
+ * @brief Apply the Digital Differential Analyzer (DDA) algorithm to find the
+ * first wall hit.
  *
- * This function applies the Digital Differential Analyzer (DDA) algorithm to
- * determine the point of intersection between a ray cast from the camera and
- * the game map. It calculates the distance to the first wall hit, the map cell
- * coordinates where the hit occurs, and whether the hit is on a horizontal or
- * vertical wall. It updates the camera configuration accordingly.
+ * The `apply_dda` function applies the Digital Differential Analyzer (DDA)
+ * algorithm to trace a ray and find the point where it first intersects with a
+ * wall in the game map. It iteratively calculates the horizontal and vertical
+ * distances to the next potential wall hit (`s_dist_x` and `s_dist_y`) and
+ * updates the current map position (`map_x` and `map_y`) along with the ray
+ * step direction (`step_x` and `step_y`). The `side` variable is set to 0 for
+ * horizontal hits and 1 for vertical hits.
  *
- * @param cam A pointer to the CameraConfig structure.
- * @param m A pointer to the MapConfig structure representing the game map.
+ * @param cam Pointer to the `t_CameraConfig` structure containing camera
+ * configuration data.
+ * @param m Pointer to the `t_MapConfig` structure containing game map data.
  */
 void	apply_dda(t_CameraConfig *cam, t_MapConfig *m)
 {

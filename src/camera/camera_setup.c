@@ -56,6 +56,6 @@ int	camera_init(t_Cub3d *cub)
 	cub->cam = ft_calloc(1, sizeof(t_CameraConfig));
 	if (!cub->cam)
 		return (1);
-	cub->cam->fov = 0.66;
+	cub->cam->fov = 1;
 	return (0);
 }

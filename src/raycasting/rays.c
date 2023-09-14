@@ -3,24 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 14:45:15 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/14 12:09:28 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/15 00:39:05 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
 
 /**
- * Raycasting per column.
+ * @brief Initialize ray properties for a specific column of the screen.
  *
- * This function calculates ray direction and camera position for a given column
- * of the screen.
+ * The `init_rays` function initializes the properties of a ray for a specific
+ * column of the screen during the raycasting process. It calculates the
+ * camera's position on the screen (`camera_x`), the ray's direction (`raydir_x`
+ * and `raydir_y`), and the initial map position (`map_x` and `map_y`).
+ * Additionally, it calculates the delta distance (`ddist_x` and `ddist_y`)
+ * required to move from one grid cell to the next in both the horizontal and
+ * vertical directions.
  *
- * @param cub A pointer to the Cub3d structure.
- * @param cam A pointer to the CameraConfig structure.
- * @param x The column index for which to calculate ray parameters.
+ * @param cub Pointer to the `t_Cub3d` structure containing program context and
+ * data.
+ * @param cam Pointer to the `t_CameraConfig` structure containing camera
+ * configuration data.
+ * @param x The current screen column being processed.
  */
 void	init_rays(t_Cub3d *cub, t_CameraConfig *cam, int x)
 {
@@ -29,13 +36,13 @@ void	init_rays(t_Cub3d *cub, t_CameraConfig *cam, int x)
 	cam->raydir_y = cub->player->dir_y + cam->plane_y * cam->camera_x;
 	cam->map_x = floor(cub->player->pos_x);
 	cam->map_y = floor(cub->player->pos_y);
-/* 	if (!cam->raydir_x)
+	if (!cam->raydir_x)
 		cam->ddist_x = 1e30;
-	else */
+	else
 		cam->ddist_x = fabs(1 / cam->raydir_x);
-	/* if (!cam->raydir_y)
+	if (!cam->raydir_y)
 		cam->ddist_y = 1e30;
-	else */
+	else
 		cam->ddist_y = fabs(1 / cam->raydir_y);
 }
 
@@ -56,10 +63,15 @@ void	draw_rays(t_Cub3d *cub)
 		step_calculation(cam, cub->player);
 		apply_dda(cam, cub->map);
 		calculate_wall_height(cam);
-		if (cam->side == 1)
+		get_wall_direction(cub->cam);
+		if (cam->wall_dir == 1)
 			color = 0x98FB98;
-		else
+		else if (cam->wall_dir == 2)
 			color = 0x01796F;
+		else if (cam->wall_dir == 3)
+			color = 0x02996F;
+		else if (cam->wall_dir == 4)
+			color = 0x02ABD9;
 		y = cam->draw_start;
 		while (y < cam->draw_end)
 		{

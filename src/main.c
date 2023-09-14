@@ -131,8 +131,10 @@ int	main(int ac, char **av, char **env)
 	t_Cub3d	cub;
 
 	(void)env;
-	int i = 0;
 	initialization(ac, av, &cub);
+	mlx_mouse_hide(cub.mlx_ptr, cub.win_ptr);
+	mlx_mouse_move(cub.mlx_ptr, cub.win_ptr, WINDOW_X / 2, WINDOW_Y / 2);
+	mlx_mouse_get_pos(cub.mlx_ptr, cub.win_ptr, &cub.mouse_x, &cub.mouse_y);
 	draw_rays(&cub);
 	init_minimap(&cub);
 	draw_minimap(&cub);

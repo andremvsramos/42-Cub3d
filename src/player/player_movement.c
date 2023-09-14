@@ -12,48 +12,6 @@
 
 #include "../../headers/cub3d.h"
 
-void	rotate_player_l(t_Cub3d *cub)
-{
-	t_PlayerConfig	*p;
-	t_CameraConfig	*c;
-	t_Transform		rot_dir;
-	t_Transform		rot_plane;
-	double			angle;
-
-	c = cub->cam;
-	p = cub->player;
-	angle = 0.1;
-	rot_dir.x = p->dir_x * cos(angle) - p->dir_y * sin(-angle);
-	rot_dir.y = p->dir_x * sin(-angle) + p->dir_y * cos(-angle);
-	p->dir_x = rot_dir.x;
-	p->dir_y = rot_dir.y;
-	rot_plane.x = c->plane_x * cos(-angle) - c->plane_y * sin(-angle);
-	rot_plane.y = c->plane_x * sin(-angle) + c->plane_y * cos(-angle);
-	c->plane_x = rot_plane.x;
-	c->plane_y = rot_plane.y;
-}
-
-void	rotate_player_r(t_Cub3d *cub)
-{
-	t_PlayerConfig	*p;
-	t_CameraConfig	*c;
-	t_Transform		rot_dir;
-	t_Transform		rot_plane;
-	double			angle;
-
-	c = cub->cam;
-	p = cub->player;
-	angle = 0.1;
-	rot_dir.x = p->dir_x * cos(angle) - p->dir_y * sin(angle);
-	rot_dir.y = p->dir_x * sin(angle) + p->dir_y * cos(angle);
-	p->dir_x = rot_dir.x;
-	p->dir_y = rot_dir.y;
-	rot_plane.x = c->plane_x * cos(angle) - c->plane_y * sin(angle);
-	rot_plane.y = c->plane_x * sin(angle) + c->plane_y * cos(angle);
-	c->plane_x = rot_plane.x;
-	c->plane_y = rot_plane.y;
-}
-
 /**
  * @brief Check for wall collisions and update player position accordingly.
  *
@@ -76,7 +34,6 @@ void	check_wall_hit(t_Cub3d *cub, double temp_x, double temp_y)
 	p = cub->player;
 	if (m->matrix[(int)p->pos_y][(int)p->pos_x] == '1')
 	{
-		puts("parede");
 		p->pos_y = temp_y;
 		p->pos_x = temp_x;
 	}
@@ -88,27 +45,24 @@ void	check_wall_hit(t_Cub3d *cub, double temp_x, double temp_y)
  * The `apply_for_back_move` function calculates the new player position when
  * moving forward or backward (specified by the `dir` parameter) along their
  * current direction. It updates the player's X and Y coordinates based on the
- * direction, direction vector, and a fixed movement distance. The function then
- * calls `check_wall_hit` to detect and handle collisions with walls.
+ * direction, direction vector, and a fixed movement distance. The function
+ * then calls `check_wall_hit` to detect and handle collisions with walls.
  *
- * @param cub Pointer to the `t_Cub3d` structure containing program context and
- * data.
- * @param p Pointer to the `t_PlayerConfig` structure containing player
+ * @param cub Pointer to the `t_Cub3d` structure containing program context
+ * and data.
+ * @param p   Pointer to the `t_PlayerConfig` structure containing player
  * configuration data.
  * @param dir The direction of movement (1 for forward, -1 for backward).
  */
 void	apply_for_back_move(t_Cub3d *cub, t_PlayerConfig *p, int dir)
 {
-	puts("forback");
 	double	temp_x;
 	double	temp_y;
 
 	temp_x = p->pos_x;
 	temp_y = p->pos_y;
-	p->pos_x += 0.02 * p->dir_x * dir;
-	p->pos_y += 0.02 * p->dir_y * dir;
-	printf("pos_x after : %d \n", p->pos_x);
-	printf("pos_y after : %d \n", p->pos_x);
+	p->pos_x += 0.2 * p->dir_x * dir;
+	p->pos_y += 0.2 * p->dir_y * dir;
 	check_wall_hit(cub, temp_x, temp_y);
 }
 
@@ -129,9 +83,6 @@ void	apply_for_back_move(t_Cub3d *cub, t_PlayerConfig *p, int dir)
  */
 void	apply_left_right_move(t_Cub3d *cub, t_PlayerConfig *p, int dir)
 {
-	//Doing rotation right now, no strafing
-	puts("leftrigt");
-	(void)p;
 	double	temp_x;
 	double	temp_y;
 
@@ -139,42 +90,40 @@ void	apply_left_right_move(t_Cub3d *cub, t_PlayerConfig *p, int dir)
 	temp_y = p->pos_y;
 	if (dir)
 	{
-		// p->pos_x += p->dir_y * 0.005;
-		// p->pos_y += -p->dir_x * 0.005;
-		rotate_player_l(cub);
+		p->pos_x += p->dir_y * 0.2;
+		p->pos_y += -p->dir_x * 0.2;
 	}
 	else
 	{
-		// p->pos_x += -p->dir_y * 0.005;
-		// p->pos_y += p->dir_x * 0.005;
-		rotate_player_r(cub);
+		p->pos_x += -p->dir_y * 0.2;
+		p->pos_y += p->dir_x * 0.2;
 	}
 	check_wall_hit(cub, temp_x, temp_y);
 }
 
 /**
- * @brief Handle player movement and collision detection.
+ * @brief Handle player movement, both with keyboard input and mouse-based view
+ * control.
  *
  * The `readmove` function manages player movement within the game world. It
  * checks the state of movement keys (up, down, left, right) and applies the
  * corresponding movement logic using the `apply_for_back_move` and
  * `apply_left_right_move` functions. These functions calculate the new player
- * position based on the direction and distance specified by the movement keys
- * and perform collision detection using the `check_wall_hit` function. If any
- * movement keys are pressed, the function returns 0 to indicate successful
- * movement; otherwise, it returns 1 to indicate no movement.
+ * position based on the direction and distance specified by the movement keys.
+ * The `on_mouse_move` function is also called to handle mouse-based view
+ * control. If any movement keys are pressed or if there is mouse movement, the
+ * function returns 0 to indicate successful movement; otherwise, it returns 1
+ * to indicate no movement.
  *
  * @param cub Pointer to the `t_Cub3d` structure containing program context and
  * data.
  * @param p Pointer to the `t_PlayerConfig` structure containing player
  * configuration data.
- * @return Returns 0 if the player's position is updated due to movement, or 1
- * if no movement keys are pressed.
+ * @return Returns 0 if the player's position is updated due to movement or view
+ * control, or 1 if no movement keys are pressed and there is no mouse movement.
  */
 int	readmove(t_Cub3d *cub, t_PlayerConfig *p)
 {
-	//printf("PX : %d | PY : %d | DIRX: %f | DIRY: %f\n", cub->player->pos_x, cub->player->pos_y, cub->player->dir_x, cub->player->dir_y);
-	//printf("PLANEX : %f | PLANEY : %f\n", cub->cam->plane_x, cub->cam->plane_y);
 	if (p->up)
 		apply_for_back_move(cub, p, 1);
 	if (p->down)
@@ -183,5 +132,7 @@ int	readmove(t_Cub3d *cub, t_PlayerConfig *p)
 		apply_left_right_move(cub, p, 1);
 	if (p->right)
 		apply_left_right_move(cub, p, 0);
-	return (0);
+	if (p->up || p->down || p->left || p->right || !on_mouse_move(cub))
+		return (0);
+	return (1);
 }

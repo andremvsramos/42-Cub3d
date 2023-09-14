@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/09/07 14:44:46 by marvin           ###   ########.fr        #
+#    Updated: 2023/09/14 23:32:00 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC =	src/main.c \
 		src/graphics/mlx_textures.c \
 		src/graphics/minimap.c \
 		src/hooks/mlx_hook_events.c \
+		src/hooks/mouse_events.c \
 		src/camera/camera_setup.c \
 		src/player/player_setup.c \
 		src/player/player_movement.c \

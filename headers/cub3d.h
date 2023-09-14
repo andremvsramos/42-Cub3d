@@ -97,10 +97,10 @@ typedef struct	s_TextureSetup
 typedef struct	s_PlayerConfig
 {
 	char	orientation;
-	int		pos_x;
-	int		pos_y;
-	double	dir_x;
-	double	dir_y;
+	float	pos_x;
+	float	pos_y;
+	float	dir_x;
+	float	dir_y;
 	int		up;
 	int		down;
 	int		left;
@@ -189,6 +189,7 @@ typedef struct	s_CameraConfig
 	int		line_height;
 	int		draw_start;
 	int		draw_end;
+	int		wall_dir;
 }				t_CameraConfig;
 
 /**
@@ -222,6 +223,8 @@ typedef struct	s_Cub3d
 	double			time;
 	double			oldtime;
 	double			fps;
+	int				mouse_x;
+	int				mouse_y;
 	t_CameraConfig	*cam;
 	t_PlayerConfig	*player;
 	t_MapConfig		*map;
@@ -271,6 +274,7 @@ void	my_mlx_pixel_put(t_ImageControl *img, int x, int y, int color);
 // Functions related to handling user input events
 void	hook_events(t_Cub3d *cub);
 int		deal_key(int key, t_Cub3d *cub);
+int		on_mouse_move(t_Cub3d *cub);
 int		win_close(t_Cub3d *cub);
 
 // PLAYER HANDLING FUNCTIONS
@@ -296,6 +300,7 @@ void	ray_delt_dist(t_CameraConfig *cam);
 void	step_calculation(t_CameraConfig *cam, t_PlayerConfig *p);
 void	apply_dda(t_CameraConfig *cam, t_MapConfig *m);
 void	calculate_wall_height(t_CameraConfig *cam);
+void	get_wall_direction(t_CameraConfig *c);
 
 // MINIMAP FUNCTIONS
 //Functions related to minimap drawing

@@ -113,14 +113,17 @@ int	player_init(t_Cub3d *cub)
 }
 
 /**
- * @brief Set the player's initial position based on the map.
+ * @brief Set the initial position and direction of the player.
  *
- * This function iterates through the map's matrix and sets the player's
- * position based on the occurrence of a valid player character
- * ('N', 'S', 'E', 'W').
+ * The `set_player_position` function searches the game map for a player
+ * starting position indicated by the characters 'N', 'S', 'E', or 'W',
+ * representing the cardinal directions (North, South, East, West). When a
+ * valid starting position is found, it sets the player's initial position and
+ * direction accordingly. This function ensures that the player is correctly
+ * placed in the game world before starting gameplay.
  *
- * @param cub Pointer to the t_Cub3d structure containing program
- * context and data.
+ * @param cub Pointer to the `t_Cub3d` structure containing program context
+ * and data.
  */
 void	set_player_position(t_Cub3d *cub)
 {
@@ -151,7 +154,5 @@ void	set_player_position(t_Cub3d *cub)
 			j++;
 		}
 		i++;
-	}/*
-	cub->cam->plane_x = 0;  // Perpendicular to dir_x
-	cub->cam->plane_y = 0.66; // Perpendicular to dir_y */
+	}
 }
