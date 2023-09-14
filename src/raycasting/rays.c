@@ -6,7 +6,7 @@
 /*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 14:45:15 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/08 10:27:49 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/14 12:09:28 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,46 +22,20 @@
  * @param cam A pointer to the CameraConfig structure.
  * @param x The column index for which to calculate ray parameters.
  */
-void	ray_per_colum(t_Cub3d *cub, t_CameraConfig *cam, int x)
+void	init_rays(t_Cub3d *cub, t_CameraConfig *cam, int x)
 {
 	cam->camera_x = 2 * x / (double)WINDOW_X - 1;
 	cam->raydir_x = cub->player->dir_x + cam->plane_x * cam->camera_x;
 	cam->raydir_y = cub->player->dir_y + cam->plane_y * cam->camera_x;
-}
-
-/**
- * Update the camera's map position based on the player's position.
- *
- * This function calculates the map coordinates (grid position) of the player
- * based on their position in the game world.
- *
- * @param cub A pointer to the Cub3d structure.
- * @param cam A pointer to the CameraConfig structure.
- */
-void	ray_map_pos(t_Cub3d *cub, t_CameraConfig *cam)
-{
-	cam->map_x = (int)cub->player->pos_x;
-	cam->map_y = (int)cub->player->pos_y;
-}
-
-/**
- * Calculate the delta distances for ray steps in the X and Y directions.
- *
- * This function calculates the delta distances (step size) for raycasting in
- * both the X and Y directions based on the ray direction vectors in the camera
- * configuration.
- *
- * @param cam A pointer to the CameraConfig structure.
- */
-void	ray_delt_dist(t_CameraConfig *cam)
-{
-	if (!cam->raydir_x)
+	cam->map_x = floor(cub->player->pos_x);
+	cam->map_y = floor(cub->player->pos_y);
+/* 	if (!cam->raydir_x)
 		cam->ddist_x = 1e30;
-	else
+	else */
 		cam->ddist_x = fabs(1 / cam->raydir_x);
-	if (!cam->raydir_y)
+	/* if (!cam->raydir_y)
 		cam->ddist_y = 1e30;
-	else
+	else */
 		cam->ddist_y = fabs(1 / cam->raydir_y);
 }
 
@@ -78,16 +52,7 @@ void	draw_rays(t_Cub3d *cub)
 	render_ceilling_floor(cub);
 	while (x < WINDOW_X)
 	{
-		ray_per_colum(cub, cam, x);
-		ray_map_pos(cub, cam);
-		cam->s_dist_x = 0;
-		cam->s_dist_y = 0;
-		ray_delt_dist(cam);
-		cam->step_x = 0;
-		cam->step_y = 0;
-		cam->hit = 0;
-		cam->side = 0;
-		cam->perp_wd = 0;
+		init_rays(cub, cam, x);
 		step_calculation(cam, cub->player);
 		apply_dda(cam, cub->map);
 		calculate_wall_height(cam);
@@ -104,7 +69,7 @@ void	draw_rays(t_Cub3d *cub)
 		x++;
 	}
 	//draw_minimap(cub);
-	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img->img_ptr, 0, 0);
+	//mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img->img_ptr, 0, 0);
 	//mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr,
 	//	cub->minimap->img->img_ptr, 0, 0);
 }

@@ -115,12 +115,14 @@ int	gameloop(t_Cub3d *cub)
 		return (0);
 	mlx_destroy_image(cub->mlx_ptr, cub->img->img_ptr);
 	cub->img->img_ptr = mlx_new_image(cub->mlx_ptr, WINDOW_X, WINDOW_Y);
+	cub->img->addr = mlx_get_data_addr(cub->img->img_ptr, &cub->img->bpp,
+			&cub->img->len, &cub->img->endian);
 	//ft_bzero(cub->img->addr, (WINDOW_X * WINDOW_Y * (cub->img->bpp / 8)));
 	draw_rays(cub);
-	draw_minimap(cub);
+	// draw_minimap(cub);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img->img_ptr, 0, 0);
-	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr,
-		cub->minimap->img->img_ptr, 20, 20);
+	// mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr,
+	// 	cub->minimap->img->img_ptr, 20, 20);
     return (0);
 }
 
@@ -129,13 +131,14 @@ int	main(int ac, char **av, char **env)
 	t_Cub3d	cub;
 
 	(void)env;
+	int i = 0;
 	initialization(ac, av, &cub);
 	draw_rays(&cub);
 	init_minimap(&cub);
 	draw_minimap(&cub);
 	mlx_put_image_to_window(cub.mlx_ptr, cub.win_ptr, cub.img->img_ptr, 0, 0);
-	mlx_put_image_to_window(cub.mlx_ptr, cub.win_ptr,
-		cub.minimap->img->img_ptr, 20, 20);
+	// mlx_put_image_to_window(cub.mlx_ptr, cub.win_ptr,
+	// 	cub.minimap->img->img_ptr, 20, 20);
 	hook_events(&cub);
 	mlx_loop_hook(cub.mlx_ptr, &gameloop, &cub);
 	mlx_loop(cub.mlx_ptr);

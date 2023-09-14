@@ -32,10 +32,14 @@
  */
 void	calculate_wall_height(t_CameraConfig *cam)
 {
-	if (cam->perp_wd)
-		cam->line_height = (int)(600 / cam->perp_wd);
+	if (cam->side == 0)
+		cam->perp_wd = (cam->s_dist_x - cam->ddist_x);
 	else
-		cam->line_height = 600;
+		cam->perp_wd = (cam->s_dist_y - cam->ddist_y);
+	if (cam->perp_wd)
+		cam->line_height = (int)(WINDOW_Y / cam->perp_wd);
+	else
+		cam->line_height = WINDOW_Y;
 	cam->draw_start = -cam->line_height / 2 + WINDOW_Y / 2;
 	if (cam->draw_start < 0)
 		cam->draw_start = 0;
@@ -76,10 +80,6 @@ void	apply_dda(t_CameraConfig *cam, t_MapConfig *m)
 		if (m->matrix[cam->map_y][cam->map_x] == '1')
 			cam->hit = 1;
 	}
-	if (cam->side == 0)
-		cam->perp_wd = (cam->s_dist_x - cam->ddist_x);
-	else
-		cam->perp_wd = (cam->s_dist_y - cam->ddist_y);
 }
 
 /**

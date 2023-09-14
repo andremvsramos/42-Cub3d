@@ -145,6 +145,7 @@ void	set_player_position(t_Cub3d *cub)
 					set_we_direction(cub->cam, cub->player, 4);
 				cub->player->pos_y = i;
 				cub->player->pos_x = j;
+				cub->map->matrix[i][j] = '0';
 				return ;
 			}
 			j++;
