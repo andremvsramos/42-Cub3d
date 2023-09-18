@@ -80,10 +80,10 @@ static int	parse_elements2(t_Cub3d *cub, char *line, int i)
  * validating each character as a valid map element. To streamline parsing and
  * avoid the need to repeatedly skip texture and color information at the
  * beginning of the file, the function first creates a temporary map file that
- * contains only the map layout. It then reads each line from the temporary map
- * file and processes each character using the parse_elements2 function. If any
- * character is invalid or if there's an issue setting the player's orientation,
- * the function returns an error. Otherwise, it returns 0.
+ * contains only the map layout. It then reads each line from the temporary
+ * map file and processes each character using the parse_elements2 function. If
+ * any character is invalid or if there's an issue setting the player's
+ * orientation, the function returns an error. Otherwise, it returns 0.
  *
  * By making use of the temporary map file, this function ensures that the
  * parsing process maintains a connection with the original map file data. This
@@ -92,7 +92,8 @@ static int	parse_elements2(t_Cub3d *cub, char *line, int i)
  * layout, streamlining the parsing process and obviating the need for redundant
  * steps.
  *
- * @param cub Pointer to the t_Cub3d structure containing program context and data.
+ * @param cub Pointer to the t_Cub3d structure containing program context and
+ * data.
  * @param i An integer used for iterating through characters in the line.
  * @return Returns 0 if the parsing is successful, or 1 if an error occurs.
  */
@@ -179,5 +180,4 @@ int	parse_map_file(t_Cub3d *cub)
 		shutdown("Error: Map is invalid or contains invalid elements\n", true);
 	}
 	return (0);
-	// TODO: Implement map file parsing and validation logic here.
 }

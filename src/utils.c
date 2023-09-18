@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:12:03 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/07 16:13:39 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/18 14:50:20 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/cub3d.h"
-
 
 /**
  * @brief Free resources allocated for the map and close file descriptors.
@@ -25,7 +24,7 @@
  * @param cub Pointer to the `t_Cub3d` structure containing program context and
  * data.
  */
-static void free_map(t_Cub3d *cub)
+static void	free_map(t_Cub3d *cub)
 {
 	int	i;
 
@@ -72,11 +71,10 @@ static void	free_textures(t_Cub3d *cub, t_TextureSetup *texture)
 		if (texture->img->img_ptr)
 			mlx_destroy_image(cub->mlx_ptr, texture->img->img_ptr);
 		free(texture->img);
-		if (texture->xpm)
-			free(texture->xpm);
 	}
 	free(texture);
 }
+
 /**
  * @brief Free resources allocated for graphics and textures in the Cub3D
  * application.
@@ -90,7 +88,8 @@ static void	free_textures(t_Cub3d *cub, t_TextureSetup *texture)
  * application window using `mlx_destroy_window`, releases the display, and
  * frees the memory allocated for the MiniLibX context.
  *
- * @param cub Pointer to the `t_Cub3d` structure containing program context and data.
+ * @param cub Pointer to the `t_Cub3d` structure containing program context
+ * and data.
  */
 static void	free_graphics(t_Cub3d *cub)
 {

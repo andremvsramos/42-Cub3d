@@ -112,6 +112,21 @@ int	player_init(t_Cub3d *cub)
 	return (0);
 }
 
+static void	update_player(t_Cub3d *cub, t_MapConfig *m, int i, int j)
+{
+	if (m->matrix[i][j] == 'N')
+		set_ns_direction(cub->cam, cub->player, 1);
+	else if (m->matrix[i][j] == 'S')
+		set_ns_direction(cub->cam, cub->player, 2);
+	else if (m->matrix[i][j] == 'W')
+		set_we_direction(cub->cam, cub->player, 3);
+	else if (m->matrix[i][j] == 'E')
+		set_we_direction(cub->cam, cub->player, 4);
+	cub->player->pos_y = i;
+	cub->player->pos_x = j;
+	m->matrix[i][j] = '0';
+}
+
 /**
  * @brief Set the initial position and direction of the player.
  *
@@ -138,17 +153,7 @@ void	set_player_position(t_Cub3d *cub)
 		{
 			if (ft_strchr("NSEW", cub->map->matrix[i][j]))
 			{
-				if (cub->map->matrix[i][j] == 'N')
-					set_ns_direction(cub->cam, cub->player, 1);
-				else if (cub->map->matrix[i][j] == 'S')
-					set_ns_direction(cub->cam, cub->player, 2);
-				else if (cub->map->matrix[i][j] == 'W')
-					set_we_direction(cub->cam, cub->player, 3);
-				else if (cub->map->matrix[i][j] == 'E')
-					set_we_direction(cub->cam, cub->player, 4);
-				cub->player->pos_y = i;
-				cub->player->pos_x = j;
-				cub->map->matrix[i][j] = '0';
+				update_player(cub, cub->map, i, j);
 				return ;
 			}
 			j++;

@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 14:45:15 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/15 00:39:05 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/18 18:30:25 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
+
+/**
+ * @brief Get the color of a pixel at a specified position in an image.
+ *
+ * The `my_mlx_pixel_get` function retrieves the color of a pixel located at the
+ * specified `(x, y)` position within an image represented by the `img`
+ * structure. It calculates the memory offset based on the image's address,
+ * length, and bits per pixel, and returns the color as an unsigned integer.
+ *
+ * @param img Pointer to the `t_ImageControl` structure representing the image.
+ * @param x The horizontal position (column) of the pixel.
+ * @param y The vertical position (row) of the pixel.
+ * @return The color of the pixel at `(x, y)` as an unsigned integer.
+ */
+int	my_mlx_pixel_get(t_ImageControl *img, int x, int y)
+{
+	return (*(unsigned int *)((img->addr + (y * img->len) + \
+	(x * img->bpp / 8))));
+}
 
 /**
  * @brief Initialize ray properties for a specific column of the screen.
@@ -46,12 +65,24 @@ void	init_rays(t_Cub3d *cub, t_CameraConfig *cam, int x)
 		cam->ddist_y = fabs(1 / cam->raydir_y);
 }
 
+/**
+ * @brief Draw the scene by casting rays from the camera for each screen column.
+ *
+ * The `draw_rays` function is responsible for rendering the 3D scene by casting
+ * rays from the camera's perspective for each screen column. It iterates over
+ * all columns, initializes ray properties, performs raycasting, calculates wall
+ * heights, determines wall directions, and applies textures to render the
+ * walls. Additionally, it renders the ceiling and floor before processing each
+ * column.
+ *
+ * @param cub Pointer to the `t_Cub3d` structure containing program context and
+ * data.
+ */
 void	draw_rays(t_Cub3d *cub)
 {
-	int				x;
-	int				y;
-	unsigned int	color;
-	t_CameraConfig *cam;
+	int				x;/*
+	int				y; */
+	t_CameraConfig	*cam;
 
 	cam = cub->cam;
 	x = 0;
@@ -64,24 +95,7 @@ void	draw_rays(t_Cub3d *cub)
 		apply_dda(cam, cub->map);
 		calculate_wall_height(cam);
 		get_wall_direction(cub->cam);
-		if (cam->wall_dir == 1)
-			color = 0x98FB98;
-		else if (cam->wall_dir == 2)
-			color = 0x01796F;
-		else if (cam->wall_dir == 3)
-			color = 0x02996F;
-		else if (cam->wall_dir == 4)
-			color = 0x02ABD9;
-		y = cam->draw_start;
-		while (y < cam->draw_end)
-		{
-			my_mlx_pixel_put(cub->img, x, y, color);
-			y++;
-		}
+		apply_texture(cub, cub->cam, x, cam->wall_dir);
 		x++;
 	}
-	//draw_minimap(cub);
-	//mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img->img_ptr, 0, 0);
-	//mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr,
-	//	cub->minimap->img->img_ptr, 0, 0);
 }

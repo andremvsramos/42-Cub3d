@@ -115,12 +115,14 @@ void	apply_dda(t_CameraConfig *cam, t_MapConfig *m)
  *
  * This function calculates the step values (step_x and step_y) for raycasting
  * and initializes the side distance values (s_dist_x and s_dist_y) based on the
- * direction of the camera's ray (raydir_x and raydir_y) and the player's position.
- * It determines whether the ray is moving left or right in the X direction and up
- * or down in the Y direction and sets the step and side distance values accordingly.
+ * direction of the camera's ray (raydir_x and raydir_y) and the player's
+ * position. It determines whether the ray is moving left or right in the X
+ * direction and up or down in the Y direction and sets the step and side
+ * distance values accordingly.
  *
  * @param cam A pointer to the CameraConfig structure.
- * @param p A pointer to the PlayerConfig structure representing the player's position.
+ * @param p A pointer to the PlayerConfig structure representing the player's
+ * position.
  */
 void	step_calculation(t_CameraConfig *cam, t_PlayerConfig *p)
 {

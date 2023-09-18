@@ -1,14 +1,14 @@
-NO ./textures/NO.xpm
+NO ./textures/SO.xpm
 
 
 
 SO ./textures/SO.xpm
-WE ./textures/WE.xpm
+WE ./textures/SO.xpm
 
 
 F 180,180,180
 
-EA ./textures/EA.xpm
+EA ./textures/SO.xpm
 
 
 

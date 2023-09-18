@@ -6,7 +6,7 @@
 /*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:35:38 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/05 12:26:57 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/18 10:58:05 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ static int	check_surroundings(t_Cub3d *cub, int i, int j)
 		return (0);
 	else if (ft_strchr("0NSEW", cub->map->matrix[i][j]))
 	{
-
 		if (ft_strchr(" ", cub->map->matrix[i - 1][j])
 			|| ft_strchr(" ", cub->map->matrix[i + 1][j])
 			|| ft_strchr(" ", cub->map->matrix[i][j - 1])

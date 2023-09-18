@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_matrix.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 11:39:08 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/07 15:38:12 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/18 11:03:31 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,8 @@ int	fill_matrix(t_Cub3d *cub)
 	cub->map->matrix = ft_calloc(cub->map->n_lines + 1, sizeof(char *));
 	while (line)
 	{
-		cub->map->matrix[y] = ft_calloc(cub->map->max_line_len + 1, sizeof(char));
+		cub->map->matrix[y] = ft_calloc(cub->map->max_line_len + 1,
+				sizeof(char));
 		fill_matrix2(cub, line, y, 0);
 		y++;
 		free(line);

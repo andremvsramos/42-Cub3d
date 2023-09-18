@@ -67,7 +67,7 @@ void	my_mlx_pixel_put(t_ImageControl *img, int x, int y, int color)
 	char	*dst;
 
 	dst = img->addr + (y * img->len + x * (img->bpp / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
 /**
@@ -101,7 +101,8 @@ void	render_ceilling_floor(t_Cub3d *cub)
 			y++;
 		}
 	}
-	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img->img_ptr, 0, 0);
+	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr,
+		cub->img->img_ptr, 0, 0);
 }
 
 /**
@@ -131,7 +132,8 @@ int	graphics(t_Cub3d *cub)
 	cub->win_ptr = mlx_new_window(cub->mlx_ptr, WINDOW_X, WINDOW_Y, "CUB3D");
 	cub->img = ft_calloc(1, sizeof(t_ImageControl));
 	cub->img->img_ptr = mlx_new_image(cub->mlx_ptr, WINDOW_X, WINDOW_Y);
-	cub->img->addr = mlx_get_data_addr(cub->img->img_ptr, &cub->img->bpp, &cub->img->len, &cub->img->endian);
+	cub->img->addr = mlx_get_data_addr(cub->img->img_ptr,
+			&cub->img->bpp, &cub->img->len, &cub->img->endian);
 	if (camera_init(cub))
 		return (1);
 	set_player_position(cub);
