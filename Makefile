@@ -6,7 +6,7 @@
 #    By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/09/18 15:29:31 by andvieir         ###   ########.fr        #
+#    Updated: 2023/09/18 18:36:16 by andvieir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,6 @@ SRC =	src/main.c \
 		src/graphics/mlx_graphics.c \
 		src/graphics/mlx_textures.c \
 		src/graphics/mlx_textures_utils.c \
-		src/graphics/minimap.c \
 		src/hooks/mlx_hook_events.c \
 		src/hooks/mouse_events.c \
 		src/camera/camera_setup.c \
