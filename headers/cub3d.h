@@ -112,6 +112,8 @@ typedef struct s_MiniMap
 	t_ImageControl	*img;
 	int				width;
 	int				height;
+	int				draw_x;
+	int				draw_y;
 	int				player_x;
 	int				player_y;
 	int				map_size;

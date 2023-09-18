@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/09/14 23:32:00 by marvin           ###   ########.fr        #
+#    Updated: 2023/09/18 12:07:16 by tsodre-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,6 @@ SRC =	src/main.c \
 		src/map_files/file_utils.c \
 		src/graphics/mlx_graphics.c \
 		src/graphics/mlx_textures.c \
-		src/graphics/minimap.c \
 		src/hooks/mlx_hook_events.c \
 		src/hooks/mouse_events.c \
 		src/camera/camera_setup.c \
@@ -40,6 +39,7 @@ SRC =	src/main.c \
 		src/player/player_movement.c \
 		src/raycasting/rays.c \
 		src/raycasting/rays_utils.c \
+		src/minimap/minimap.c \
 
 #----------COMMANDS----------#
 
