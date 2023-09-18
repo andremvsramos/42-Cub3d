@@ -1,29 +1,31 @@
 #include "../../headers/cub3d.h"
 
-void	draw_map(t_Cub3d *cub)
+void	init_minimap(t_Cub3d *cub)
 {
-	int	x;
-	int	y;
+	int	bpp;
+	int	sl;
+	int	end;
 
-	while (y < cub->map->n_lines)
-	{
-		x = 0;
-		while (x < cub->map->max_line_len)
-		{
-			if (cub->map->matrix[y][x] == '1')
-				draw_cube(cub, 1);
-			else
-				draw_cube(cub, 0);
-		}
-		y++;
+	cub->minimap = ft_calloc(1, sizeof(t_MiniMap));
+	cub->minimap->img = ft_calloc(1, sizeof(t_ImageControl));
+	cub->minimap->map_size = 12;
+	cub->minimap->width = 400;
+	cub->minimap->height = 400;
+	cub->minimap->img->img_ptr = mlx_new_image(cub->mlx_ptr,
+						cub->minimap->width, cub->minimap->height);
+	cub->minimap->img->addr = mlx_get_data_addr(
+			cub->minimap->img->img_ptr, &bpp, &sl, &end);
+	cub->minimap->draw_x = 30;
+	cub->minimap->draw_y = 30;
 }
 
-void	draw_player(t_Cub3d *cub)
+int	draw_minimap(t_Cub3d *cub)
 {
-
-}
-
-void	draw_minimap(t_Cub3d *cub)
-{
-
+	cub->minimap->draw_x = 30;
+	cub->minimap->draw_y = 30;
+	cub->minimap->player_x = cub->player->pos_x * 10;
+	cub->minimap->player_y = cub->player->pos_y * 10;
+	draw_map(cub);
+	draw_player(cub);
+	return (0);
 }

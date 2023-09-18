@@ -18,6 +18,8 @@
 
 # define WHITE 0x00FFFFFF
 # define BLACK 0x00000000
+# define RED 0xFF0000
+# define YELLOW 0xFFFF00
 
 #define UP 119
 #define DOWN 115
