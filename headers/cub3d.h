@@ -308,6 +308,9 @@ void	get_wall_direction(t_CameraConfig *c);
 //Functions related to minimap drawing
 int		draw_minimap(t_Cub3d *cub);
 void	init_minimap(t_Cub3d *cub);
+void	draw_player(t_Cub3d *cub);
+void	draw_cube(t_Cub3d *cub, int type);
+void	draw_map(t_Cub3d *cub);
 
 // TEXTURE AND COLOR FUNCTIONS
 void	render_ceilling_floor(t_Cub3d *cub);

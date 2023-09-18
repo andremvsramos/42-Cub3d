@@ -143,7 +143,7 @@ int	main(int ac, char **av, char **env)
 	// 	cub.minimap->img->img_ptr, 20, 20);
 	hook_events(&cub);
 	mlx_loop_hook(cub.mlx_ptr, &gameloop, &cub);
-	//mlx_loop_hook(cub.mlx_ptr, &draw_minimap, &cub);
+	mlx_loop_hook(cub.mlx_ptr, &draw_minimap, &cub);
 	mlx_loop(cub.mlx_ptr);
 	free_main(&cub);
 	shutdown("Closing CUB3D\n", false);
