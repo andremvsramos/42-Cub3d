@@ -42,6 +42,8 @@ SRC =	src/main.c \
 		src/player/player_movement.c \
 		src/raycasting/rays.c \
 		src/raycasting/rays_utils.c \
+		src/minimap/minimap.c \
+		src/minimap/draw.c \
 
 #----------COMMANDS----------#
 

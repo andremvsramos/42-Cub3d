@@ -119,9 +119,11 @@ int	gameloop(t_Cub3d *cub)
 			&cub->img->len, &cub->img->endian);
 	//ft_bzero(cub->img->addr, (WINDOW_X * WINDOW_Y * (cub->img->bpp / 8)));
 	draw_rays(cub);
+	draw_minimap(cub);
+	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img->img_ptr, 0, 0);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr,
-		cub->img->img_ptr, 0, 0);
-	return (0);
+		cub->minimap->img->img_ptr, 30, 30);
+    return (0);
 }
 
 int	main(int ac, char **av, char **env)
@@ -135,8 +137,11 @@ int	main(int ac, char **av, char **env)
 	mlx_mouse_get_pos(cub.mlx_ptr, cub.win_ptr, &cub.mouse_x, &cub.mouse_y);
 	draw_rays(&cub);
 	mlx_put_image_to_window(cub.mlx_ptr, cub.win_ptr, cub.img->img_ptr, 0, 0);
+	/*mlx_put_image_to_window(cub.mlx_ptr, cub.win_ptr,
+		cub.minimap->img->img_ptr, 30, 30);*/
 	hook_events(&cub);
 	mlx_loop_hook(cub.mlx_ptr, &gameloop, &cub);
+	mlx_loop_hook(cub.mlx_ptr, &draw_minimap, &cub);
 	mlx_loop(cub.mlx_ptr);
 	free_main(&cub);
 	shutdown("Closing CUB3D\n", false);

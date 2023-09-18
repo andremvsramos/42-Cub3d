@@ -111,6 +111,10 @@ typedef struct s_MiniMap
 	t_ImageControl	*img;
 	int				width;
 	int				height;
+	int				draw_x;
+	int				draw_y;
+	int				player_x;
+	int				player_y;
 	int				map_size;
 }				t_MiniMap;
 
@@ -310,8 +314,11 @@ void	get_wall_direction(t_CameraConfig *c);
 
 // MINIMAP FUNCTIONS
 //Functions related to minimap drawing
-void	draw_minimap(t_Cub3d *cub);
+int		draw_minimap(t_Cub3d *cub);
 void	init_minimap(t_Cub3d *cub);
+void	draw_player(t_Cub3d *cub);
+void	draw_cube(t_Cub3d *cub, int type);
+void	draw_map(t_Cub3d *cub);
 
 // TEXTURE AND COLOR FUNCTIONS
 void	render_ceilling_floor(t_Cub3d *cub);
