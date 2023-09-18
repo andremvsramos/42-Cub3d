@@ -41,6 +41,8 @@ static void	rotate_player(t_Cub3d *cub, double angle)
 	rot_plane.y = c->plane_x * sin(angle) + c->plane_y * cos(angle);
 	c->plane_x = rot_plane.x;
 	c->plane_y = rot_plane.y;
+
+
 }
 
 /**
@@ -64,6 +66,7 @@ int	on_mouse_move(t_Cub3d *cub)
 
 	temp_x = cub->mouse_x;
 	mlx_mouse_get_pos(cub->mlx_ptr, cub->win_ptr, &cub->mouse_x, &cub->mouse_y);
+	//puts(ft_itoa(cub->mouse_x));
 	mouse_x_diff = cub->mouse_x - temp_x;
 	if (mouse_x_diff)
 	{
