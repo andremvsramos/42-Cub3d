@@ -36,7 +36,7 @@ void	draw_map(t_Cub3d *cub)
 		{
 			if (cub->map->matrix[y][x] == '1')
 				draw_cube(cub, BLACK);
-			else
+			else if (ft_strchr("0NSEW", cub->map->matrix[y][x]))
 				draw_cube(cub, WHITE);
 			cub->minimap->draw_x += 10;
 			x++;
@@ -66,7 +66,12 @@ void	init_minimap(t_Cub3d *cub)
 	cub->minimap->draw_y = 30;
 }
 
-void	draw_minimap(t_Cub3d *cub)
+int	draw_minimap(t_Cub3d *cub)
 {
+	cub->minimap->draw_x = 30;
+	cub->minimap->draw_y = 30;
+	cub->minimap->player_x = cub->player->pos_x * 10;
+	cub->minimap->player_y = cub->player->pos_y * 10;
 	draw_map(cub);
+	return (0);
 }
