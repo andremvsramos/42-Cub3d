@@ -13,6 +13,32 @@
 #include "../../headers/cub3d.h"
 
 /**
+ * @brief Load an XPM image as a texture.
+ *
+ * The `load_xpm` function loads an XPM image file and stores it as a texture in
+ * the `t_ImageControl` structure. It sets the `width` and `height` properties
+ * of the image and the `img_ptr` property to the loaded image pointer.
+ *
+ * @param c Pointer to the `t_Cub3d` structure containing program context and
+ * data.
+ * @param i Pointer to the `t_ImageControl` structure representing the image to
+ * be loaded.
+ * @param file The filename of the XPM image to be loaded.
+ */
+static void	load_xpm(t_Cub3d *c, t_ImageControl *i, char *file)
+{
+	i->height = 0;
+	i->width = 0;
+	i->img_ptr = mlx_xpm_file_to_image(c->mlx_ptr, file, &i->width, &i->height);
+	if (!i->img_ptr)
+	{
+		free_main(c);
+		printf("Error: Failed loading %s ", file);
+		shutdown("texture\n", true);
+	}
+}
+
+/**
  * @brief Check access to texture files within the Cub3D application.
  *
  * The `check_access` function is responsible for verifying the accessibility
@@ -45,29 +71,35 @@ int	check_access(t_Cub3d *cub)
 	return (0);
 }
 
+/**
+ * @brief Convert and load textures for raycasting.
+ *
+ * The `convert_textures` function initializes the textures used for raycasting
+ * in the `t_CameraConfig` structure. It loads XPM image files for north, south,
+ * west, and east walls, converts them to integer arrays, and stores them in the
+ * `tex` array. Additionally, it allocates memory for each texture and ensures
+ * successful loading of the texture files.
+ *
+ * @param cub Pointer to the `t_Cub3d` structure containing program context and
+ * data.
+ * @return 0 if successful, 1 if there was an error in texture loading.
+ */
 static int	convert_textures(t_Cub3d *cub)
 {
-	cub->map->tex_north->img->width = 0;
-	cub->map->tex_north->img->height = 0;
-	cub->map->tex_north->xpm = mlx_xpm_file_to_image(cub->mlx_ptr,
-		cub->map->tex_north->path, &cub->map->tex_north->img->width, &cub->map->tex_north->img->height);/*
-	cub->map->tex_south->xpm = mlx_xpm_file_to_image(cub->mlx_ptr,
-		cub->map->tex_south->path, &cub->map->tex_south->img->width, &cub->map->tex_south->img->height);
-	cub->map->tex_west->xpm = mlx_xpm_file_to_image(cub->mlx_ptr,
-		cub->map->tex_west->path, &cub->map->tex_west->img->width, &cub->map->tex_west->img->height);
-	cub->map->tex_east->xpm = mlx_xpm_file_to_image(cub->mlx_ptr,
-		cub->map->tex_east->path, &cub->map->tex_east->img->width, &cub->map->tex_east->img->height); */
-	if (!cub->map->tex_north->xpm /* || !cub->map->tex_south->xpm
-		|| !cub->map->tex_west->xpm || !cub->map->tex_east->xpm */)
+	t_CameraConfig *c;
+
+	c = cub->cam;
+	c->tex = ft_calloc(4, sizeof(int *));
+	if (!cub->cam->tex)
 		return (1);
-	cub->map->tex_north->img->addr = mlx_get_data_addr(&cub->map->tex_north->xpm,
-		&cub->map->tex_north->img->bpp, &cub->map->tex_north->img->len, &cub->map->tex_north->img->endian);/*
-	cub->map->tex_south->img->addr = mlx_get_data_addr(&cub->map->tex_south->img->img_ptr,
-		&cub->map->tex_south->img->bpp, &cub->map->tex_south->img->len, &cub->map->tex_south->img->endian);
-	cub->map->tex_west->img->addr = mlx_get_data_addr(&cub->map->tex_west->img->img_ptr,
-		&cub->map->tex_west->img->bpp, &cub->map->tex_west->img->len, &cub->map->tex_west->img->endian);
-	cub->map->tex_east->img->addr = mlx_get_data_addr(&cub->map->tex_east->img->img_ptr,
-		&cub->map->tex_east->img->bpp, &cub->map->tex_east->img->len, &cub->map->tex_east->img->endian); */
+	load_xpm(cub, cub->map->tex_north->img, cub->map->tex_north->path);
+	load_xpm(cub, cub->map->tex_south->img, cub->map->tex_south->path);
+	load_xpm(cub, cub->map->tex_west->img, cub->map->tex_west->path);
+	load_xpm(cub, cub->map->tex_east->img, cub->map->tex_east->path);
+	c->tex[1] = get_texture_addr(cub->map->tex_north->img);
+	c->tex[2] = get_texture_addr(cub->map->tex_south->img);
+	c->tex[3] = get_texture_addr(cub->map->tex_west->img);
+	c->tex[4] = get_texture_addr(cub->map->tex_east->img);
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:03:12 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/07 15:39:37 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/18 10:57:33 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static	void	get_map_n_lines_utils(t_Cub3d *cub, char *line)
 	i = 0;
 	aux_len = 0;
 	cub->map->n_lines++;
-	while (line[i])
+	while (line[i++])
 	{
 		tabs++;
 		if (ft_strchr("\t", line[i]))
@@ -56,7 +56,6 @@ static	void	get_map_n_lines_utils(t_Cub3d *cub, char *line)
 			aux_len++;
 		if (tabs >= 7)
 			tabs = 0;
-		i++;
 	}
 	if (aux_len > cub->map->max_line_len)
 		cub->map->max_line_len = aux_len;

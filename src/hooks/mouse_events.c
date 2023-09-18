@@ -41,38 +41,44 @@ static void	rotate_player(t_Cub3d *cub, double angle)
 	rot_plane.y = c->plane_x * sin(angle) + c->plane_y * cos(angle);
 	c->plane_x = rot_plane.x;
 	c->plane_y = rot_plane.y;
-
-
 }
 
 /**
- * @brief Handle mouse movement events and update the player's view.
+ * @brief Handle mouse movement and camera rotation.
  *
- * The `on_mouse_move` function calculates the speed and direction of mouse
- * movement, and if there is movement detected, it calls `rotate_player` to
- * adjust the player's view based on the mouse movement speed. It helps
- * implement smooth and responsive mouse-based view control in the game.
+ * The `on_mouse_move` function is responsible for updating the camera's
+ * orientation based on mouse movement. It calculates the change in mouse
+ * position (`mouse_x_diff`), handles mouse overflow at screen edges, and
+ * adjusts the camera's rotation accordingly. This function ensures smooth and
+ * continuous camera rotation even when the mouse cursor reaches the screen
+ * boundaries.
  *
- * @param cub Pointer to the `t_Cub3d` structure containing program context
- * and data.
- * @return Returns 0 if there is mouse movement and the player's view is
- * updated, or 1 if there is no mouse movement.
+ * @param cub Pointer to the `t_Cub3d` structure containing program context and
+ * data.
+ * @return 0 if the camera is rotated, 1 if there is no mouse movement.
  */
 int	on_mouse_move(t_Cub3d *cub)
 {
 	int		temp_x;
 	int		mouse_x_diff;
-	double	rot_speed;
+	int		overflow;
 
 	temp_x = cub->mouse_x;
 	mlx_mouse_get_pos(cub->mlx_ptr, cub->win_ptr, &cub->mouse_x, &cub->mouse_y);
-	//puts(ft_itoa(cub->mouse_x));
 	mouse_x_diff = cub->mouse_x - temp_x;
-	if (mouse_x_diff)
+	if (cub->mouse_x < 1)
 	{
-		rot_speed = 0.002 * mouse_x_diff;
-		rotate_player(cub, rot_speed);
-		return (0);
+		overflow = -cub->mouse_x;
+		cub->mouse_x = WINDOW_X - overflow;
+		mlx_mouse_move(cub->mlx_ptr, cub->win_ptr, WINDOW_X - 1, cub->mouse_y);
 	}
+	else if (cub->mouse_x >= WINDOW_X - 1)
+	{
+		overflow = cub->mouse_x - (WINDOW_X - 1);
+		cub->mouse_x = overflow;
+		mlx_mouse_move(cub->mlx_ptr, cub->win_ptr, 0, cub->mouse_y);
+	}
+	if (mouse_x_diff)
+		return (rotate_player(cub, 0.002 * mouse_x_diff), 0);
 	return (1);
 }

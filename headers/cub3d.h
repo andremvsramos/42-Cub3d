@@ -80,7 +80,6 @@ typedef struct	s_ImageControl
 typedef struct	s_TextureSetup
 {
 	char			*path;
-	void			*xpm;
 	t_ImageControl	*img;
 }				t_TextureSetup;
 
@@ -170,30 +169,39 @@ typedef struct	s_Transform
 
 typedef struct	s_CameraConfig
 {
-	double	fov;
-	double	camera_x;
-	double	plane_x;
-	double	plane_y;
-	double	raydir_x;
-	double	raydir_y;
-	double	olddir_x;
-	double	oldplane_x;
-	int		map_x;
-	int		map_y;
-	double	ddist_x;
-	double	ddist_y;
-	double	s_dist_x;
-	double	s_dist_y;
-	double	perp_wd;
-	double	camera_rot;
-	int		step_x;
-	int		step_y;
-	int		hit;
-	int		side;
-	int		line_height;
-	int		draw_start;
-	int		draw_end;
-	int		wall_dir;
+	double			fov;
+	double			camera_x;
+	double			plane_x;
+	double			plane_y;
+	double			raydir_x;
+	double			raydir_y;
+	double			olddir_x;
+	double			oldplane_x;
+	int				map_x;
+	int				map_y;
+	double			ddist_x;
+	double			ddist_y;
+	double			s_dist_x;
+	double			s_dist_y;
+	double			perp_wd;
+	double			camera_rot;
+	int				step_x;
+	int				step_y;
+	int				hit;
+	int				side;
+	int				line_height;
+	int				draw_start;
+	int				draw_end;
+	int				wall_dir;
+	float			wallhit;
+	int				tex_x;
+	int				tex_y;
+	int				tex_w;
+	int				tex_h;
+	float			tex_step;
+	float			tex_pos;
+	int				**tex;
+	unsigned int	color;
 }				t_CameraConfig;
 
 /**
@@ -314,5 +322,8 @@ void	draw_map(t_Cub3d *cub);
 
 // TEXTURE AND COLOR FUNCTIONS
 void	render_ceilling_floor(t_Cub3d *cub);
+int		*get_texture_addr(t_ImageControl *i);
+void	apply_texture(t_Cub3d *cub, t_CameraConfig *c, int x, int id);
+int		my_mlx_pixel_get(t_ImageControl *img, int x, int y);
 
 #endif

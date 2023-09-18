@@ -27,8 +27,8 @@
  */
 void	check_wall_hit(t_Cub3d *cub, double temp_x, double temp_y)
 {
-	t_MapConfig *m;
-	t_PlayerConfig *p;
+	t_MapConfig		*m;
+	t_PlayerConfig	*p;
 
 	m = cub->map;
 	p = cub->player;

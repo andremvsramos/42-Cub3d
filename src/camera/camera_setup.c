@@ -32,8 +32,8 @@ void	cam_utils_init(t_CameraConfig *cam)
 	cam->hit = 0;
 	cam->side = 0;
 	cam->line_height = 0;
-    cam->draw_start = 0;
-    cam->draw_end = 0;
+	cam->draw_start = 0;
+	cam->draw_end = 0;
 }
 
 /**
