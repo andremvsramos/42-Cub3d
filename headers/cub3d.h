@@ -215,10 +215,8 @@ typedef struct	s_Cub3d
 {
 	void			*mlx_ptr;
 	void			*win_ptr;
-	//testing purposes
 	void			*img_wall;
 	void			*img_floor;
-	// testing purposes
 	bool			graphics_ok;
 	double			time;
 	double			oldtime;
