@@ -18,6 +18,7 @@ void	draw_cube(t_Cub3d *cub, int type)
 					(cub->minimap->draw_x + j), (cub->minimap->draw_y + i), type); */
 			my_mlx_pixel_put(cub->minimap->img,(cub->minimap->draw_x + j),
 					(cub->minimap->draw_y + i), type);
+			//my_mlx_pixel_put(cub->minimap->img, 10, 10, WHITE);
 			j++;
 		}
 		i++;
@@ -43,7 +44,7 @@ void	draw_map(t_Cub3d *cub)
 			cub->minimap->draw_x += 10;
 			x++;
 		}
-		cub->minimap->draw_x = 30;
+		cub->minimap->draw_x = 0;
 		cub->minimap->draw_y += 10;
 		y++;
 	}
@@ -64,7 +65,7 @@ void	draw_player(t_Cub3d *cub)
 			/* mlx_pixel_put(cub->mlx_ptr, cub->win_ptr,
 					(((cub->player->pos_x * 10) + 30) + j), (((cub->player->pos_y * 10) + 30) + i), YELLOW); */
 			my_mlx_pixel_put(cub->minimap->img, (((cub->player->pos_x * 10) + 30) + j),
-				(((cub->player->pos_y * 10) + 30) + i), YELLOW);
+				((cub->player->pos_y * 10) + i), YELLOW);
 			j++;
 		}
 		i++;
