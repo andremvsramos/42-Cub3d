@@ -27,19 +27,13 @@ Cub3D is an ongoing project that aims to recreate the 'immersive' gameplay exper
 
 ## Project Progress
 
-- **Parsing Phase Completion (August 19, 2023):** The map parsing phase has been successfully completed, and the map data has been successfully parsed into a 2D matrix. This crucial step lays the foundation for the game world.
-  
-- **Texture Parsing Milestone (August 23, 2023):** We're excited to share our recent accomplishment - the successful completion of the texture parsing phase on August 23, 2023. This advancement marks a pivotal moment in our journey, as we've triumphantly decoded texture files. This achievement opens the door to texture mapping within our gaming universe, a significant stride toward enriching visual depth and intricate detailing.
-
-- **Graphical Booting Milestone (August 23, 2023):** On August 23, 2023, we achieved a key milestone in our project. We successfully implemented graphical booting using the MiniLibX screen display. This accomplishment lays the groundwork for rendering. However, we're continuing our efforts to refine rendering processes, as detailed in our raycasting progress below.
-
 - **Minimap Prototype (September 06, 2023):** We've added a prototype for a minimap bonus feature (commented out of the rendering). This feature will provide players with a top-down view of the game world, enhancing navigation and orientation.
 
-- **Raycasting Implementation (September 06, 2023):** We're thrilled to announce that raycasting has been successfully implemented as of September 06, 2023. This marks a significant milestone in our project, as it forms the basis for rendering the 3D environment and creating immersive gameplay.
+- **Player Movement (September 18, 2023):** Basic player movement has been successfully implemented. This includes arrow key and mouse controls for player movement within the game world.
 
-- **Erratic Movement (In Progress):** While basic player movement exists, it currently exhibits erratic behavior. Movement speed is excessively fast, and there are issues with screen rendering when applying movement in certain directions. We are actively working on resolving these issues to ensure smooth and accurate movement within the game world.
+- **Texture Rendering (September 18, 2023):** Texture rendering has been successfully implemented. This achievement marks a significant enhancement in visual quality, replacing simple colors for walls and laying the foundation for future features like doors and more.
 
-- **Texture Implementation (Future Feature):** Our next major goal is to start implementing external textures using XPM files. This will significantly enhance the visual quality of the game, replacing simple colors for walls and opening the door to exciting future features like doors, textures, and more.
+- **Next Step:** Our next major goal is to implement doors and sprites, which will add interactivity and depth to the game environment.
 
 ## Getting Started
 
