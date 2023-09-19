@@ -36,6 +36,15 @@ static void	tex_init(t_Cub3d *cub)
 		free_main(cub);
 		shutdown("Error: fatal: t_TextureSetup not created\n", true);
 	}
+	if (BONUS)
+	{
+		cub->map->tex_door = ft_calloc(1, sizeof(t_TextureSetup));
+		if (!cub->map->tex_door)
+		{
+			free_main(cub);
+			shutdown("Error: fatal: tex_door not created\n", true);
+		}
+	}
 	cub->map->colors[0] = false;
 	cub->map->colors[1] = false;
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/09/18 18:36:16 by andvieir         ###   ########.fr        #
+#    Updated: 2023/09/19 16:03:18 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ HEADERDIR = ./headers/
 MLXDIR = ./mlx/
 
 SRC =	src/main.c \
-		src/utils.c \
+		src/cleanup.c \
 		src/map_files/map_init.c \
 		src/map_files/map_parser.c \
 		src/map_files/map_matrix.c \
@@ -39,6 +39,7 @@ SRC =	src/main.c \
 		src/camera/camera_setup.c \
 		src/player/player_setup.c \
 		src/player/player_movement.c \
+		src/player/player_action.c \
 		src/raycasting/rays.c \
 		src/raycasting/rays_utils.c \
 		src/minimap/minimap.c \
@@ -47,7 +48,7 @@ SRC =	src/main.c \
 #----------COMMANDS----------#
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra -g -pthread
 
 RM = rm -rf
 MLXFLAGS = -L -lmlx -lXext -lX11

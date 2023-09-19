@@ -66,7 +66,7 @@ int	is_valid_map_file(t_Cub3d *cub)
  */
 static int	parse_elements2(t_Cub3d *cub, char *line, int i)
 {
-	if (!ft_strchr("01NSEW\n\t ", line[i]))
+	if (!ft_strchr("019NSEW\n\t ", line[i]))
 		return (1);
 	else if (set_player_orientation(cub, line[i]))
 		return (1);

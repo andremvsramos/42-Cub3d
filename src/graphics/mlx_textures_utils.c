@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_textures_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:18:06 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/18 18:24:07 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/19 12:16:23 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	apply_shader(int color, int id)
 	int		g;
 	int		b;
 
-	if (id == 1)
+	if (id == 1 || id == 9)
 		return (color);
 	if (id == 2)
 		d = 0.6;
@@ -108,6 +108,8 @@ t_ImageControl *get_img_struct(t_Cub3d *cub, int id)
 		return (cub->map->tex_west->img);
 	if (id == 4)
 		return (cub->map->tex_east->img);
+	if (id == 9)
+		return (cub->map->tex_door->img);
 	return (NULL);
 }
 

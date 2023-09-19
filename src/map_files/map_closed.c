@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_closed.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:35:38 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/18 10:58:05 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/19 11:49:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,25 @@ static int	check_surroundings(t_Cub3d *cub, int i, int j)
 {
 	if (ft_strchr("1", cub->map->matrix[i][j]))
 		return (0);
-	else if (ft_strchr("0NSEW", cub->map->matrix[i][j]))
+	else if (ft_strchr("09NSEW", cub->map->matrix[i][j]))
 	{
 		if (ft_strchr(" ", cub->map->matrix[i - 1][j])
 			|| ft_strchr(" ", cub->map->matrix[i + 1][j])
 			|| ft_strchr(" ", cub->map->matrix[i][j - 1])
 			|| ft_strchr(" ", cub->map->matrix[i][j + 1]))
 			return (1);
+		if (ft_strchr("9", cub->map->matrix[i][j]))
+		{
+			if (!(ft_strchr("0", cub->map->matrix[i - 1][j])
+				&& ft_strchr("0", cub->map->matrix[i + 1][j])
+				&& ft_strchr("1", cub->map->matrix[i][j - 1])
+				&& ft_strchr("1", cub->map->matrix[i][j + 1]))
+				|| !(ft_strchr("1", cub->map->matrix[i - 1][j])
+				&& ft_strchr("1", cub->map->matrix[i + 1][j])
+				&& ft_strchr("0", cub->map->matrix[i][j - 1])
+				&& ft_strchr("0", cub->map->matrix[i][j + 1])))
+				return (1);
+		}
 	}
 	else if (ft_strchr("\n\t ", cub->map->matrix[i][j]))
 		return (0);
@@ -115,7 +127,7 @@ static int	check_nullb_whitespaces(t_Cub3d *cub, int *i, int j)
 	if (ft_strchr(" ", cub->map->matrix[*i][j]) && j == 0)
 		return (0);
 	if (ft_strchr(" ", cub->map->matrix[*i][j])
-		&& ft_strchr("0", cub->map->matrix[*i][j - 1]))
+		&& ft_strchr("09", cub->map->matrix[*i][j - 1]))
 		return (1);
 	return (0);
 }
@@ -160,7 +172,7 @@ static int	check_closed(t_Cub3d *cub, int i, int j)
 					return (1);
 				j++;
 			}
-			else if (ft_strchr("0NSEW", cub->map->matrix[i][j]))
+			else if (ft_strchr("09NSEW", cub->map->matrix[i][j]))
 			{
 				if (check_surroundings(cub, i, j))
 					return (1);

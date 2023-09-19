@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   info_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:45:39 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/18 11:02:14 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/19 12:04:36 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
+
 
 /**
  * @brief Check the validity of floor and ceiling color settings in
@@ -82,6 +83,8 @@ static int	set_tex_path(t_Cub3d *cub, char *path, int direction)
 		cub->map->tex_west->path = ft_strtrim(temp, " \t\n");
 	else if (direction == 4 && !cub->map->tex_east->path)
 		cub->map->tex_east->path = ft_strtrim(temp, " \t\n");
+	else if (direction == 9 && !cub->map->tex_door->path)
+		cub->map->tex_door->path = ft_strtrim(temp, " \t\n");
 	else
 		return (free(temp), 1);
 	return (free (temp), 0);
@@ -130,8 +133,32 @@ static int	has_valid_info2(t_Cub3d *cub, char *line)
 		if (set_tex_path(cub, line, 4))
 			return (1);
 	}
+	else if (BONUS && !ft_strncmp("DO ", line, 3))
+	{
+		if (set_tex_path(cub, line, 9))
+			return (1);
+	}
 	return (0);
 }
+
+/* static int	has_valid_info_bonus(t_Cub3d *cub, char *line)
+{
+	while ((!cub->map->tex_north->path || !cub->map->tex_south->path
+			|| !cub->map->tex_west->path || !cub->map->tex_east->path)
+		|| (!cub->map->colors[0] || !cub->map->colors[1])
+		|| !cub->map->tex_door->path)
+	{
+		if (ft_strchr("1\t ", line[0]))
+			return (1);
+		if (has_valid_info2(cub, line))
+			return (1);
+		else if (has_valid_info3(cub, line))
+			return (1);
+		free(line);
+		line = get_next_line(cub->map->fd);
+	}
+	return (0);
+} */
 
 /**
  * @brief Check the validity of map information and texture settings.
@@ -160,18 +187,38 @@ int	has_valid_info(t_Cub3d *cub)
 
 	ft_open(cub);
 	line = get_next_line(cub->map->fd);
-	while ((!cub->map->tex_north->path || !cub->map->tex_south->path
-			|| !cub->map->tex_west->path || !cub->map->tex_east->path)
-		|| (!cub->map->colors[0] || !cub->map->colors[1]))
+	if (!BONUS)
 	{
-		if (ft_strchr("1\t ", line[0]))
-			return (1);
-		if (has_valid_info2(cub, line))
-			return (1);
-		else if (has_valid_info3(cub, line))
-			return (1);
-		free(line);
-		line = get_next_line(cub->map->fd);
+		while ((!cub->map->tex_north->path || !cub->map->tex_south->path
+				|| !cub->map->tex_west->path || !cub->map->tex_east->path)
+			|| (!cub->map->colors[0] || !cub->map->colors[1]))
+		{
+			if (ft_strchr("1\t ", line[0]))
+				return (1);
+			if (has_valid_info2(cub, line))
+				return (1);
+			else if (has_valid_info3(cub, line))
+				return (1);
+			free(line);
+			line = get_next_line(cub->map->fd);
+		}
+	}
+	else
+	{
+		while ((!cub->map->tex_north->path || !cub->map->tex_south->path
+			|| !cub->map->tex_west->path || !cub->map->tex_east->path)
+		|| (!cub->map->colors[0] || !cub->map->colors[1])
+		|| !cub->map->tex_door->path)
+		{
+			if (ft_strchr("1\t ", line[0]))
+				return (1);
+			if (has_valid_info2(cub, line))
+				return (1);
+			else if (has_valid_info3(cub, line))
+				return (1);
+			free(line);
+			line = get_next_line(cub->map->fd);
+		}
 	}
 	while (line)
 	{

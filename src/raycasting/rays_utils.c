@@ -23,9 +23,11 @@
  * @param c Pointer to the `t_CameraConfig` structure containing camera
  * configuration data.
  */
-void	get_wall_direction(t_CameraConfig *c)
+void	get_wall_direction(t_MapConfig *m, t_CameraConfig *c)
 {
-	if (c->side == 1)
+	if (c->hit && m->matrix[c->map_y][c->map_x] == '9')
+		c->wall_dir = 9;
+	else if (c->side == 1)
 	{
 		if (c->raydir_y < 0)
 			c->wall_dir = 1;
@@ -105,7 +107,8 @@ void	apply_dda(t_CameraConfig *cam, t_MapConfig *m)
 			cam->map_y += cam->step_y;
 			cam->side = 1;
 		}
-		if (m->matrix[cam->map_y][cam->map_x] == '1')
+		if (m->matrix[cam->map_y][cam->map_x] == '1'
+			|| m->matrix[cam->map_y][cam->map_x] == '9')
 			cam->hit = 1;
 	}
 }

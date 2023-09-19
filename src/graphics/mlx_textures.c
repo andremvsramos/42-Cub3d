@@ -56,12 +56,19 @@ static void	load_xpm(t_Cub3d *c, t_ImageControl *i, char *file)
  */
 int	check_access(t_Cub3d *cub)
 {
-	int	fd[4];
+	int	fd[4 + BONUS];
 
 	fd[0] = open(cub->map->tex_north->path, O_RDONLY);
 	fd[1] = open(cub->map->tex_south->path, O_RDONLY);
 	fd[2] = open(cub->map->tex_west->path, O_RDONLY);
 	fd[3] = open(cub->map->tex_east->path, O_RDONLY);
+	if (BONUS)
+	{
+		fd[4] = open(cub->map->tex_door->path, O_RDONLY);
+		close(fd[4]);
+		if (fd[4] < 0)
+			return (1);
+	}
 	close(fd[0]);
 	close(fd[1]);
 	close(fd[2]);
@@ -89,17 +96,22 @@ static int	convert_textures(t_Cub3d *cub)
 	t_CameraConfig *c;
 
 	c = cub->cam;
-	c->tex = ft_calloc(4, sizeof(int *));
+	c->tex = ft_calloc(4 + BONUS, sizeof(int *));
 	if (!cub->cam->tex)
 		return (1);
 	load_xpm(cub, cub->map->tex_north->img, cub->map->tex_north->path);
 	load_xpm(cub, cub->map->tex_south->img, cub->map->tex_south->path);
 	load_xpm(cub, cub->map->tex_west->img, cub->map->tex_west->path);
 	load_xpm(cub, cub->map->tex_east->img, cub->map->tex_east->path);
-	c->tex[1] = get_texture_addr(cub->map->tex_north->img);
-	c->tex[2] = get_texture_addr(cub->map->tex_south->img);
-	c->tex[3] = get_texture_addr(cub->map->tex_west->img);
-	c->tex[4] = get_texture_addr(cub->map->tex_east->img);
+	c->tex[0] = get_texture_addr(cub->map->tex_north->img);
+	c->tex[1] = get_texture_addr(cub->map->tex_south->img);
+	c->tex[2] = get_texture_addr(cub->map->tex_west->img);
+	c->tex[3] = get_texture_addr(cub->map->tex_east->img);
+	if (BONUS)
+	{
+		load_xpm(cub, cub->map->tex_door->img, cub->map->tex_door->path);
+		c->tex[4] = get_texture_addr(cub->map->tex_door->img);
+	}
 	return (0);
 }
 
@@ -135,6 +147,8 @@ int	is_xpm(t_Cub3d *cub, int id)
 		filename = ft_strdup(cub->map->tex_west->path);
 	else if (id == 4)
 		filename = ft_strdup(cub->map->tex_east->path);
+	else if (id == 9)
+		filename = ft_strdup(cub->map->tex_door->path);
 	i = 4;
 	len = ft_strlen(filename) - 1;
 	while (i)
@@ -163,8 +177,10 @@ int	check_tex_validity(t_Cub3d *cub)
 	cub->map->tex_south->img = ft_calloc(1, sizeof(t_ImageControl));
 	cub->map->tex_west->img = ft_calloc(1, sizeof(t_ImageControl));
 	cub->map->tex_east->img = ft_calloc(1, sizeof(t_ImageControl));
+	if (BONUS)
+		cub->map->tex_door->img = ft_calloc(1, sizeof(t_ImageControl));
 	if (is_xpm(cub, 1) || is_xpm(cub, 2)
-		|| is_xpm(cub, 3) || is_xpm(cub, 4))
+		|| is_xpm(cub, 3) || is_xpm(cub, 4) || (BONUS && is_xpm(cub, 9)))
 		return (1);
 	if (check_access(cub))
 		return (1);

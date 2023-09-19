@@ -65,7 +65,7 @@ int	move_release(int key, t_Cub3d *cub)
 		return (cub->player->left = 0, 0);
 	else if (key == RIGHT)
 		return (cub->player->right = 0, 0);
-	return (1);
+	return (0);
 }
 
 /**
@@ -87,8 +87,9 @@ int	on_key_press(int key, t_Cub3d *cub)
 	puts(ft_itoa(key));
 	if (key == ESC)
 		win_close(cub);
-	if (move_press(key, cub))
-		return (0);
+	move_press(key, cub);
+	if (key == USE)
+		use_action(cub->player, cub->map);
 	return (0);
 }
 

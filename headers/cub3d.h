@@ -21,8 +21,11 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <sys/wait.h>
+# include <sys/types.h>
+# include <sys/time.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <pthread.h>
 
 /**
  * @struct t_WindowConfig
@@ -95,15 +98,20 @@ typedef struct	s_TextureSetup
  */
 typedef struct	s_PlayerConfig
 {
-	char	orientation;
-	float	pos_x;
-	float	pos_y;
-	float	dir_x;
-	float	dir_y;
-	int		up;
-	int		down;
-	int		left;
-	int		right;
+	char			orientation;
+	float			pos_x;
+	float			pos_y;
+	float			dir_x;
+	float			dir_y;
+	int				up;
+	int				down;
+	int				left;
+	int				right;
+	float			use_distance_y;
+	float			use_distance_x;
+	pthread_mutex_t	lock;
+	pthread_cond_t	condition;
+	bool			door_closed;
 }				t_PlayerConfig;
 
 typedef struct s_MiniMap
@@ -157,6 +165,7 @@ typedef struct	s_MapConfig
 	t_TextureSetup	*tex_south;
 	t_TextureSetup	*tex_east;
 	t_TextureSetup	*tex_west;
+	t_TextureSetup	*tex_door;
 }				t_MapConfig;
 
 
@@ -291,6 +300,7 @@ int		win_close(t_Cub3d *cub);
 // Functions related to handling player events
 int		player_init(t_Cub3d *cub);
 void	set_player_position(t_Cub3d *cub);
+int		use_action(t_PlayerConfig *p, t_MapConfig *m);
 int		readmove(t_Cub3d *cub, t_PlayerConfig *p);
 void	apply_for_back_move(t_Cub3d *cub, t_PlayerConfig *p, int dir);
 void	apply_left_right_move(t_Cub3d *cub, t_PlayerConfig *p, int dir);
@@ -310,7 +320,7 @@ void	ray_delt_dist(t_CameraConfig *cam);
 void	step_calculation(t_CameraConfig *cam, t_PlayerConfig *p);
 void	apply_dda(t_CameraConfig *cam, t_MapConfig *m);
 void	calculate_wall_height(t_CameraConfig *cam);
-void	get_wall_direction(t_CameraConfig *c);
+void	get_wall_direction(t_MapConfig *m, t_CameraConfig *c);
 
 // MINIMAP FUNCTIONS
 //Functions related to minimap drawing
@@ -325,5 +335,8 @@ void	render_ceilling_floor(t_Cub3d *cub);
 int		*get_texture_addr(t_ImageControl *i);
 void	apply_texture(t_Cub3d *cub, t_CameraConfig *c, int x, int id);
 int		my_mlx_pixel_get(t_ImageControl *img, int x, int y);
+
+// MISCELLANEOUS UTILS
+void	ft_wait(unsigned long long ms);
 
 #endif

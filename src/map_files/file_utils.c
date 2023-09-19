@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:57:34 by andvieir          #+#    #+#             */
-/*   Updated: 2023/08/22 11:12:37 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2023/09/19 11:34:06 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,10 @@ static char	*skip_info2(t_Cub3d *cub, char *line, int *skip)
 	}
 	if (!ft_strncmp("NO ", line, 3) || !ft_strncmp("SO ", line, 3)
 		|| !ft_strncmp("WE ", line, 3) || !ft_strncmp("EA ", line, 3)
-		|| !ft_strncmp("F ", line, 2) || !ft_strncmp("C ", line, 2))
+		|| !ft_strncmp("F ", line, 2) || !ft_strncmp("C ", line, 2)
+		|| (BONUS && !ft_strncmp("DO ", line, 3)))
 		(*skip)++;
-	if (ft_strchr("1\t ", line[0]) && *skip != 5)
+	if (ft_strchr("1\t ", line[0]) && *skip != SKIP - 1)
 		return (NULL);
 	cub->map->skip_counter++;
 	free(line);
@@ -120,7 +121,7 @@ char	*skip_info(t_Cub3d *cub, char *line)
 	int	i;
 
 	skip = 0;
-	while (skip < 6)
+	while (skip < SKIP)
 		line = skip_info2(cub, line, &skip);
 	while (ft_strchr("\n", line[0]))
 	{

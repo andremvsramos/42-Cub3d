@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:03:12 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/18 10:57:33 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/19 11:19:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	set_player_orientation(t_Cub3d *cub, char c)
 {
 	if (ft_strchr("NSEW", c) && !cub->player->orientation)
 		cub->player->orientation = c;
-	else if (!ft_strchr("01\n\t ", c))
+	else if (!ft_strchr("019\n\t ", c))
 		return (1);
 	return (0);
 }

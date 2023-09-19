@@ -16,16 +16,24 @@
 # define WINDOW_X 1920
 # define WINDOW_Y 1080
 
+# ifndef BONUS
+#  define BONUS 0
+# endif
+
+# define SKIP 6 + BONUS
+
 # define WHITE 0x00FFFFFF
 # define BLACK 0x00000000
 # define RED 0xFF0000
 # define YELLOW 0xFFFF00
 
-#define UP 119
-#define DOWN 115
-#define LEFT 97
-#define RIGHT 100
-#define ESC 65307
+
+# define UP 119
+# define DOWN 115
+# define LEFT 97
+# define RIGHT 100
+# define USE 101
+# define ESC 65307
 
 # define PI 0x3F
 # define NO_DIR PI / 2
@@ -34,5 +42,8 @@
 # define EA_DIR PI
 # define TEX_HEIGHT 64
 # define TEX_WIDTH 64
+
+# define DOOR_RANGE_X 5
+# define DOOR_RANGE_Y 5
 
 #endif

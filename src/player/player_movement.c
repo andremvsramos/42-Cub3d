@@ -32,7 +32,8 @@ void	check_wall_hit(t_Cub3d *cub, double temp_x, double temp_y)
 
 	m = cub->map;
 	p = cub->player;
-	if (m->matrix[(int)p->pos_y][(int)p->pos_x] == '1')
+	if (m->matrix[(int)p->pos_y][(int)p->pos_x] == '1'
+		|| m->matrix[(int)p->pos_y][(int)p->pos_x] == '9')
 	{
 		p->pos_y = temp_y;
 		p->pos_x = temp_x;
