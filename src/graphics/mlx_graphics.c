@@ -24,7 +24,7 @@
  * @return An unsigned integer representing the color code in hexadecimal format
  * (0xRRGGBB).
  */
-static unsigned int	get_color(int color[256][256][256])
+static int	get_color(int color[256][256][256])
 {
 	int	r;
 	int	g;
