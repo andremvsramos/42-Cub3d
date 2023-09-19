@@ -22,8 +22,8 @@
 
 # define SKIP 6 + BONUS
 
-# define WHITE 0x00FFFFFF
-# define BLACK 0x00000000
+# define WHITE 0xFFFFFF
+# define BLACK 0x000000
 # define RED 0xFF0000
 # define YELLOW 0xFFFF00
 
