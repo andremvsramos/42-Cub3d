@@ -15,14 +15,16 @@ void	init_minimap(t_Cub3d *cub)
 						cub->minimap->width, cub->minimap->height);
 	cub->minimap->img->addr = mlx_get_data_addr(
 			cub->minimap->img->img_ptr, &bpp, &sl, &end);
-	cub->minimap->draw_x = 30;
-	cub->minimap->draw_y = 30;
+	/* cub->minimap->draw_x = 30;
+	cub->minimap->draw_y = 30; */
+	cub->minimap->draw_x = 0;
+	cub->minimap->draw_y = 0;
 }
 
 int	draw_minimap(t_Cub3d *cub)
 {
-	cub->minimap->draw_x = 30;
-	cub->minimap->draw_y = 30;
+	/* cub->minimap->draw_x = 30;
+	cub->minimap->draw_y = 30; */
 	cub->minimap->player_x = cub->player->pos_x * 10;
 	cub->minimap->player_y = cub->player->pos_y * 10;
 	draw_map(cub);

@@ -121,8 +121,11 @@ int	gameloop(t_Cub3d *cub)
 	draw_rays(cub);
 	//draw_minimap(cub);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img->img_ptr, 0, 0);
+<<<<<<< HEAD
 	/* mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr,
 		cub->minimap->img->img_ptr, 30, 30); */
+=======
+>>>>>>> tsodre-p
     return (0);
 }
 
