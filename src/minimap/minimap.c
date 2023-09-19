@@ -1,16 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/19 09:50:37 by tsodre-p          #+#    #+#             */
+/*   Updated: 2023/09/19 10:24:48 by tsodre-p         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/cub3d.h"
 
 void	init_minimap(t_Cub3d *cub)
 {
 	int	bpp;
-	int	sl;
-	int	end;
+	int	len;
+	int	endian;
 
 	cub->minimap = ft_calloc(1, sizeof(t_MiniMap));
 	cub->minimap->img = ft_calloc(1, sizeof(t_ImageControl));
 	cub->minimap->map_size = 12;
 	cub->minimap->width = 10 * cub->map->max_line_len;
 	cub->minimap->height = 10 * cub->map->n_lines;
+	cub->minimap->img->bpp = bpp;
+	cub->minimap->img->len = len;
+	cub->minimap->img->endian = endian;
 	cub->minimap->img->img_ptr = mlx_new_image(cub->mlx_ptr,
 						cub->minimap->width, cub->minimap->height);
 	cub->minimap->img->addr = mlx_get_data_addr(
