@@ -115,7 +115,6 @@ typedef struct s_MiniMap
 	int				draw_y;
 	int				player_x;
 	int				player_y;
-	int				map_size;
 }				t_MiniMap;
 
 /**
