@@ -123,7 +123,6 @@ typedef struct s_MiniMap
 	int				draw_y;
 	int				player_x;
 	int				player_y;
-	int				map_size;
 }				t_MiniMap;
 
 /**
@@ -331,10 +330,10 @@ void	draw_cube(t_Cub3d *cub, int type);
 void	draw_map(t_Cub3d *cub);
 
 // TEXTURE AND COLOR FUNCTIONS
-void	render_ceilling_floor(t_Cub3d *cub);
-int		*get_texture_addr(t_ImageControl *i);
-void	apply_texture(t_Cub3d *cub, t_CameraConfig *c, int x, int id);
-int		my_mlx_pixel_get(t_ImageControl *img, int x, int y);
+void			render_ceilling_floor(t_Cub3d *cub);
+int				*get_texture_addr(t_ImageControl *i);
+void			apply_texture(t_Cub3d *cub, t_CameraConfig *c, int x, int id);
+int				my_mlx_pixel_get(t_ImageControl *img, int x, int y);
 
 // MISCELLANEOUS UTILS
 void	ft_wait(unsigned long long ms);
