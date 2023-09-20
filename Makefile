@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/09/19 16:03:18 by marvin           ###   ########.fr        #
+#    Updated: 2023/09/20 19:05:47 by andvieir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC =	src/main.c \
 		src/graphics/mlx_graphics.c \
 		src/graphics/mlx_textures.c \
 		src/graphics/mlx_textures_utils.c \
+		src/graphics/restore_doors.c \
 		src/hooks/mlx_hook_events.c \
 		src/hooks/mouse_events.c \
 		src/camera/camera_setup.c \
@@ -48,7 +49,7 @@ SRC =	src/main.c \
 #----------COMMANDS----------#
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g -pthread
+CFLAGS = -Wall -Werror -Wextra -g -D BONUS=1
 
 RM = rm -rf
 MLXFLAGS = -L -lmlx -lXext -lX11

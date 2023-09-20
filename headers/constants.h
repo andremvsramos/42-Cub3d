@@ -32,6 +32,8 @@
 # define DOWN 115
 # define LEFT 97
 # define RIGHT 100
+# define L_ARROW 65361
+# define R_ARROW 65363
 # define USE 101
 # define ESC 65307
 
@@ -43,7 +45,7 @@
 # define TEX_HEIGHT 64
 # define TEX_WIDTH 64
 
-# define DOOR_RANGE_X 5
-# define DOOR_RANGE_Y 5
+# define DOOR_RANGE_X 10
+# define DOOR_RANGE_Y 10
 
 #endif

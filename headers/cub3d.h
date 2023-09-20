@@ -25,7 +25,7 @@
 # include <sys/time.h>
 # include <stdlib.h>
 # include <fcntl.h>
-# include <pthread.h>
+
 
 /**
  * @struct t_WindowConfig
@@ -107,11 +107,12 @@ typedef struct	s_PlayerConfig
 	int				down;
 	int				left;
 	int				right;
+	int				l_key;
+	int				r_key;
 	float			use_distance_y;
 	float			use_distance_x;
 	pthread_mutex_t	lock;
 	pthread_cond_t	condition;
-	bool			door_closed;
 }				t_PlayerConfig;
 
 typedef struct s_MiniMap
@@ -165,6 +166,7 @@ typedef struct	s_MapConfig
 	t_TextureSetup	*tex_east;
 	t_TextureSetup	*tex_west;
 	t_TextureSetup	*tex_door;
+	char			**door_pos;
 }				t_MapConfig;
 
 
@@ -238,11 +240,10 @@ typedef struct	s_Cub3d
 	void			*img_wall;
 	void			*img_floor;
 	bool			graphics_ok;
-	double			time;
-	double			oldtime;
-	double			fps;
 	int				mouse_x;
 	int				mouse_y;
+	int				framecount;
+	time_t			lasttime;
 	t_CameraConfig	*cam;
 	t_PlayerConfig	*player;
 	t_MapConfig		*map;
@@ -254,7 +255,6 @@ typedef struct	s_Cub3d
 
 // PROGRAM LIFECYCLE FUNCTIONS
 // Section for functions managing program's start, execution, and termination.
-void	shutdown(char *str, bool crash);
 void	free_main(t_Cub3d *cub);
 int		gameloop(t_Cub3d *cub);
 
@@ -336,6 +336,6 @@ void			apply_texture(t_Cub3d *cub, t_CameraConfig *c, int x, int id);
 int				my_mlx_pixel_get(t_ImageControl *img, int x, int y);
 
 // MISCELLANEOUS UTILS
-void	ft_wait(unsigned long long ms);
+void	restore_doors(t_Cub3d *cub);
 
 #endif

@@ -37,6 +37,10 @@ int	move_press(int key, t_Cub3d *cub)
 		return (cub->player->left = 1, 0);
 	else if (key == RIGHT)
 		return (cub->player->right = 1, 0);
+	else if (key == L_ARROW)
+		return (cub->player->l_key = 1, 0);
+	else if (key == R_ARROW)
+		return (cub->player->r_key = 1, 0);
 	return (1);
 }
 
@@ -65,6 +69,10 @@ int	move_release(int key, t_Cub3d *cub)
 		return (cub->player->left = 0, 0);
 	else if (key == RIGHT)
 		return (cub->player->right = 0, 0);
+	else if (key == L_ARROW)
+		return (cub->player->l_key = 0, 0);
+	else if (key == R_ARROW)
+		return (cub->player->r_key = 0, 0);
 	return (0);
 }
 
@@ -84,7 +92,6 @@ int	move_release(int key, t_Cub3d *cub)
  */
 int	on_key_press(int key, t_Cub3d *cub)
 {
-	puts(ft_itoa(key));
 	if (key == ESC)
 		win_close(cub);
 	move_press(key, cub);
@@ -134,4 +141,5 @@ void	hook_events(t_Cub3d *cub)
 	mlx_hook(cub->win_ptr, DestroyNotify, NoEventMask, win_close, cub);
 	mlx_hook(cub->win_ptr, KeyPress, KeyPressMask, on_key_press, cub);
 	mlx_hook(cub->win_ptr, KeyRelease, KeyReleaseMask, on_key_release, cub);
+	//mlx_mouse_hook(cub->win_ptr, on_mouse_move, cub);
 }

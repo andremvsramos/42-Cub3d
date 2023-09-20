@@ -6,7 +6,7 @@
 /*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 11:01:39 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/18 11:02:17 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/20 15:41:25 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ void	put_floor_ceil_color(t_Cub3d *cub, char *line, int n, int i)
 		if (!(ft_atoi(colors[i]) >= 0 && ft_atoi(colors[i]) <= 255))
 		{
 			free_main(cub);
-			shutdown("Error: Invalid color range\n", true);
+			printf("Error: Invalid color range\n");
+			exit(EXIT_FAILURE);
 		}
 		i++;
 	}

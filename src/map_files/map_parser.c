@@ -66,7 +66,12 @@ int	is_valid_map_file(t_Cub3d *cub)
  */
 static int	parse_elements2(t_Cub3d *cub, char *line, int i)
 {
-	if (!ft_strchr("019NSEW\n\t ", line[i]))
+	char	*charset;
+
+	charset = "01NSEW\n\t ";
+	if (BONUS)
+		charset = "019NSEW\n\t ";
+	if (!ft_strchr(charset, line[i]))
 		return (1);
 	else if (set_player_orientation(cub, line[i]))
 		return (1);
@@ -104,14 +109,14 @@ int	parse_elements(t_Cub3d *cub, int i)
 	ft_open(cub);
 	line = get_next_line(cub->map->fd);
 	if (!line)
-		return (free(line), 1);
+		return (1);
 	line = skip_info(cub, line);
 	create_temp_map(cub, line);
 	close(cub->map->temp_fd);
 	cub->map->temp_fd = open("./.map", O_RDONLY);
 	line = get_next_line(cub->map->temp_fd);
 	if (!line)
-		return (free(line), 1);
+		return (1);
 	while (line)
 	{
 		i = 0;
@@ -167,17 +172,20 @@ int	parse_map_file(t_Cub3d *cub)
 	if (has_valid_info(cub))
 	{
 		free_main(cub);
-		shutdown("Error: Invalid or missing texture/color info\n", true);
+		printf("Error: Invalid or missing texture/color info\n");
+		exit(EXIT_FAILURE);
 	}
 	if (!cub->map->filename || is_valid_map_file(cub))
 	{
 		free_main(cub);
-		shutdown("Error: Cannot read map file or is of wrong type\n", true);
+		printf("Error: Cannot read map file or is of wrong type\n");
+		exit(EXIT_FAILURE);
 	}
 	if (check_map_validity(cub))
 	{
 		free_main(cub);
-		shutdown("Error: Map is invalid or contains invalid elements\n", true);
+		printf("Error: Map is invalid or contains invalid elements\n");
+		exit(EXIT_FAILURE);
 	}
 	return (0);
 }

@@ -33,8 +33,8 @@ static void	load_xpm(t_Cub3d *c, t_ImageControl *i, char *file)
 	if (!i->img_ptr)
 	{
 		free_main(c);
-		printf("Error: Failed loading %s ", file);
-		shutdown("texture\n", true);
+		printf("Error: Failed loading %s texture", file);
+		exit(EXIT_FAILURE);
 	}
 }
 

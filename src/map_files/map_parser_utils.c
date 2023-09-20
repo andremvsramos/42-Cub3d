@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: programming-pc <programming-pc@student.    +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:03:12 by andvieir          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2023/09/20 15:47:30 by andvieir         ###   ########.fr       */
+=======
 /*   Updated: 2023/09/20 15:33:02 by programming      ###   ########.fr       */
+>>>>>>> 0d8289b4bf08032a7f80a85ce1d3aa954950e0b3
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +44,7 @@ static	void	get_map_n_lines_utils(t_Cub3d *cub, char *line)
 
 	i = 0;
 	aux_len = 0;
+	tabs = 0;
 	cub->map->n_lines++;
 	while (line[i++])
 	{
@@ -108,9 +113,14 @@ void	get_map_n_lines(t_Cub3d *cub)
  */
 int	set_player_orientation(t_Cub3d *cub, char c)
 {
+	char	*charset;
+
+	charset = "01\n\t ";
+	if (BONUS)
+		charset = "019\n\t ";
 	if (ft_strchr("NSEW", c) && !cub->player->orientation)
 		cub->player->orientation = c;
-	else if (!ft_strchr("019\n\t ", c))
+	else if (!ft_strchr(charset, c))
 		return (1);
 	return (0);
 }
