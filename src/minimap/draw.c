@@ -6,7 +6,7 @@
 /*   By: programming-pc <programming-pc@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:50:43 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/20 12:14:11 by programming      ###   ########.fr       */
+/*   Updated: 2023/09/20 15:41:55 by programming      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	draw_cube(t_Cub3d *cub, int type)
 	i = 0;
 	j = 0;
 
-	/* cub->minimap->width = 10 * (cub->map->max_line_len - 1);
-	cub->minimap->height = 10 * (cub->map->n_lines + 1); */
 	while (i < 10)
 	{
 		j = 0;
@@ -67,13 +65,13 @@ void	draw_player(t_Cub3d *cub)
 
 	i = 0;
 	j = 0;
-	while (i < 5)
+	while (i < 10)
 	{
 		j = 0;
-		while (j < 5)
+		while (j < 10)
 		{
-			my_mlx_pixel_put(cub->minimap->img, (((cub->player->pos_x * 10)) + j),
-				((cub->player->pos_y * 10) + i), RED);
+			my_mlx_pixel_put(cub->minimap->img, (cub->minimap->player_x + j),
+				(cub->minimap->player_y + i), RED);
 			j++;
 		}
 		i++;

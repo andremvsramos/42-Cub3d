@@ -6,7 +6,7 @@
 /*   By: programming-pc <programming-pc@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:50:37 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/20 12:21:11 by programming      ###   ########.fr       */
+/*   Updated: 2023/09/20 15:46:47 by programming      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ void	init_minimap(t_Cub3d *cub)
 
 int	draw_minimap(t_Cub3d *cub)
 {
-	cub->minimap->player_x = cub->player->pos_x * 10;
-	cub->minimap->player_y = cub->player->pos_y * 10;
+	cub->minimap->player_x = ((int)cub->player->pos_x) * 10;
+	cub->minimap->player_y = ((int)cub->player->pos_y) * 10;
+	//get_player_pos_matrix(cub);
 	draw_map(cub);
 	draw_player(cub);
 	return (0);
