@@ -6,7 +6,7 @@
 /*   By: programming-pc <programming-pc@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:50:37 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/20 12:14:55 by programming      ###   ########.fr       */
+/*   Updated: 2023/09/20 12:21:11 by programming      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	init_minimap(t_Cub3d *cub)
 	cub->minimap->img = ft_calloc(1, sizeof(t_ImageControl));
 	cub->minimap->width = 10 * (cub->map->max_line_len - 1);
 	cub->minimap->height = 10 * (cub->map->n_lines + 1);
-	printf("max line len: %d\n", cub->map->max_line_len);
-	printf("n lines: %d\n", cub->map->n_lines);
 	cub->minimap->img->img_ptr = mlx_new_image(cub->mlx_ptr,
 						cub->minimap->width, cub->minimap->height);
 	cub->minimap->img->addr = mlx_get_data_addr(
