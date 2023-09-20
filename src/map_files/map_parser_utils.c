@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: programming-pc <programming-pc@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:03:12 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/19 11:19:38 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/20 11:10:28 by programming      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static	void	get_map_n_lines_utils(t_Cub3d *cub, char *line)
 	while (line[i++])
 	{
 		tabs++;
-		if (ft_strchr("\t", line[i]))
+		if (line[i] == '\t')
 		{
 			if (tabs == 8)
 				tabs = 0;

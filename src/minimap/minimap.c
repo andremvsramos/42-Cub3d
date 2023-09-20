@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: programming-pc <programming-pc@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:50:37 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/19 16:36:04 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/20 11:56:30 by programming      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ void	init_minimap(t_Cub3d *cub)
 	cub->minimap = ft_calloc(1, sizeof(t_MiniMap));
 	cub->minimap->img = ft_calloc(1, sizeof(t_ImageControl));
 	cub->minimap->width = 10 * cub->map->max_line_len;
-	cub->minimap->height = 10 * cub->map->n_lines;
+	cub->minimap->height = 10 * (cub->map->n_lines + 1);
+	printf("max line len: %d\n", cub->map->max_line_len);
+	printf("n lines: %d\n", cub->map->n_lines);
 	cub->minimap->img->img_ptr = mlx_new_image(cub->mlx_ptr,
 						cub->minimap->width, cub->minimap->height);
 	cub->minimap->img->addr = mlx_get_data_addr(
 			cub->minimap->img->img_ptr, &cub->minimap->img->bpp,
 			&cub->minimap->img->len, &cub->minimap->img->endian);
-	/* cub->minimap->draw_x = 30;
-	cub->minimap->draw_y = 30; */
 	cub->minimap->draw_x = 0;
 	cub->minimap->draw_y = 0;
 }

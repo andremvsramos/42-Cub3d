@@ -1,14 +1,14 @@
-NO ./textures/NO.xpm
+NO ./textures/Brick Walls/redbrick_32.xpm
 
 
 
-SO ./textures/SO.xpm
-WE ./textures/WE.xpm
+SO ./textures/Brick Walls/redbrick_32.xpm
+WE ./textures/Brick Walls/redbrick_32.xpm
 
 
 F 180,180,180
 
-EA ./textures/EA.xpm
+EA ./textures/Brick Walls/redbrick_32.xpm
 
 
 

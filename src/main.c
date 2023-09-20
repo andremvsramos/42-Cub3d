@@ -118,11 +118,11 @@ int	gameloop(t_Cub3d *cub)
 	cub->img->addr = mlx_get_data_addr(cub->img->img_ptr, &cub->img->bpp,
 			&cub->img->len, &cub->img->endian);
 	/* minimap changes */
-	mlx_destroy_image(cub->mlx_ptr, cub->minimap->img->img_ptr);
+	/* mlx_destroy_image(cub->mlx_ptr, cub->minimap->img->img_ptr);
 	cub->minimap->img->img_ptr = mlx_new_image(cub->mlx_ptr, cub->minimap->width,
 				cub->minimap->height);
 	cub->minimap->img->addr = mlx_get_data_addr(cub->minimap->img->img_ptr, &cub->minimap->img->bpp,
-				&cub->minimap->img->len, &cub->minimap->img->endian);
+				&cub->minimap->img->len, &cub->minimap->img->endian); */
 	//ft_bzero(cub->img->addr, (WINDOW_X * WINDOW_Y * (cub->img->bpp / 8)));
 	draw_rays(cub);
 	//draw_minimap(cub);
