@@ -124,7 +124,7 @@ static void	update_player(t_Cub3d *cub, t_MapConfig *m, int i, int j)
 		set_we_direction(cub->cam, cub->player, 4);
 	cub->player->pos_y = i;
 	cub->player->pos_x = j;
-	m->matrix[i][j] = '0';
+	//m->matrix[i][j] = '0';
 }
 
 /**
