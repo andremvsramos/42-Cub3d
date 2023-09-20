@@ -143,7 +143,7 @@ int	main(int ac, char **av, char **env)
 	mlx_mouse_get_pos(cub.mlx_ptr, cub.win_ptr, &cub.mouse_x, &cub.mouse_y);
 	draw_rays(&cub);
 	init_minimap(&cub);
-	draw_map(&cub);
+	draw_minimap(&cub);
 	mlx_put_image_to_window(cub.mlx_ptr, cub.win_ptr, cub.img->img_ptr, 0, 0);
 	mlx_put_image_to_window(cub.mlx_ptr, cub.win_ptr,
 		cub.minimap->img->img_ptr, 30, 30);
