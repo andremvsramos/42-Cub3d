@@ -6,18 +6,36 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:50:37 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/21 11:13:22 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2023/09/21 12:45:28 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
 
+static int	check_minimap_size_height(t_Cub3d *cub, int max_height)
+{
+	if (((cub->map->n_lines + 1) * 15) < max_height)
+		return (((cub->map->n_lines + 1) * 15));
+	else
+		return (max_height);
+}
+
+static int	check_minimap_size_width(t_Cub3d *cub, int max_width)
+{
+	if (((cub->map->max_line_len - 1) * 15) < max_width)
+		return ((cub->map->max_line_len - 1) * 15);
+	else
+		return (max_width);
+}
+
 void	init_minimap(t_Cub3d *cub)
 {
 	cub->minimap = ft_calloc(1, sizeof(t_MiniMap));
 	cub->minimap->img = ft_calloc(1, sizeof(t_ImageControl));
-	cub->minimap->width = 10 * (cub->map->max_line_len - 1);
-	cub->minimap->height = 10 * (cub->map->n_lines + 1);
+	/* cub->minimap->width = 10 * (cub->map->max_line_len - 1);
+	cub->minimap->height = 10 * (cub->map->n_lines + 1); */
+	cub->minimap->width = check_minimap_size_width(cub, 150);
+	cub->minimap->height = check_minimap_size_height(cub, 150);
 	cub->minimap->img->img_ptr = mlx_new_image(cub->mlx_ptr,
 						cub->minimap->width, cub->minimap->height);
 	cub->minimap->img->addr = mlx_get_data_addr(
@@ -29,8 +47,8 @@ void	init_minimap(t_Cub3d *cub)
 
 int	draw_minimap(t_Cub3d *cub)
 {
-	cub->minimap->player_x = ((int)cub->player->pos_x) * 10;
-	cub->minimap->player_y = ((int)cub->player->pos_y) * 10;
+	cub->minimap->player_x = ((int)cub->player->pos_x) * 15;
+	cub->minimap->player_y = ((int)cub->player->pos_y) * 15;
 	//get_player_pos_matrix(cub);
 	draw_map(cub);
 	draw_player(cub);

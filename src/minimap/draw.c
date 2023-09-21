@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: programming-pc <programming-pc@student.    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:50:43 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/20 17:34:21 by programming      ###   ########.fr       */
+/*   Updated: 2023/09/21 12:27:45 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void	draw_cube(t_Cub3d *cub, int type)
 	i = 0;
 	j = 0;
 
-	while (i < 10)
+	while (i < 15)
 	{
 		j = 0;
-		while (j < 10)
+		while (j < 15)
 		{
 			my_mlx_pixel_put(cub->minimap->img, (cub->minimap->draw_x + j),
 					(cub->minimap->draw_y + i), type);
@@ -50,9 +50,9 @@ void	draw_map(t_Cub3d *cub)
 			else if (ft_strchr("0NSEW", cub->map->matrix[y][x]))
 				draw_cube(cub, WHITE);
 			x++;
-			cub->minimap->draw_x += 10;
+			cub->minimap->draw_x += 15;
 		}
-		cub->minimap->draw_y += 10;
+		cub->minimap->draw_y += 15;
 		cub->minimap->draw_x = 0;
 		y++;
 	}
@@ -65,10 +65,10 @@ void	draw_player(t_Cub3d *cub)
 
 	i = 0;
 	j = 0;
-	while (i < 10)
+	while (i < 15)
 	{
 		j = 0;
-		while (j < 10)
+		while (j < 15)
 		{
 			my_mlx_pixel_put(cub->minimap->img, (cub->minimap->player_x + j),
 				(cub->minimap->player_y + i), RED);
