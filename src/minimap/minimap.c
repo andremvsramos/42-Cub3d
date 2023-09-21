@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:50:37 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/21 14:54:05 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2023/09/21 15:18:45 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ int	draw_minimap(t_Cub3d *cub)
 	}
 	else
 	{
-		/* draw_map_dynamic(cub);
-		draw_static_player(cub); */
+		draw_dynamic_map(cub);
+		draw_dynamic_player(cub);
 	}
 	return (0);
 }

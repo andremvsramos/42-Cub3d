@@ -328,6 +328,9 @@ void	init_minimap(t_Cub3d *cub);
 void	draw_static_player(t_Cub3d *cub);
 void	draw_static_cube(t_Cub3d *cub, int type);
 void	draw_static_map(t_Cub3d *cub);
+void	draw_dynamic_player(t_Cub3d *cub);
+void	draw_dynamic_cube(t_Cub3d *cub, int type);
+void	draw_dynamic_map(t_Cub3d *cub);
 
 // TEXTURE AND COLOR FUNCTIONS
 void			render_ceilling_floor(t_Cub3d *cub);
