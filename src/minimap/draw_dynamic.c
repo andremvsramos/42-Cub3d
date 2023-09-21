@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 14:32:51 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/21 15:40:35 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2023/09/21 15:44:46 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,27 +42,33 @@ void	draw_dynamic_map(t_Cub3d *cub)
 	while (y < (y + 11))
 	{
 		x = (int)cub->player->pos_x - 5;
-		if (y < 0 || x < 0)
+		if (y < 0)
 		{
 			y++;
-			x++;
 			cub->minimap->draw_y += 13;
-			cub->minimap->draw_x += 13;
 		}
 		else
 		{
-			while (x < (x + 11))
+			if (x < 0)
 			{
-				if (ft_strchr("1", cub->map->matrix[y][x]))
-					draw_dynamic_cube(cub, GREY);
-				else if (ft_strchr("0", cub->map->matrix[y][x]))
-					draw_dynamic_cube(cub, WHITE);
-				x++;
 				cub->minimap->draw_x += 13;
+				x++;
 			}
-			cub->minimap->draw_y += 13;
-			cub->minimap->draw_x = 0;
-			y++;
+			else
+			{
+				while (x < (x + 11))
+				{
+					if (ft_strchr("1", cub->map->matrix[y][x]))
+						draw_dynamic_cube(cub, GREY);
+					else if (ft_strchr("0", cub->map->matrix[y][x]))
+						draw_dynamic_cube(cub, WHITE);
+					x++;
+					cub->minimap->draw_x += 13;
+				}
+				cub->minimap->draw_y += 13;
+				cub->minimap->draw_x = 0;
+				y++;
+			}
 		}
 	}
 }
