@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/09/19 16:03:18 by marvin           ###   ########.fr        #
+#    Updated: 2023/09/21 14:43:47 by tsodre-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ SRC =	src/main.c \
 		src/raycasting/rays.c \
 		src/raycasting/rays_utils.c \
 		src/minimap/minimap.c \
-		src/minimap/draw.c \
+		src/minimap/draw_static.c \
+		src/minimap/draw_dynamic.c \
 
 #----------COMMANDS----------#
 
