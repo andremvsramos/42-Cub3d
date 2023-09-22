@@ -6,7 +6,7 @@
 #    By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/09/20 19:05:47 by andvieir         ###   ########.fr        #
+#    Updated: 2023/09/22 18:08:41 by andvieir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ MLXDIR = ./mlx/
 
 SRC =	src/main.c \
 		src/cleanup.c \
+		src/cleanup2.c \
 		src/map_files/map_init.c \
 		src/map_files/map_parser.c \
 		src/map_files/map_matrix.c \
@@ -35,12 +36,14 @@ SRC =	src/main.c \
 		src/graphics/mlx_textures.c \
 		src/graphics/mlx_textures_utils.c \
 		src/graphics/restore_doors.c \
+		src/graphics/main_menu.c \
 		src/hooks/mlx_hook_events.c \
 		src/hooks/mouse_events.c \
 		src/camera/camera_setup.c \
 		src/player/player_setup.c \
 		src/player/player_movement.c \
 		src/player/player_action.c \
+		src/player/player_gun.c \
 		src/raycasting/rays.c \
 		src/raycasting/rays_utils.c \
 		src/minimap/minimap.c \

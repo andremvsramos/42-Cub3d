@@ -89,6 +89,17 @@ static void	initialization(int ac, char **av, t_Cub3d *cub)
  */
 int	gameloop(t_Cub3d *cub)
 {
+	if (cub->menu_active)
+	{
+		int	path_s;
+		int	path_q;
+
+		path_s = button_mo(cub, cub->main->start->img, 's');
+		path_q = button_mo(cub, cub->main->quit->img, 'q');
+		update_button(cub, cub->main->start->img, path_s, 's');
+		update_button(cub, cub->main->quit->img, path_q, 'q');
+		return (0);
+	}
 	readmove(cub, cub->player);
 	restore_doors(cub);
 	mlx_destroy_image(cub->mlx_ptr, cub->img->img_ptr);
@@ -96,12 +107,19 @@ int	gameloop(t_Cub3d *cub)
 	cub->img->addr = mlx_get_data_addr(cub->img->img_ptr, &cub->img->bpp,
 			&cub->img->len, &cub->img->endian);
 	mlx_destroy_image(cub->mlx_ptr, cub->minimap->img->img_ptr);
+	/* mlx_destroy_image(cub->mlx_ptr, cub->player->gun_sprite->img->img_ptr);
+	cub->player->gun_sprite->img->img_ptr = mlx_new_image(cub->mlx_ptr, 1280, 1181);
+	cub->player->gun_sprite->img->addr = mlx_get_data_addr(cub->player->gun_sprite->img->img_ptr,
+		&cub->player->gun_sprite->img->bpp, &cub->player->gun_sprite->img->len,
+		&cub->player->gun_sprite->img->endian); */
 	draw_rays(cub);
+	//draw_gun(cub, cub->player, 0, 0);
 	init_minimap(cub);
 	draw_minimap(cub);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img->img_ptr, 0, 0);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr,
 		cub->minimap->img->img_ptr, 30, 30);
+	cub->menu_active = false;
    	return (0);
 }
 
@@ -115,15 +133,16 @@ int	main(int ac, char **av, char **env)
 
 	(void)env;
 	cub.graphics_ok = false;
+	cub.menu_active = false;
 	cub.framecount = 0;
 	initialization(ac, av, &cub);
 	mlx_mouse_move(cub.mlx_ptr, cub.win_ptr, WINDOW_X / 2, WINDOW_Y / 2);
 	mlx_mouse_get_pos(cub.mlx_ptr, cub.win_ptr, &cub.mouse_x, &cub.mouse_y);
-	draw_rays(&cub);
-	draw_minimap(&cub);
-	mlx_put_image_to_window(cub.mlx_ptr, cub.win_ptr, cub.img->img_ptr, 0, 0);
-	mlx_put_image_to_window(cub.mlx_ptr, cub.win_ptr,
-		cub.minimap->img->img_ptr, 30, 30);
+	//draw_rays(&cub);
+	//draw_minimap(&cub);
+	//mlx_put_image_to_window(cub.mlx_ptr, cub.win_ptr, cub.img->img_ptr, 0, 0);
+	//mlx_put_image_to_window(cub.mlx_ptr, cub.win_ptr,
+	//	cub.minimap->img->img_ptr, 30, 30);
 	hook_events(&cub);
 	mlx_loop_hook(cub.mlx_ptr, &gameloop, &cub);
 	mlx_loop(cub.mlx_ptr);

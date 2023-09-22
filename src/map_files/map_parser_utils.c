@@ -6,11 +6,19 @@
 /*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:03:12 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/20 15:47:30 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/22 10:06:57 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
+
+void	get_matrix_borders(t_MapConfig *m, int i, int j)
+{
+	m->up_valid = i - 1 >= 0 && j >= 0 && j < m->max_line_len;
+	m->down_valid = i + 1 < m->max_line_len && j >= 0 && j < m->max_line_len;
+	m->left_valid = j - 1 >= 0 && i >= 0 && i < m->n_lines;
+	m->right_valid = j + 1 < m->max_line_len && i >= 0 && i < m->n_lines;
+}
 
 /**
  * @brief Utility function to calculate the maximum line length and total lines

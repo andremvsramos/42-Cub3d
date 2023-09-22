@@ -6,7 +6,7 @@
 /*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:12:03 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/20 16:55:01 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/22 17:43:37 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	free_map(t_Cub3d *cub)
  * @param texture Pointer to the `t_TextureSetup` structure representing the
  * texture to free.
  */
-static void	free_textures(t_Cub3d *cub, t_TextureSetup *texture)
+void	free_textures(t_Cub3d *cub, t_TextureSetup *texture)
 {
 	if (!texture)
 		return ;
@@ -106,12 +106,17 @@ static void	free_graphics(t_Cub3d *cub)
 		free_textures(cub, cub->map->tex_east);
 	if (BONUS && cub->map->tex_door)
 		free_textures(cub, cub->map->tex_door);
-	if (cub->cam->tex)
+	if (cub->cam->tex_vector)
 	{
 		while (i < 4 + BONUS)
-			free(cub->cam->tex[i++]);
+		{
+			if (cub->cam->tex[i])
+				free(cub->cam->tex[i]);
+			i++;
+		}
 		free(cub->cam->tex);
 	}
+	free_menu(cub);
 	if (cub->graphics_ok)
 	{
 		if (cub->img)
@@ -157,7 +162,7 @@ void	free_main(t_Cub3d *cub)
 	free_minimap(cub);
 	free_graphics(cub);
 	free_map(cub);
-	if (cub->cam)
+	if (cub->cam_ok)
 		free(cub->cam);
 	if (cub->map->matrix)
 		free(cub->map->matrix);

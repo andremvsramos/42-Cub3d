@@ -6,11 +6,32 @@
 /*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 18:59:00 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/20 19:11:11 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/22 11:31:31 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
+
+int		check_walls_doors(t_MapConfig *m, int i, int j)
+{
+	if (m->matrix[i][j] == '9')
+	{
+		if (BONUS)
+		{
+			if (m->matrix[i][j - 1] == '0' && m->matrix[i][j + 1] == '0' &&
+				m->matrix[i - 1][j] == '1' && m->matrix[i + 1][j] == '1')
+				return (0);
+			else if (m->matrix[i][j - 1] == '1' && m->matrix[i][j + 1] == '1' &&
+				m->matrix[i - 1][j] == '0' && m->matrix[i + 1][j] == '0')
+				return (0);
+			else
+				return (1);
+		}
+		else
+			return (1);
+	}
+	return (0);
+}
 
 void	restore_doors(t_Cub3d *cub)
 {

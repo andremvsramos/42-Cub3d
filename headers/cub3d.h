@@ -113,6 +113,9 @@ typedef struct	s_PlayerConfig
 	float			use_distance_x;
 	pthread_mutex_t	lock;
 	pthread_cond_t	condition;
+	t_TextureSetup	*crosshair;
+	t_TextureSetup	*gun;
+	t_TextureSetup	*gun_sprite;
 }				t_PlayerConfig;
 
 typedef struct s_MiniMap
@@ -157,6 +160,10 @@ typedef struct	s_MapConfig
 	int				max_line_len;
 	int				skip_counter;
 	char			**matrix;
+	int				up_valid;
+	int				down_valid;
+	int				left_valid;
+	int				right_valid;
 	char			*filename;
 	int				floor_c[256][256][256];
 	int				ceilling_c[256][256][256];
@@ -211,8 +218,22 @@ typedef struct	s_CameraConfig
 	float			tex_step;
 	float			tex_pos;
 	int				**tex;
+	bool			tex_vector;
 	unsigned int	color;
 }				t_CameraConfig;
+
+typedef struct	s_Menu
+{
+	bool			menu_ok;
+	t_TextureSetup	*bg;
+	t_TextureSetup	*start;
+	t_TextureSetup	*quit;
+	char			*path_start0;
+	char			*path_start1;
+	char			*path_quit0;
+	char			*path_quit1;
+}				t_Menu;
+
 
 /**
  * @struct t_Cub3d
@@ -245,17 +266,21 @@ typedef struct	s_Cub3d
 	int				framecount;
 	time_t			lasttime;
 	t_CameraConfig	*cam;
+	bool			cam_ok;
 	t_PlayerConfig	*player;
 	t_MapConfig		*map;
 	t_ImageControl	*img;
 	t_MiniMap		*minimap;
-
+	t_Menu			*main;
+	bool			menu_active;
 }				t_Cub3d;
 
 
 // PROGRAM LIFECYCLE FUNCTIONS
 // Section for functions managing program's start, execution, and termination.
 void	free_main(t_Cub3d *cub);
+void	free_textures(t_Cub3d *cub, t_TextureSetup *texture);
+void	free_menu(t_Cub3d *cub);
 int		gameloop(t_Cub3d *cub);
 
 // MAP AND FILE PARSING FUNCTIONS
@@ -271,9 +296,13 @@ int		has_valid_info(t_Cub3d *cub);
 void	put_floor_ceil_color(t_Cub3d *cub, char *line, int n, int i);
 int		fill_matrix(t_Cub3d *cub);
 int		check_map_closed(t_Cub3d *cub);
+void	get_matrix_borders(t_MapConfig *m, int i, int j);
+int		check_walls_doors(t_MapConfig *m, int i, int j);
 
 // PLAYER MANAGEMENT FUNCTIONS
 int		set_player_orientation(t_Cub3d *cub, char c);
+int		player_gun(t_Cub3d *cub, t_PlayerConfig *p);
+void	draw_gun(t_Cub3d *cub, t_PlayerConfig *p, int x, int y);
 
 // FILE MANAGEMENT FUNCTIONS
 // Section for managing file processes
@@ -287,6 +316,7 @@ int		graphics(t_Cub3d *cub);
 int		check_tex_validity(t_Cub3d *cub);
 int		is_xpm(t_Cub3d *cub, int id);
 void	my_mlx_pixel_put(t_ImageControl *img, int x, int y, int color);
+void	load_xpm(t_Cub3d *c, t_ImageControl *i, char *file);
 
 // EVENT HANDLING FUNCTIONS
 // Functions related to handling user input events
@@ -335,7 +365,14 @@ int				*get_texture_addr(t_ImageControl *i);
 void			apply_texture(t_Cub3d *cub, t_CameraConfig *c, int x, int id);
 int				my_mlx_pixel_get(t_ImageControl *img, int x, int y);
 
+// MAIN MENU
+int		start_menu(t_Cub3d *cub);
+void	setup_menu(t_Cub3d *cub, t_TextureSetup *tex, char *file);
+int		button_mo(t_Cub3d *cub, t_ImageControl *i, char b);
+void	update_button(t_Cub3d *c, t_ImageControl *i, int p, char b);
+
 // MISCELLANEOUS UTILS
 void	restore_doors(t_Cub3d *cub);
+int		mouse_hook(int key, int x, int y, t_Cub3d *cub);
 
 #endif

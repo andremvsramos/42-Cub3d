@@ -134,6 +134,8 @@ int	graphics(t_Cub3d *cub)
 	cub->img->img_ptr = mlx_new_image(cub->mlx_ptr, WINDOW_X, WINDOW_Y);
 	cub->img->addr = mlx_get_data_addr(cub->img->img_ptr,
 			&cub->img->bpp, &cub->img->len, &cub->img->endian);
+	if (start_menu(cub))
+		return (1);
 	cub->minimap = ft_calloc(1, sizeof(t_MiniMap));
 	cub->minimap->img = ft_calloc(1, sizeof(t_ImageControl));
 	cub->minimap->width = 10 * (cub->map->max_line_len - 1);
