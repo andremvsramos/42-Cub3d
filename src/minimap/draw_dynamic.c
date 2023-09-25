@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 14:32:51 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/25 10:33:44 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2023/09/25 12:01:50 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,10 @@ void	draw_dynamic_cube(t_Cub3d *cub, int type)
 	}
 }
 
-void	draw_dynamic_map(t_Cub3d *cub)
+void	draw_dynamic_map(t_Cub3d *cub, int temp_x, int temp_y)
 {
 	int	x;
 	int	y;
-	int	temp_x;
-	int	temp_y;
 
 	y = (int)cub->player->pos_y - 5;
 	temp_y = y;
@@ -46,36 +44,21 @@ void	draw_dynamic_map(t_Cub3d *cub)
 	{
 		x = (int)cub->player->pos_x - 5;
 		temp_x = x;
-		if (y < 0)
+		while (x < (temp_x + 11))
 		{
-			y++;
-			cub->minimap->draw_y += 13;
+			if (y >= cub->map->n_lines + 1 || y < 0 ||
+				x >= cub->map->max_line_len - 1 || x < 0)
+				draw_dynamic_cube(cub, BLACK);
+			else if (ft_strchr("1", cub->map->matrix[y][x]))
+				draw_dynamic_cube(cub, GREY);
+			else if (ft_strchr("0", cub->map->matrix[y][x]))
+				draw_dynamic_cube(cub, WHITE);
+			x++;
+			cub->minimap->draw_x += 13;
 		}
-		else
-		{
-			if (x < 0)
-			{
-				cub->minimap->draw_x += 13;
-				x++;
-			}
-			else
-			{
-				while (x < (temp_x + 11))
-				{
-					if (y >= cub->map->n_lines + 1 || x >= cub->map->max_line_len - 1)
-						draw_dynamic_cube(cub, BLACK);
-					else if (ft_strchr("1", cub->map->matrix[y][x]))
-						draw_dynamic_cube(cub, GREY);
-					else if (ft_strchr("0", cub->map->matrix[y][x]))
-						draw_dynamic_cube(cub, WHITE);
-					x++;
-					cub->minimap->draw_x += 13;
-				}
-				cub->minimap->draw_y += 13;
-				cub->minimap->draw_x = 0;
-				y++;
-			}
-		}
+		cub->minimap->draw_y += 13;
+		cub->minimap->draw_x = 0;
+		y++;
 	}
 }
 
