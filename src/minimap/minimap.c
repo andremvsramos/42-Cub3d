@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:50:37 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/21 15:18:45 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2023/09/25 10:19:44 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 static int	check_minimap_size_height(t_Cub3d *cub, int max_height)
 {
-	if (((cub->map->n_lines + 1) * 13) < max_height)
+	if (((cub->map->n_lines + 1) * 13) <= max_height)
 		return (((cub->map->n_lines + 1) * 13));
 	else
-		return (max_height);
+		return (cub->minimap->flag = 1, max_height);
 }
 
 static int	check_minimap_size_width(t_Cub3d *cub, int max_width)
 {
-	if (((cub->map->max_line_len - 1) * 13) < max_width)
+	if (((cub->map->max_line_len - 1) * 13) <= max_width)
 		return ((cub->map->max_line_len - 1) * 13);
 	else
-		return (max_width);
+		return (cub->minimap->flag = 1, max_width);
 }
 
 void	init_minimap(t_Cub3d *cub)
@@ -49,7 +49,7 @@ int	draw_minimap(t_Cub3d *cub)
 {
 	cub->minimap->player_x = ((int)cub->player->pos_x) * 13;
 	cub->minimap->player_y = ((int)cub->player->pos_y) * 13;
-	if (cub->minimap->width < 143 || cub->minimap->height < 143)
+	if (cub->minimap->flag == 0)
 	{
 		draw_static_map(cub);
 		draw_static_player(cub);

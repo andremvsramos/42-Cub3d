@@ -26,6 +26,7 @@
 # define GREY 0x808080
 # define RED 0xFF0000
 # define YELLOW 0xFFFF00
+# define BLACK 0x000000
 
 
 # define UP 119
