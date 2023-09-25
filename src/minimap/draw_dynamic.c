@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 14:32:51 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/25 12:01:50 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2023/09/25 12:24:04 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	draw_dynamic_map(t_Cub3d *cub, int temp_x, int temp_y)
 				draw_dynamic_cube(cub, BLACK);
 			else if (ft_strchr("1", cub->map->matrix[y][x]))
 				draw_dynamic_cube(cub, GREY);
-			else if (ft_strchr("0", cub->map->matrix[y][x]))
+			else if (ft_strchr("0NSWE ", cub->map->matrix[y][x]))
 				draw_dynamic_cube(cub, WHITE);
 			x++;
 			cub->minimap->draw_x += 13;
