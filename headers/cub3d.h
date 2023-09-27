@@ -127,6 +127,7 @@ typedef struct s_MiniMap
 	int				draw_y;
 	int				player_x;
 	int				player_y;
+	int				flag;
 }				t_MiniMap;
 
 /**
@@ -355,15 +356,18 @@ void	get_wall_direction(t_MapConfig *m, t_CameraConfig *c);
 //Functions related to minimap drawing
 int		draw_minimap(t_Cub3d *cub);
 void	init_minimap(t_Cub3d *cub);
-void	draw_player(t_Cub3d *cub);
-void	draw_cube(t_Cub3d *cub, int type);
-void	draw_map(t_Cub3d *cub);
+void	draw_static_player(t_Cub3d *cub);
+void	draw_static_cube(t_Cub3d *cub, int type);
+void	draw_static_map(t_Cub3d *cub);
+void	draw_dynamic_player(t_Cub3d *cub);
+void	draw_dynamic_cube(t_Cub3d *cub, int type);
+void	draw_dynamic_map(t_Cub3d *cub, int temp_x, int temp_y);
 
 // TEXTURE AND COLOR FUNCTIONS
-void			render_ceilling_floor(t_Cub3d *cub);
-int				*get_texture_addr(t_ImageControl *i);
-void			apply_texture(t_Cub3d *cub, t_CameraConfig *c, int x, int id);
-int				my_mlx_pixel_get(t_ImageControl *img, int x, int y);
+void	render_ceilling_floor(t_Cub3d *cub);
+int		*get_texture_addr(t_ImageControl *i);
+void	apply_texture(t_Cub3d *cub, t_CameraConfig *c, int x, int id);
+int		my_mlx_pixel_get(t_ImageControl *img, int x, int y);
 
 // MAIN MENU
 int		start_menu(t_Cub3d *cub);

@@ -47,7 +47,8 @@ SRC =	src/main.c \
 		src/raycasting/rays.c \
 		src/raycasting/rays_utils.c \
 		src/minimap/minimap.c \
-		src/minimap/draw.c \
+		src/minimap/draw_static.c \
+		src/minimap/draw_dynamic.c \
 
 #----------COMMANDS----------#
 
