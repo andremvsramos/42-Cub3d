@@ -89,6 +89,8 @@ static void	initialization(int ac, char **av, t_Cub3d *cub)
  */
 int	gameloop(t_Cub3d *cub)
 {
+	static int	gun;
+
 	if (cub->menu_active)
 	{
 		int	start;
@@ -104,18 +106,18 @@ int	gameloop(t_Cub3d *cub)
 	restore_doors(cub);
 	cub3d_new_image(cub);
 	minimap_new_image(cub);
-	gun_new_image(cub, cub->player);
-	draw_rays(cub);
-	draw_gun(cub->player, 0, 0);
 	draw_minimap(cub);
+	draw_rays(cub);
+	draw_gun(cub, cub->player, 0, 0);
+	draw_crosshair(cub, cub->player, 0, 0);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img->img_ptr, 0, 0);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr,
 		cub->minimap->img->img_ptr, 30, 30);
-	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr,
-	cub->player->gun_sprite->img->img_ptr,
-	WINDOW_X - 860,
-	WINDOW_Y - 530);
+	if (cub->player->shoot)
+		shoot_gun(cub, cub->player, &gun);
 	cub->menu_active = false;
+	if (cub->player->shoot)
+		gun++;
    	return (0);
 }
 
@@ -130,15 +132,14 @@ int	main(int ac, char **av, char **env)
 	(void)env;
 	cub.graphics_ok = false;
 	cub.menu_active = false;
+	cub.minimap_ok = false;
+	cub.menu_ok = false;
+	cub.cam_ok = false;
+	cub.gun_ok = false;
 	cub.framecount = 0;
 	initialization(ac, av, &cub);
 	mlx_mouse_move(cub.mlx_ptr, cub.win_ptr, WINDOW_X / 2, WINDOW_Y / 2);
 	mlx_mouse_get_pos(cub.mlx_ptr, cub.win_ptr, &cub.mouse_x, &cub.mouse_y);
-	//draw_rays(&cub);
-	//draw_minimap(&cub);
-	//mlx_put_image_to_window(cub.mlx_ptr, cub.win_ptr, cub.img->img_ptr, 0, 0);
-	//mlx_put_image_to_window(cub.mlx_ptr, cub.win_ptr,
-	//	cub.minimap->img->img_ptr, 30, 30);
 	hook_events(&cub);
 	mlx_loop_hook(cub.mlx_ptr, &gameloop, &cub);
 	mlx_loop(cub.mlx_ptr);

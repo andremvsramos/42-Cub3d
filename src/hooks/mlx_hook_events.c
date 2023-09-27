@@ -143,4 +143,5 @@ void	hook_events(t_Cub3d *cub)
 	mlx_hook(cub->win_ptr, KeyRelease, KeyReleaseMask, on_key_release, cub);
 	mlx_hook(cub->win_ptr, ButtonPress, ButtonPressMask, mouse_hook, cub);
 	//mlx_hook(cub->win_ptr, ButtonRelease, ButtonReleaseMask, mouse_hook, cub);
+	//mlx_hook(cub->win_ptr, ButtonRelease, ButtonReleaseMask, mouse_hook, cub);
 }

@@ -29,19 +29,18 @@ int	mouse_hook(int key, int x, int y, t_Cub3d *cub)
 		{
 			draw_rays(cub);
 			draw_minimap(cub);
-			draw_gun(cub->player, 0, 0);
+			draw_gun(cub, cub->player, 0, 0);
+			draw_crosshair(cub, cub->player, 0, 0);
 			mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img->img_ptr, 0, 0);
 			mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr,
 			cub->minimap->img->img_ptr, 30, 30);
-			mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr,
-			cub->player->gun_sprite->img->img_ptr,
-			WINDOW_X - cub->player->gun_sprite->img->width,
-			WINDOW_Y - cub->player->gun_sprite->img->height);
 			cub->menu_active = false;
 		}
 		else if (quit)
 			win_close(cub);
 	}
+	else
+		cub->player->shoot = 1;
 	return (0);
 }
 

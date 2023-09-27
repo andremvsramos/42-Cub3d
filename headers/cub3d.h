@@ -109,13 +109,13 @@ typedef struct	s_PlayerConfig
 	int				right;
 	int				l_key;
 	int				r_key;
+	int				shoot;
 	float			use_distance_y;
 	float			use_distance_x;
 	pthread_mutex_t	lock;
 	pthread_cond_t	condition;
 	t_TextureSetup	*crosshair;
 	t_TextureSetup	*gun;
-	t_TextureSetup	*gun_sprite;
 }				t_PlayerConfig;
 
 typedef struct s_MiniMap
@@ -225,7 +225,6 @@ typedef struct	s_CameraConfig
 
 typedef struct	s_Menu
 {
-	bool			menu_ok;
 	t_TextureSetup	*start;
 	t_TextureSetup	*quit;
 }				t_Menu;
@@ -256,7 +255,6 @@ typedef struct	s_Cub3d
 	void			*win_ptr;
 	void			*img_wall;
 	void			*img_floor;
-	bool			graphics_ok;
 	int				mouse_x;
 	int				mouse_y;
 	int				framecount;
@@ -269,6 +267,11 @@ typedef struct	s_Cub3d
 	t_MiniMap		*minimap;
 	t_Menu			*main;
 	bool			menu_active;
+	bool			graphics_ok;
+	bool			minimap_ok;
+	bool			cam_ok;
+	bool			menu_ok;
+	bool			gun_ok;
 }				t_Cub3d;
 
 
@@ -298,8 +301,8 @@ int		check_walls_doors(t_MapConfig *m, int i, int j);
 // PLAYER MANAGEMENT FUNCTIONS
 int		set_player_orientation(t_Cub3d *cub, char c);
 int		player_gun(t_Cub3d *cub, t_PlayerConfig *p);
-void	draw_gun(t_PlayerConfig *p, int x, int y);
-void	gun_new_image(t_Cub3d *cub, t_PlayerConfig *p);
+void	draw_gun(t_Cub3d *cub, t_PlayerConfig *p, int x, int y);
+void	draw_crosshair(t_Cub3d *cub, t_PlayerConfig *p, int x, int y);
 
 // FILE MANAGEMENT FUNCTIONS
 // Section for managing file processes
@@ -327,6 +330,7 @@ int		win_close(t_Cub3d *cub);
 int		player_init(t_Cub3d *cub);
 void	set_player_position(t_Cub3d *cub);
 int		use_action(t_PlayerConfig *p, t_MapConfig *m);
+void	shoot_gun(t_Cub3d *cub, t_PlayerConfig *p, int *counter);
 int		readmove(t_Cub3d *cub, t_PlayerConfig *p);
 void	apply_for_back_move(t_Cub3d *cub, t_PlayerConfig *p, int dir);
 void	apply_left_right_move(t_Cub3d *cub, t_PlayerConfig *p, int dir);

@@ -22,3 +22,21 @@ int	use_action(t_PlayerConfig *p, t_MapConfig *m)
 		return (1);
 	return (0);
 }
+
+void	shoot_gun(t_Cub3d *cub, t_PlayerConfig *p, int *counter)
+{
+	if (*counter == 1)
+		setup_menu(cub, p->gun, "./sprites/Gun_Sprites/g_01.xpm");
+	else if (*counter == 2)
+		setup_menu(cub, p->gun, "./sprites/Gun_Sprites/g_02.xpm");
+	else if (*counter == 3)
+		setup_menu(cub, p->gun, "./sprites/Gun_Sprites/g_03.xpm");
+	else if (*counter == 4)
+		setup_menu(cub, p->gun, "./sprites/Gun_Sprites/g_04.xpm");
+	else if (*counter == 5)
+	{
+		setup_menu(cub, p->gun, "./sprites/Gun_Sprites/g_00.xpm");
+		p->shoot = 0;
+		*counter = 0;
+	}
+}
