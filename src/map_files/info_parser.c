@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   info_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:45:39 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/19 12:04:36 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/20 14:48:18 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,7 @@ int	has_valid_info(t_Cub3d *cub)
 				|| !cub->map->tex_west->path || !cub->map->tex_east->path)
 			|| (!cub->map->colors[0] || !cub->map->colors[1]))
 		{
-			if (ft_strchr("1\t ", line[0]))
+			if (ft_strchr("D1\t ", line[0]))
 				return (1);
 			if (has_valid_info2(cub, line))
 				return (1);

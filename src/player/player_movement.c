@@ -12,6 +12,30 @@
 
 #include "../../headers/cub3d.h"
 
+static void	rotate_player_keys(t_Cub3d *cub, int dir)
+{
+	t_PlayerConfig	*p;
+	t_CameraConfig	*c;
+	t_Transform		rot_dir;
+	t_Transform		rot_plane;
+	double			angle;
+
+	angle = 0.1;
+	if (!dir)
+		angle = -0.1;
+	c = cub->cam;
+	p = cub->player;
+	rot_dir.x = p->dir_x * cos(angle) - p->dir_y * sin(angle);
+	rot_dir.y = p->dir_x * sin(angle) + p->dir_y * cos(angle);
+	p->dir_x = rot_dir.x;
+	p->dir_y = rot_dir.y;
+	rot_plane.x = c->plane_x * cos(angle) - c->plane_y * sin(angle);
+	rot_plane.y = c->plane_x * sin(angle) + c->plane_y * cos(angle);
+	c->plane_x = rot_plane.x;
+	c->plane_y = rot_plane.y;
+}
+
+
 /**
  * @brief Check for wall collisions and update player position accordingly.
  *
@@ -133,7 +157,10 @@ int	readmove(t_Cub3d *cub, t_PlayerConfig *p)
 		apply_left_right_move(cub, p, 1);
 	if (p->right)
 		apply_left_right_move(cub, p, 0);
-	if (p->up || p->down || p->left || p->right || !on_mouse_move(cub))
-		return (0);
-	return (1);
+	if (p->l_key)
+		rotate_player_keys(cub, 0);
+	if (p->r_key)
+		rotate_player_keys(cub, 1);
+	on_mouse_move(cub);
+	return (0);
 }

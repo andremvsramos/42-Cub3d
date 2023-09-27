@@ -25,7 +25,7 @@
  * be loaded.
  * @param file The filename of the XPM image to be loaded.
  */
-static void	load_xpm(t_Cub3d *c, t_ImageControl *i, char *file)
+void	load_xpm(t_Cub3d *c, t_ImageControl *i, char *file)
 {
 	i->height = 0;
 	i->width = 0;
@@ -33,8 +33,8 @@ static void	load_xpm(t_Cub3d *c, t_ImageControl *i, char *file)
 	if (!i->img_ptr)
 	{
 		free_main(c);
-		printf("Error: Failed loading %s ", file);
-		shutdown("texture\n", true);
+		printf("Error: Failed loading %s texture", file);
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -112,6 +112,7 @@ static int	convert_textures(t_Cub3d *cub)
 		load_xpm(cub, cub->map->tex_door->img, cub->map->tex_door->path);
 		c->tex[4] = get_texture_addr(cub->map->tex_door->img);
 	}
+	c->tex_vector = true;
 	return (0);
 }
 
@@ -173,6 +174,7 @@ int	is_xpm(t_Cub3d *cub, int id)
  */
 int	check_tex_validity(t_Cub3d *cub)
 {
+	cub->cam->tex_vector = false;
 	cub->map->tex_north->img = ft_calloc(1, sizeof(t_ImageControl));
 	cub->map->tex_south->img = ft_calloc(1, sizeof(t_ImageControl));
 	cub->map->tex_west->img = ft_calloc(1, sizeof(t_ImageControl));

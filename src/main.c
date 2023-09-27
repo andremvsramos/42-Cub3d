@@ -29,31 +29,8 @@
 int	win_close(t_Cub3d *cub)
 {
 	free_main(cub);
-	shutdown("Closing CUB3D\n", false);
-	return (0);
-}
-
-/**
- * @brief Gracefully terminate the program with optional error message.
- *
- * This function is responsible for controlled program termination.
- * It takes a null-terminated string `str` as an argument and writes its
- * characters to the standard error output.
- * If the `crash` flag is true, the function exits the program with a failure
- * status; if false, it exits with a success status.
- *
- * @param str Null-terminated string containing an error message (can be NULL).
- * @param crash If true, the program exits with a failure status;
- * if false, with a success status.
- */
-void	shutdown(char *str, bool crash)
-{
-	while (*str)
-		write(STDERR_FILENO, str++, 1);
-	if (crash)
-		exit(EXIT_FAILURE);
-	else
-		exit(EXIT_SUCCESS);
+	printf("Closing CUB3D\n");
+	exit(EXIT_SUCCESS);
 }
 
 /**
@@ -73,23 +50,24 @@ void	shutdown(char *str, bool crash)
  */
 static void	initialization(int ac, char **av, t_Cub3d *cub)
 {
-	if (ac > 2)
-		shutdown("Error: Run the program without extra arguments\n", true);
-	else if (ac < 2)
-		shutdown("Error: Please provide a map file\n", true);
+	if (ac != 2)
+	{
+		printf("Error: Please input exactly two arguments\n");
+		exit(EXIT_FAILURE);
+	}
 	if (map_init(cub, av[1]))
 	{
 		free_main(cub);
-		shutdown("Error: Failed initializing map settings\n", true);
+		printf("Error: Failed initializing map settings\n");
+		exit(EXIT_FAILURE);
 	}
-	cub->graphics_ok = false;
 	if (boot(cub))
 	{
 		free_main(cub);
 		printf("Error: Failed booting graphics.\n");
 		printf("\tPlease check MiniLibX is installed on your system\n");
 		printf("\tPlease check the texture files, so they are XPM\n");
-		shutdown("", true);
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -111,48 +89,64 @@ static void	initialization(int ac, char **av, t_Cub3d *cub)
  */
 int	gameloop(t_Cub3d *cub)
 {
-	if (readmove(cub, cub->player))
+	if (cub->menu_active)
+	{
+		int	path_s;
+		int	path_q;
+
+		path_s = button_mo(cub, cub->main->start->img, 's');
+		path_q = button_mo(cub, cub->main->quit->img, 'q');
+		update_button(cub, cub->main->start->img, path_s, 's');
+		update_button(cub, cub->main->quit->img, path_q, 'q');
 		return (0);
+	}
+	readmove(cub, cub->player);
+	restore_doors(cub);
 	mlx_destroy_image(cub->mlx_ptr, cub->img->img_ptr);
 	cub->img->img_ptr = mlx_new_image(cub->mlx_ptr, WINDOW_X, WINDOW_Y);
 	cub->img->addr = mlx_get_data_addr(cub->img->img_ptr, &cub->img->bpp,
 			&cub->img->len, &cub->img->endian);
-	/* minimap changes */
-	/* mlx_destroy_image(cub->mlx_ptr, cub->minimap->img->img_ptr);
-	cub->minimap->img->img_ptr = mlx_new_image(cub->mlx_ptr, cub->minimap->width,
-				cub->minimap->height);
-	cub->minimap->img->addr = mlx_get_data_addr(cub->minimap->img->img_ptr,
-				&cub->minimap->img->bpp, &cub->minimap->img->len,
-				&cub->minimap->img->endian); */
-	//ft_bzero(cub->img->addr, (WINDOW_X * WINDOW_Y * (cub->img->bpp / 8)));
+	mlx_destroy_image(cub->mlx_ptr, cub->minimap->img->img_ptr);
+	/* mlx_destroy_image(cub->mlx_ptr, cub->player->gun_sprite->img->img_ptr);
+	cub->player->gun_sprite->img->img_ptr = mlx_new_image(cub->mlx_ptr, 1280, 1181);
+	cub->player->gun_sprite->img->addr = mlx_get_data_addr(cub->player->gun_sprite->img->img_ptr,
+		&cub->player->gun_sprite->img->bpp, &cub->player->gun_sprite->img->len,
+		&cub->player->gun_sprite->img->endian); */
 	draw_rays(cub);
+	//draw_gun(cub, cub->player, 0, 0);
 	init_minimap(cub);
 	draw_minimap(cub);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img->img_ptr, 0, 0);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr,
 		cub->minimap->img->img_ptr, 30, 30);
+	cub->menu_active = false;
    	return (0);
 }
 
+/**
+ * Use mlx_mouse_hide(cub.mlx_ptr, cub.win_ptr) if you want
+ * to hide the mouse.
+ */
 int	main(int ac, char **av, char **env)
 {
 	t_Cub3d	cub;
 
 	(void)env;
+	cub.graphics_ok = false;
+	cub.menu_active = false;
+	cub.framecount = 0;
 	initialization(ac, av, &cub);
-	mlx_mouse_hide(cub.mlx_ptr, cub.win_ptr);
 	mlx_mouse_move(cub.mlx_ptr, cub.win_ptr, WINDOW_X / 2, WINDOW_Y / 2);
 	mlx_mouse_get_pos(cub.mlx_ptr, cub.win_ptr, &cub.mouse_x, &cub.mouse_y);
-	draw_rays(&cub);
-	init_minimap(&cub);
-	draw_minimap(&cub);
-	mlx_put_image_to_window(cub.mlx_ptr, cub.win_ptr, cub.img->img_ptr, 0, 0);
-	mlx_put_image_to_window(cub.mlx_ptr, cub.win_ptr,
-		cub.minimap->img->img_ptr, 30, 30);
+	//draw_rays(&cub);
+	//draw_minimap(&cub);
+	//mlx_put_image_to_window(cub.mlx_ptr, cub.win_ptr, cub.img->img_ptr, 0, 0);
+	//mlx_put_image_to_window(cub.mlx_ptr, cub.win_ptr,
+	//	cub.minimap->img->img_ptr, 30, 30);
 	hook_events(&cub);
 	mlx_loop_hook(cub.mlx_ptr, &gameloop, &cub);
 	mlx_loop(cub.mlx_ptr);
 	free_main(&cub);
-	shutdown("Closing CUB3D\n", false);
+	printf("Closing CUB3D\n");
 	return (0);
 }

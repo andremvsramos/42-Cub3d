@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_closed.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:35:38 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/19 11:49:53 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/22 11:41:28 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,23 @@
  * @return Returns 0 if the top and bottom boundaries are closed properly,
  * or 1 if an error is detected.
  */
-static int	check_top_bot_closed(t_Cub3d *cub)
+static int	check_top_bot_closed(t_MapConfig *m)
 {
 	int	i;
 	int	last_row;
 
 	i = 0;
-	last_row = cub->map->n_lines;
-	while (cub->map->matrix[0][i])
+	last_row = m->n_lines;
+	while (m->matrix[0][i])
 	{
-		if (!ft_strchr("1 ", cub->map->matrix[0][i]))
+		if (!ft_strchr("1 ", m->matrix[0][i]))
 			return (1);
 		i++;
 	}
 	i = 0;
-	while (cub->map->matrix[last_row][i])
+	while (m->matrix[last_row][i])
 	{
-		if (!ft_strchr("1 ", cub->map->matrix[last_row][i]))
+		if (!ft_strchr("1 ", m->matrix[last_row][i]))
 			return (1);
 		i++;
 	}
@@ -71,31 +71,27 @@ static int	check_top_bot_closed(t_Cub3d *cub)
  * @param j Column index of the map element.
  * @return Returns 0 if surroundings are valid, or 1 if an error is detected.
  */
-static int	check_surroundings(t_Cub3d *cub, int i, int j)
+static int	check_surroundings(t_MapConfig *m, int i, int j)
 {
-	if (ft_strchr("1", cub->map->matrix[i][j]))
+	char	*charset;
+
+	charset = "0NSEW";
+	if (BONUS)
+		charset = "09NSEW";
+	if ('1' == m->matrix[i][j])
 		return (0);
-	else if (ft_strchr("09NSEW", cub->map->matrix[i][j]))
+	else if (ft_strchr(charset, m->matrix[i][j]))
 	{
-		if (ft_strchr(" ", cub->map->matrix[i - 1][j])
-			|| ft_strchr(" ", cub->map->matrix[i + 1][j])
-			|| ft_strchr(" ", cub->map->matrix[i][j - 1])
-			|| ft_strchr(" ", cub->map->matrix[i][j + 1]))
+		get_matrix_borders(m, i, j);
+		if ((m->up_valid && m->matrix[i - 1][j] == ' ')
+			|| (m->down_valid && m->matrix[i + 1][j] == ' ')
+			|| (m->left_valid && m->matrix[i][j - 1] == ' ')
+			|| (m->right_valid && m->matrix[i][j + 1] == ' '))
 			return (1);
-		if (ft_strchr("9", cub->map->matrix[i][j]))
-		{
-			if (!(ft_strchr("0", cub->map->matrix[i - 1][j])
-				&& ft_strchr("0", cub->map->matrix[i + 1][j])
-				&& ft_strchr("1", cub->map->matrix[i][j - 1])
-				&& ft_strchr("1", cub->map->matrix[i][j + 1]))
-				|| !(ft_strchr("1", cub->map->matrix[i - 1][j])
-				&& ft_strchr("1", cub->map->matrix[i + 1][j])
-				&& ft_strchr("0", cub->map->matrix[i][j - 1])
-				&& ft_strchr("0", cub->map->matrix[i][j + 1])))
+		if (check_walls_doors(m, i, j))
 				return (1);
-		}
 	}
-	else if (ft_strchr("\n\t ", cub->map->matrix[i][j]))
+	else if (ft_strchr("\n\t ", m->matrix[i][j]))
 		return (0);
 	return (0);
 }
@@ -120,14 +116,14 @@ static int	check_surroundings(t_Cub3d *cub, int i, int j)
  * @return Returns 1 if an invalid whitespace between walls is
  * found, or 0 otherwise.
  */
-static int	check_nullb_whitespaces(t_Cub3d *cub, int *i, int j)
+static int	check_nullb_whitespaces(t_MapConfig *m, int *i, int *j)
 {
-	if (j == cub->map->max_line_len - 1)
-		(*i)++;
-	if (ft_strchr(" ", cub->map->matrix[*i][j]) && j == 0)
+	if (*j == m->max_line_len - 1)
+		return ((*i)++, *j = 0, 0);
+	if (ft_strchr(" ", m->matrix[*i][*j]) && *j == 0)
 		return (0);
-	if (ft_strchr(" ", cub->map->matrix[*i][j])
-		&& ft_strchr("09", cub->map->matrix[*i][j - 1]))
+	if (ft_strchr(" ", m->matrix[*i][*j])
+		&& ft_strchr("09", m->matrix[*i][*j - 1]))
 		return (1);
 	return (0);
 }
@@ -155,29 +151,33 @@ static int	check_nullb_whitespaces(t_Cub3d *cub, int *i, int j)
  * movement areas, or 0 if the map is correctly enclosed and has valid player
  * movement areas.
  */
-static int	check_closed(t_Cub3d *cub, int i, int j)
+static int	check_closed(t_MapConfig *m, int i, int j)
 {
-	while (i <= cub->map->n_lines - 1)
+	char	*charset;
+
+	charset = "0NSEW";
+	if (BONUS)
+		charset = "09NSEW";
+	while (i <= m->n_lines - 1)
 	{
 		j = 0;
-		while (j <= cub->map->max_line_len - 1)
+		while (j <= m->max_line_len - 1)
 		{
-			if (check_nullb_whitespaces(cub, &i, j))
+			if (check_nullb_whitespaces(m, &i, &j))
 				return (1);
-			else
-				j++;
-			if (ft_strchr("1", cub->map->matrix[i][j]))
+			if (i > m->n_lines)
+				break ;
+			if (ft_strchr("1", m->matrix[i][j]))
 			{
-				if (check_surroundings(cub, i, ++j))
+				if (check_surroundings(m, i, j))
 					return (1);
-				j++;
 			}
-			else if (ft_strchr("09NSEW", cub->map->matrix[i][j]))
+			else if (ft_strchr(charset, m->matrix[i][j]))
 			{
-				if (check_surroundings(cub, i, j))
+				if (check_surroundings(m, i, j))
 					return (1);
-				j++;
 			}
+			j++;
 		}
 		i++;
 	}
@@ -197,7 +197,7 @@ static int	check_closed(t_Cub3d *cub, int i, int j)
  */
 int	check_map_closed(t_Cub3d *cub)
 {
-	if (check_top_bot_closed(cub) || check_closed(cub, 1, 0))
+	if (check_top_bot_closed(cub->map) || check_closed(cub->map, 1, 0))
 		return (1);
 	return (0);
 }

@@ -109,6 +109,7 @@ int	player_init(t_Cub3d *cub)
 	cub->player->pos_x = -1;
 	cub->player->pos_y = -1;
 	cub->player->orientation = 0;
+	//player_gun(cub, cub->player);
 	return (0);
 }
 
@@ -124,7 +125,6 @@ static void	update_player(t_Cub3d *cub, t_MapConfig *m, int i, int j)
 		set_we_direction(cub->cam, cub->player, 4);
 	cub->player->pos_y = i;
 	cub->player->pos_x = j;
-	//m->matrix[i][j] = '0';
 }
 
 /**

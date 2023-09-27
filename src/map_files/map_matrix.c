@@ -6,7 +6,7 @@
 /*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 11:39:08 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/18 11:03:31 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/20 19:00:53 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	fill_matrix(t_Cub3d *cub)
 	cub->map->temp_fd = open("./.map", O_RDONLY);
 	line = get_next_line(cub->map->temp_fd);
 	if (!line)
-		return (free(line), 1);
+		return (1);
 	cub->map->matrix = ft_calloc(cub->map->n_lines + 1, sizeof(char *));
 	while (line)
 	{

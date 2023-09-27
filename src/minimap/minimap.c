@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:50:37 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/25 12:01:11 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2023/09/20 17:03:48 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,6 @@ void	init_minimap(t_Cub3d *cub)
 	cub->minimap->height = 10 * (cub->map->n_lines + 1); */
 	cub->minimap->width = check_minimap_size_width(cub, 143);
 	cub->minimap->height = check_minimap_size_height(cub, 143);
-	cub->minimap->img->img_ptr = mlx_new_image(cub->mlx_ptr,
-						cub->minimap->width, cub->minimap->height);
-	cub->minimap->img->addr = mlx_get_data_addr(
-			cub->minimap->img->img_ptr, &cub->minimap->img->bpp,
-			&cub->minimap->img->len, &cub->minimap->img->endian);
-	cub->minimap->draw_x = 0;
-	cub->minimap->draw_y = 0;
 }
 
 int	draw_minimap(t_Cub3d *cub)

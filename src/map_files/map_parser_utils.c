@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: programming-pc <programming-pc@student.    +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:03:12 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/20 15:33:02 by programming      ###   ########.fr       */
+/*   Updated: 2023/09/22 10:06:57 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
+
+void	get_matrix_borders(t_MapConfig *m, int i, int j)
+{
+	m->up_valid = i - 1 >= 0 && j >= 0 && j < m->max_line_len;
+	m->down_valid = i + 1 < m->max_line_len && j >= 0 && j < m->max_line_len;
+	m->left_valid = j - 1 >= 0 && i >= 0 && i < m->n_lines;
+	m->right_valid = j + 1 < m->max_line_len && i >= 0 && i < m->n_lines;
+}
 
 /**
  * @brief Utility function to calculate the maximum line length and total lines
@@ -40,6 +48,7 @@ static	void	get_map_n_lines_utils(t_Cub3d *cub, char *line)
 
 	i = 0;
 	aux_len = 0;
+	tabs = 0;
 	cub->map->n_lines++;
 	while (line[i++])
 	{
@@ -108,9 +117,14 @@ void	get_map_n_lines(t_Cub3d *cub)
  */
 int	set_player_orientation(t_Cub3d *cub, char c)
 {
+	char	*charset;
+
+	charset = "01\n\t ";
+	if (BONUS)
+		charset = "019\n\t ";
 	if (ft_strchr("NSEW", c) && !cub->player->orientation)
 		cub->player->orientation = c;
-	else if (!ft_strchr("019\n\t ", c))
+	else if (!ft_strchr(charset, c))
 		return (1);
 	return (0);
 }

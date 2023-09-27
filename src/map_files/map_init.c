@@ -34,7 +34,8 @@ static void	tex_init(t_Cub3d *cub)
 		|| !cub->map->tex_west || !cub->map->tex_east)
 	{
 		free_main(cub);
-		shutdown("Error: fatal: t_TextureSetup not created\n", true);
+		printf("Error: fatal: t_TextureSetup not created\n");
+		exit(EXIT_FAILURE);
 	}
 	if (BONUS)
 	{
@@ -42,7 +43,8 @@ static void	tex_init(t_Cub3d *cub)
 		if (!cub->map->tex_door)
 		{
 			free_main(cub);
-			shutdown("Error: fatal: tex_door not created\n", true);
+			printf("Error: fatal: tex_door not created\n");
+			exit(EXIT_FAILURE);
 		}
 	}
 	cub->map->colors[0] = false;
@@ -78,7 +80,8 @@ int	map_init(t_Cub3d *cub, char *file)
 	if (!cub->map)
 	{
 		free_main(cub);
-		shutdown("Error: fatal: t_MapConfig not created\n", true);
+		printf("Error: fatal: t_MapConfig not created\n");
+		exit(EXIT_FAILURE);
 	}
 	cub->map->skip_counter = 0;
 	cub->map->max_line_len = 0;
@@ -87,7 +90,8 @@ int	map_init(t_Cub3d *cub, char *file)
 	if (player_init(cub))
 	{
 		free_main(cub);
-		shutdown("Error: Failed initializing player settings\n", true);
+		printf("Error: Failed initializing player settings\n");
+		exit(EXIT_FAILURE);
 	}
 	parse_map_file(cub);
 	if (fill_matrix(cub))

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:12:03 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/18 14:50:20 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/22 17:43:37 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static void	free_map(t_Cub3d *cub)
 	int	i;
 
 	i = 0;
-	close(cub->map->fd);
-	close(cub->map->temp_fd);
+	if (!cub->map->matrix)
+		return ;
 	while (i <= cub->map->n_lines)
 	{
 		if (cub->map->matrix[i])
@@ -60,7 +60,7 @@ static void	free_map(t_Cub3d *cub)
  * @param texture Pointer to the `t_TextureSetup` structure representing the
  * texture to free.
  */
-static void	free_textures(t_Cub3d *cub, t_TextureSetup *texture)
+void	free_textures(t_Cub3d *cub, t_TextureSetup *texture)
 {
 	if (!texture)
 		return ;
@@ -93,16 +93,55 @@ static void	free_textures(t_Cub3d *cub, t_TextureSetup *texture)
  */
 static void	free_graphics(t_Cub3d *cub)
 {
+	int	i;
+
+	i = 0;
+	if (cub->map->tex_north)
+		free_textures(cub, cub->map->tex_north);
+	if (cub->map->tex_south)
+		free_textures(cub, cub->map->tex_south);
+	if (cub->map->tex_west)
+		free_textures(cub, cub->map->tex_west);
+	if (cub->map->tex_east)
+		free_textures(cub, cub->map->tex_east);
+	if (BONUS && cub->map->tex_door)
+		free_textures(cub, cub->map->tex_door);
+	if (cub->cam->tex_vector)
+	{
+		while (i < 4 + BONUS)
+		{
+			if (cub->cam->tex[i])
+				free(cub->cam->tex[i]);
+			i++;
+		}
+		free(cub->cam->tex);
+	}
+	free_menu(cub);
 	if (cub->graphics_ok)
 	{
-		free_textures(cub, cub->map->tex_north);
-		free_textures(cub, cub->map->tex_south);
-		free_textures(cub, cub->map->tex_west);
-		free_textures(cub, cub->map->tex_east);
+		if (cub->img)
+		{
+			if (cub->img->img_ptr)
+				mlx_destroy_image(cub->mlx_ptr, cub->img->img_ptr);
+			free(cub->img);
+		}
 		mlx_destroy_window(cub->mlx_ptr, cub->win_ptr);
 		mlx_destroy_display(cub->mlx_ptr);
 		free(cub->mlx_ptr);
 	}
+}
+
+static void	free_minimap(t_Cub3d *cub)
+{
+	if (!cub->minimap)
+		return ;
+	if (cub->minimap->img)
+	{
+		if (cub->minimap->img->img_ptr)
+			mlx_destroy_image(cub->mlx_ptr, cub->minimap->img->img_ptr);
+		free(cub->minimap->img);
+	}
+	free(cub->minimap);
 }
 
 /**
@@ -120,8 +159,11 @@ static void	free_graphics(t_Cub3d *cub)
  */
 void	free_main(t_Cub3d *cub)
 {
-	free_map(cub);
+	free_minimap(cub);
 	free_graphics(cub);
+	free_map(cub);
+	if (cub->cam_ok)
+		free(cub->cam);
 	if (cub->map->matrix)
 		free(cub->map->matrix);
 	if (cub->map->filename)
