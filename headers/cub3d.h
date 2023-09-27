@@ -270,10 +270,7 @@ typedef struct	s_Cub3d
 	bool			minimap_ok;
 	bool			cam_ok;
 	bool			menu_ok;
-<<<<<<< HEAD
 	bool			gun_ok;
-=======
->>>>>>> e15da0ad683f0da70afe3ac01ef5a7faff7703e2
 }				t_Cub3d;
 
 
