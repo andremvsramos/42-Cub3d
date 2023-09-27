@@ -6,7 +6,7 @@
 /*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:35:38 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/22 11:41:28 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/27 17:53:19 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ static int	check_surroundings(t_MapConfig *m, int i, int j)
 		return (0);
 	else if (ft_strchr(charset, m->matrix[i][j]))
 	{
+		if (j == 0 && (m->matrix[i][j] != '1' || m->matrix[i][j] != ' '))
+			return (1);
 		get_matrix_borders(m, i, j);
 		if ((m->up_valid && m->matrix[i - 1][j] == ' ')
 			|| (m->down_valid && m->matrix[i + 1][j] == ' ')
@@ -118,7 +120,7 @@ static int	check_surroundings(t_MapConfig *m, int i, int j)
  */
 static int	check_nullb_whitespaces(t_MapConfig *m, int *i, int *j)
 {
-	if (*j == m->max_line_len - 1)
+	if (*j == m->max_line_len)
 		return ((*i)++, *j = 0, 0);
 	if (ft_strchr(" ", m->matrix[*i][*j]) && *j == 0)
 		return (0);

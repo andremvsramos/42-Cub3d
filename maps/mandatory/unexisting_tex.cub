@@ -1,41 +1,12 @@
 NO ./textures/Brick Walls/redbrick_32.xpm
-
-
-
 SO ./textures/Brick Walls/redbrick_32.xpm
 WE ./textures/Brick Walls/redbrick_32.xpm
-
-
+EA ./textures/Brick Walls/iloveminishell.xpm
 F 180,180,180
-
-EA ./textures/Brick Walls/redbrick_32.xpm
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 C 145,244,255
-111111111
-100000001
-100101001
-100000001
-1000N0001
-100000001
-111111111
+
+11111111111
+10000000001
+100000N0001
+10000000001
+11111111111

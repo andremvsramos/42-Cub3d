@@ -6,7 +6,7 @@
 /*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 17:07:17 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/27 16:11:59 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/27 17:35:21 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	free_cam(t_Cub3d *cub)
 		free_textures(cub, cub->map->tex_east);
 	if (BONUS && cub->map->tex_door)
 		free_textures(cub, cub->map->tex_door);
-	if (cub->cam_ok)
+	if (cub->files_ok)
 	{
 		while (i < 4 + BONUS)
 		{

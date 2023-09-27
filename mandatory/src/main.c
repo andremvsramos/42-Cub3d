@@ -131,6 +131,7 @@ int	main(int ac, char **av, char **env)
 
 	(void)env;
 	cub.graphics_ok = false;
+	cub.files_ok = false;
 	cub.menu_active = false;
 	cub.minimap_ok = false;
 	cub.menu_ok = false;

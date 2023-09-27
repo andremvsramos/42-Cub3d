@@ -6,7 +6,7 @@
 /*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:03:12 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/22 10:06:57 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/27 18:13:01 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static	void	get_map_n_lines_utils(t_Cub3d *cub, char *line)
 	aux_len = 0;
 	tabs = 0;
 	cub->map->n_lines++;
-	while (line[i++])
+	while (line[i])
 	{
 		tabs++;
 		if (line[i] == '\t')
@@ -65,6 +65,7 @@ static	void	get_map_n_lines_utils(t_Cub3d *cub, char *line)
 			aux_len++;
 		if (tabs >= 7)
 			tabs = 0;
+		i++;
 	}
 	if (aux_len > cub->map->max_line_len)
 		cub->map->max_line_len = aux_len;

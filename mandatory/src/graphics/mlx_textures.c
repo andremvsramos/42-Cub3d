@@ -91,7 +91,7 @@ int	check_access(t_Cub3d *cub)
  * data.
  * @return 0 if successful, 1 if there was an error in texture loading.
  */
-static int	convert_textures(t_Cub3d *cub)
+int	convert_textures(t_Cub3d *cub)
 {
 	t_CameraConfig *c;
 
@@ -185,8 +185,6 @@ int	check_tex_validity(t_Cub3d *cub)
 		|| is_xpm(cub, 3) || is_xpm(cub, 4) || (BONUS && is_xpm(cub, 9)))
 		return (1);
 	if (check_access(cub))
-		return (1);
-	if (convert_textures(cub))
 		return (1);
 	return (0);
 }

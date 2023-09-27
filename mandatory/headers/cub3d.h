@@ -267,6 +267,7 @@ typedef struct	s_Cub3d
 	t_Menu			*main;
 	bool			menu_active;
 	bool			graphics_ok;
+	bool			files_ok;
 	bool			minimap_ok;
 	bool			cam_ok;
 	bool			menu_ok;
@@ -315,6 +316,8 @@ char	*skip_info(t_Cub3d *cub, char *line);
 int		boot(t_Cub3d *cub);
 int		graphics(t_Cub3d *cub);
 int		check_tex_validity(t_Cub3d *cub);
+int		convert_textures(t_Cub3d *cub);
+int		check_access(t_Cub3d *cub);
 int		is_xpm(t_Cub3d *cub, int id);
 void	my_mlx_pixel_put(t_ImageControl *img, int x, int y, int color);
 void	load_xpm(t_Cub3d *c, t_ImageControl *i, char *file);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_dynamic.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: programming-pc <programming-pc@student.    +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 14:32:51 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/27 12:30:07 by programming      ###   ########.fr       */
+/*   Updated: 2023/09/27 18:46:22 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

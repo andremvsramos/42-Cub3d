@@ -6,7 +6,7 @@
 /*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 11:39:08 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/20 19:00:53 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/27 17:56:16 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,11 @@ static void	fill_matrix3(t_Cub3d *cub, char c, int y, int *x)
 		while (*x < cub->map->max_line_len - 1)
 			cub->map->matrix[y][(*x)++] = ' ';
 	else
-		cub->map->matrix[y][(*x)++] = c;
+	{
+		cub->map->matrix[y][(*x)] = c;
+		if (*x < cub->map->max_line_len - 1)
+			(*x)++;
+	}
 }
 
 /**
