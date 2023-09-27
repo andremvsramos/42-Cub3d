@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_closed.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:35:38 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/27 17:53:19 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/27 20:03:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,12 +169,13 @@ static int	check_closed(t_MapConfig *m, int i, int j)
 				return (1);
 			if (i > m->n_lines)
 				break ;
-			if (ft_strchr("1", m->matrix[i][j]))
+			if ('1' == m->matrix[i][j])
 			{
 				if (check_surroundings(m, i, j))
 					return (1);
 			}
-			else if (ft_strchr(charset, m->matrix[i][j]))
+			else if (ft_strchr(charset, m->matrix[i][j])
+				&& m->matrix[i][j])
 			{
 				if (check_surroundings(m, i, j))
 					return (1);
