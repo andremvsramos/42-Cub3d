@@ -6,7 +6,7 @@
 /*   By: programming-pc <programming-pc@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:50:37 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/27 15:09:15 by programming      ###   ########.fr       */
+/*   Updated: 2023/09/27 21:49:34 by programming      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static int	check_minimap_size_height(t_Cub3d *cub, int max_height)
 
 static int	check_minimap_size_width(t_Cub3d *cub, int max_width)
 {
-	if (((cub->map->max_line_len - 1) * 13) <= max_width)
-		return ((cub->map->max_line_len - 1) * 13);
+	if ((max_x_array(cub) * 13) <= max_width)
+		return ((max_x_array(cub) * 13));
 	else
 		return (cub->minimap->flag = 1, max_width);
 }
@@ -46,6 +46,11 @@ void	init_minimap(t_Cub3d *cub)
 	cub->minimap->img = ft_calloc(1, sizeof(t_ImageControl));
 	cub->minimap->width = check_minimap_size_width(cub, 143);
 	cub->minimap->height = check_minimap_size_height(cub, 143);
+	if (cub->minimap->flag == 1)
+	{
+		cub->minimap->width = 143;
+		cub->minimap->height = 143;
+	}
 	cub->minimap->img->img_ptr = mlx_new_image(cub->mlx_ptr,
 						cub->minimap->width, cub->minimap->height);
 	cub->minimap->img->addr = mlx_get_data_addr(

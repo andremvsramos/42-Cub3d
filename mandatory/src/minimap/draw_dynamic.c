@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_dynamic.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: programming-pc <programming-pc@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 14:32:51 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/27 18:46:22 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/27 21:47:06 by programming      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ void	draw_dynamic_map(t_Cub3d *cub, int temp_x, int temp_y)
 		while (x < (temp_x + 11))
 		{
 			if (y >= cub->map->n_lines + 1 || y < 0 ||
-				x >= cub->map->max_line_len - 1 || x < 0)
+				x >= max_x_array(cub) || x < 0)
 				draw_dynamic_cube(cub, BLACK);
-			else if (ft_strchr("19", cub->map->matrix[y][x]))
+			else if (ft_strchr("19 ", cub->map->matrix[y][x]))
 				draw_dynamic_cube(cub, GREY);
-			else if (ft_strchr("0NSWE ", cub->map->matrix[y][x]))
+			else if (ft_strchr("0NSWE", cub->map->matrix[y][x]))
 				draw_dynamic_cube(cub, WHITE);
 			x++;
 			cub->minimap->draw_x += 13;

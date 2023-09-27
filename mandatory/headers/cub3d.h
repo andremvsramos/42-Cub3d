@@ -367,6 +367,7 @@ void	draw_static_map(t_Cub3d *cub);
 void	draw_dynamic_player(t_Cub3d *cub);
 void	draw_dynamic_cube(t_Cub3d *cub, int type);
 void	draw_dynamic_map(t_Cub3d *cub, int temp_x, int temp_y);
+int		max_x_array(t_Cub3d *cub);
 
 // TEXTURE AND COLOR FUNCTIONS
 void	render_ceilling_floor(t_Cub3d *cub);

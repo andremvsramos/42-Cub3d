@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+         #
+#    By: programming-pc <programming-pc@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/09/27 17:06:15 by andvieir         ###   ########.fr        #
+#    Updated: 2023/09/27 21:36:56 by programming      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SRC =		mandatory/src/main.c \
 			mandatory/src/minimap/minimap.c \
 			mandatory/src/minimap/draw_static.c \
 			mandatory/src/minimap/draw_dynamic.c \
+			mandatory/src/minimap/minimap_utils.c \
 
 BONSRC =	bonus/src/main.c \
 			bonus/src/cleanup.c \
@@ -82,6 +83,7 @@ BONSRC =	bonus/src/main.c \
 			bonus/src/minimap/minimap.c \
 			bonus/src/minimap/draw_static.c \
 			bonus/src/minimap/draw_dynamic.c \
+			bonus/src/minimap/minimap_utils.c \
 
 #----------COMMANDS----------#
 
