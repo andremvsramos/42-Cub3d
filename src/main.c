@@ -104,17 +104,17 @@ int	gameloop(t_Cub3d *cub)
 	restore_doors(cub);
 	cub3d_new_image(cub);
 	minimap_new_image(cub);
-	/* mlx_destroy_image(cub->mlx_ptr, cub->player->gun_sprite->img->img_ptr);
-	cub->player->gun_sprite->img->img_ptr = mlx_new_image(cub->mlx_ptr, 1280, 1181);
-	cub->player->gun_sprite->img->addr = mlx_get_data_addr(cub->player->gun_sprite->img->img_ptr,
-		&cub->player->gun_sprite->img->bpp, &cub->player->gun_sprite->img->len,
-		&cub->player->gun_sprite->img->endian); */
+	gun_new_image(cub, cub->player);
 	draw_rays(cub);
-	//draw_gun(cub, cub->player, 0, 0);
+	draw_gun(cub->player, 0, 0);
 	draw_minimap(cub);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img->img_ptr, 0, 0);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr,
 		cub->minimap->img->img_ptr, 30, 30);
+	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr,
+	cub->player->gun_sprite->img->img_ptr,
+	WINDOW_X - 860,
+	WINDOW_Y - 530);
 	cub->menu_active = false;
    	return (0);
 }

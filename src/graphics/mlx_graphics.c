@@ -137,6 +137,7 @@ int	graphics(t_Cub3d *cub)
 	if (start_menu(cub))
 		return (1);
 	init_minimap(cub);
+	player_gun(cub, cub->player);
 	cub->graphics_ok = true;
 	if (camera_init(cub))
 		return (1);

@@ -298,7 +298,8 @@ int		check_walls_doors(t_MapConfig *m, int i, int j);
 // PLAYER MANAGEMENT FUNCTIONS
 int		set_player_orientation(t_Cub3d *cub, char c);
 int		player_gun(t_Cub3d *cub, t_PlayerConfig *p);
-void	draw_gun(t_Cub3d *cub, t_PlayerConfig *p, int x, int y);
+void	draw_gun(t_PlayerConfig *p, int x, int y);
+void	gun_new_image(t_Cub3d *cub, t_PlayerConfig *p);
 
 // FILE MANAGEMENT FUNCTIONS
 // Section for managing file processes

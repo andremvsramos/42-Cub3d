@@ -109,7 +109,6 @@ int	player_init(t_Cub3d *cub)
 	cub->player->pos_x = -1;
 	cub->player->pos_y = -1;
 	cub->player->orientation = 0;
-	//player_gun(cub, cub->player);
 	return (0);
 }
 
