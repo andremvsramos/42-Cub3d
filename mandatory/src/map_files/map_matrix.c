@@ -3,30 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   map_matrix.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 11:39:08 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/27 17:56:16 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/27 23:32:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
 
 /**
- * @brief Fill a specific position in the matrix with the provided character or
- * space.
+ * @brief Fill the game map matrix with characters, handling newline characters.
  *
- * This function fills a specific position in the matrix with the character 'c'.
- * If the character is a newline, it fills the current row with spaces until the
- * maximum line length minus one, ensuring proper alignment of rows within the
- * matrix. This function is called by the fill_matrix2 function to populate the
- * matrix.
+ * The `fill_matrix3` function is responsible for filling the game map matrix
+ * with characters. It processes each character (including newline characters)
+ * from the map file and stores them in the appropriate positions of the matrix.
  *
- * @param cub Pointer to the t_Cub3d structure containing program
- * context and data.
- * @param c The character to be placed in the matrix.
- * @param y The current row index in the matrix being processed.
- * @param x A pointer to the current column index in the matrix being processed.
+ * When encountering a newline character ('\n'), the function ensures that the
+ * remaining positions in the current row of the matrix are filled with spaces
+ * (' ') to align the matrix properly.
+ *
+ * @param cub Pointer to the main game structure.
+ * @param c The character to be added to the matrix (including '\n' for
+ * newlines).
+ * @param y The current row index in the matrix.
+ * @param x Pointer to the current column index in the matrix.
  */
 static void	fill_matrix3(t_Cub3d *cub, char c, int y, int *x)
 {

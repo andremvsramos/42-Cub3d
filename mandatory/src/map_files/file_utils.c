@@ -3,14 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   file_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:57:34 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/27 17:25:46 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/27 23:58:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
+
+/**
+ * @brief Clean up and release resources used by the Get Next Line (GNL)
+ * function.
+ *
+ * The `ft_clean_gnl` function is responsible for freeing memory and closing the
+ * file descriptor associated with the Get Next Line (GNL) function. It iterates
+ * through the GNL output lines, freeing each line's memory, and then closes the
+ * file descriptor. This function should be called when GNL is no longer needed
+ * to prevent memory leaks and resource leaks.
+ *
+ * @param fd The file descriptor associated with the GNL function.
+ * @param line A pointer to the last GNL output line or NULL if GNL is not in
+ * use.
+ */
+void	ft_clean_gnl(int fd, char *line)
+{
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
+	free(line);
+	close(fd);
+}
 
 /**
  * @brief Open the map file for reading.
@@ -90,7 +115,7 @@ static char	*skip_info2(t_Cub3d *cub, char *line, int *skip)
 		|| !ft_strncmp("F ", line, 2) || !ft_strncmp("C ", line, 2)
 		|| (BONUS && !ft_strncmp("DO ", line, 3)))
 		(*skip)++;
-	if (ft_strchr("1\t ", line[0]) && *skip != SKIP - 1)
+	if (ft_strchr("1\t ", line[0]) && *skip != SKIP + BONUS - 1)
 		return (NULL);
 	cub->map->skip_counter++;
 	free(line);
@@ -122,7 +147,7 @@ char	*skip_info(t_Cub3d *cub, char *line)
 	int	i;
 
 	skip = 0;
-	while (skip < SKIP)
+	while (skip < SKIP + BONUS)
 		line = skip_info2(cub, line, &skip);
 	while (ft_strchr("\n", line[0]))
 	{

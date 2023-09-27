@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:12:03 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/27 17:35:37 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/27 23:48:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,17 @@ static void	free_graphics(t_Cub3d *cub)
 	}
 }
 
+/**
+ * @brief Deallocate resources associated with the minimap in the Cub3D game.
+ *
+ * The `free_minimap` function is responsible for freeing the memory resources
+ * associated with the minimap in the Cub3D game. It first checks if the minimap
+ * is initialized and active. If it is, the function proceeds to free the image
+ * buffer used for the minimap and the minimap structure itself. This ensures
+ * that memory is properly deallocated when it's no longer needed.
+ *
+ * @param cub Pointer to the Cub3D game configuration structure.
+ */
 static void	free_minimap(t_Cub3d *cub)
 {
 	if (cub->minimap_ok == false)
@@ -124,17 +135,29 @@ static void	free_minimap(t_Cub3d *cub)
 }
 
 /**
- * @brief Free allocated memory and resources within the main program context.
+ * @brief Deallocate resources associated with the main game configuration.
  *
- * The `free_main` function is responsible for releasing allocated memory and
- * resources within the main program context represented by the `t_Cub3d`
- * structure. It closes the map file, frees memory allocated for filenames,
- * texture paths, and texture setup structures. Additionally, it releases the
- * memory allocated for the main map configuration, the player configuration,
- * and the overall program context.
+ * The `free_main` function is responsible for freeing memory and resources
+ * associated with the main game configuration in the Cub3D game. It performs
+ * the following actions:
  *
- * @param cub Pointer to the `t_Cub3d` structure containing program context
- * and data.
+ * 1. Calls the `free_minimap` function to release resources related to the
+ * minimap.
+ * 2. Calls the `free_graphics` function to release graphics-related resources.
+ * 3. Calls the `free_map` function to deallocate memory related to the game
+ * map.
+ * 4. Checks if the camera structure (`cub->cam`) is initialized (`cam_ok` flag)
+ *    and frees it if necessary.
+ * 5. Checks if the matrix representing the game map (`cub->map->matrix`) is
+ *    initialized and frees it if necessary.
+ * 6. Checks if the filename associated with the map (`cub->map->filename`) is
+ *    initialized and frees it if necessary.
+ * 7. Checks if the player configuration structure (`cub->player`) is initialized
+ *    and frees it if necessary.
+ * 8. Finally, frees the memory associated with the game map structure
+ * (`cub->map`).
+ *
+ * @param cub Pointer to the main Cub3D game configuration structure.
  */
 void	free_main(t_Cub3d *cub)
 {

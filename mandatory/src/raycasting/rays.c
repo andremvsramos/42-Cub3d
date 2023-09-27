@@ -3,15 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 14:45:15 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/27 10:37:20 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/27 23:45:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
 
+/**
+ * @brief Create a new image for the Cub3D game window.
+ *
+ * The `cub3d_new_image` function is responsible for creating a new image buffer
+ * for the Cub3D game window. It first destroys the existing image if one
+ * exists, then allocates a new image with dimensions specified by the window
+ * size constants (WINDOW_X and WINDOW_Y). It also updates the image address,
+ * bits per pixel (bpp), line length (len), and endianess (endian) information
+ * for the new image.
+ *
+ * @param cub Pointer to the Cub3D game configuration structure.
+ */
 void	cub3d_new_image(t_Cub3d *cub)
 {
 	mlx_destroy_image(cub->mlx_ptr, cub->img->img_ptr);
@@ -88,8 +100,7 @@ void	init_rays(t_Cub3d *cub, t_CameraConfig *cam, int x)
  */
 void	draw_rays(t_Cub3d *cub)
 {
-	int				x;/*
-	int				y; */
+	int				x;
 	t_CameraConfig	*cam;
 
 	cam = cub->cam;

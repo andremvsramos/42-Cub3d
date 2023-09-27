@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_format.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:15:48 by andvieir          #+#    #+#             */
-/*   Updated: 2023/06/28 14:20:15 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/27 23:55:30 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  * Extracts the width or precision values from the format buffer and stores
  * them in the corresponding fields of the t_buffer struct.
  *
- * @param values  A pointer to the t_buffer struct to store the extracted values.
+ * @param values  A pointer to the t_buffer struct to store the extractedvalues.
  * @param buffer  The format buffer containing the width or precision specifier.
  * @return        The number of characters consumed from the buffer.
  */
@@ -60,7 +60,7 @@ static void	ft_read_buffer(char *buffer, t_buffer *values)
 			values->point = 1;
 		else if ((*buffer >= '1' && *buffer <= '9'))
 			buffer += ft_get_values(values, buffer);
-	buffer++;
+		buffer++;
 	}
 }
 

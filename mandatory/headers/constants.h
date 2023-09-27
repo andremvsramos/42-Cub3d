@@ -20,14 +20,13 @@
 #  define BONUS 0
 # endif
 
-# define SKIP 6 + BONUS
+# define SKIP 6
 
 # define WHITE 0xFFFFFF
 # define GREY 0x808080
 # define RED 0xFF0000
 # define YELLOW 0xFFFF00
 # define BLACK 0x000000
-
 
 # define UP 119
 # define DOWN 115
@@ -37,14 +36,6 @@
 # define R_ARROW 65363
 # define USE 101
 # define ESC 65307
-
-# define PI 0x3F
-# define NO_DIR PI / 2
-# define SO_DIR 3 * PI / 2
-# define WE_DIR 0
-# define EA_DIR PI
-# define TEX_HEIGHT 64
-# define TEX_WIDTH 64
 
 # define DOOR_RANGE_X 10
 # define DOOR_RANGE_Y 10

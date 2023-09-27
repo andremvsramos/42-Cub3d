@@ -93,7 +93,7 @@ int	check_access(t_Cub3d *cub)
  */
 int	convert_textures(t_Cub3d *cub)
 {
-	t_CameraConfig *c;
+	t_CameraConfig	*c;
 
 	c = cub->cam;
 	c->tex = ft_calloc(4 + BONUS, sizeof(int *));
@@ -115,7 +115,6 @@ int	convert_textures(t_Cub3d *cub)
 	c->tex_vector = true;
 	return (0);
 }
-
 
 /**
  * @brief Check if a given file path corresponds to an XPM image file.

@@ -106,25 +106,32 @@ void	render_ceilling_floor(t_Cub3d *cub)
 }
 
 /**
- * @brief Initialize the graphics context and prepare essential components for
- * rendering.
+ * @brief Initializes the game graphics, assets, and core components.
  *
- * The `graphics` function sets up the graphics context for the Cub3D
- * application. It begins by initializing the MLX (MiniLibX) library using
- * `mlx_init`. Then, it creates a new application window with the specified
- * resolution using `mlx_new_window`. Memory is allocated for a `t_ImageControl`
- * structure to manage image data, which is initialized with `mlx_new_image`.
- * The image attributes are obtained using `mlx_get_data_addr`. The function
- * also renders the ceiling and floor using `render_ceiling_floor`. If the
- * camera initialization via `camera_init` succeeds, the player's position is
- * set with `set_player_position`. Finally, the function checks the validity of
- * texture files using `check_tex_validity`, and if all initialization steps are
- * successful, it sets `cub->graphics_ok` to `true`.
+ * The `graphics` function plays a pivotal role in the Cub3D project by
+ * setting up the entire game environment. It encompasses the initialization
+ * of graphics components, the creation of the game window, and the setup of
+ * essential assets and state variables.
  *
- * @param cub Pointer to the `t_Cub3d` structure containing program context and
- * data.
- * @return Returns 0 if the graphics context initializes successfully, or 1 if
- * there's an error during setup.
+ * Specifically, this function handles the following tasks:
+ *
+ * - Initializes the camera configuration, essential for raycasting.
+ * - Validates and loads all required textures and assets.
+ * - Creates the game window using the MLX library with a specified size.
+ * - Prepares the game's image buffer for rendering.
+ * - Initializes the start menu, allowing players to begin or quit the game.
+ * - Sets up the minimap, which provides an overview of the game map.
+ * - Positions and renders the player's gun within the game view.
+ * - Places the player character at the starting position.
+ * - Converts loaded textures into formats suitable for rendering.
+ *
+ * If any of these initialization steps fail, the function returns an error code
+ * (1) to indicate that there was an issue with the setup process. A return
+ * value of 0 signifies that the graphics and game environment are successfully
+ * set up and ready for gameplay.
+ *
+ * @param cub Pointer to the t_Cub3d structure, representing the game's context.
+ * @return 0 if graphics initialization is successful, 1 if there are errors.
  */
 int	graphics(t_Cub3d *cub)
 {

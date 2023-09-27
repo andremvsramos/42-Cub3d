@@ -13,16 +13,19 @@
 #include "../../headers/cub3d.h"
 
 /**
- * @brief Initialize texture setup data within the Cub3D context.
+ * @brief Initialize texture configurations for the game map.
  *
- * This function initializes the texture setup data within the Cub3D context.
- * It allocates memory for t_TextureSetup structures and initializes
- * their members. If memory allocation fails, the function calls free_main to
- * clean up allocated resources, terminates the program,
- * and displays an error message.
+ * The `tex_init` function is responsible for initializing texture
+ * configurations for various directions (north, south, west, and east) in the
+ * game map. These textures are essential for rendering the game environment.
+ * Additionally, if the bonus features are enabled, it also initializes a door
+ * texture.
  *
- * @param cub Pointer to the t_Cub3d structure containing
- * program context and data.
+ * If any allocation failure occurs during the initialization process, the
+ * function will free previously allocated memory, display an error message, and
+ * terminate the program.
+ *
+ * @param cub Pointer to the main game structure.
  */
 static void	tex_init(t_Cub3d *cub)
 {

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:35:38 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/27 20:03:15 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/27 23:30:04 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,28 +50,20 @@ static int	check_top_bot_closed(t_MapConfig *m)
 }
 
 /**
- * @brief Check the surroundings of a map element for validity.
+ * @brief Check the surroundings of a character in the map matrix.
  *
- * This function evaluates the surroundings of a map element at position (i, j)
- * to ensure the integrity of the map structure. It examines whether the element
- * is a wall ('1'), a traversable area ('0'), the player spawn point
- * ('N', 'S', 'E', 'W'), or an empty space (' ').
+ * The `check_surroundings` function examines the neighboring characters of a
+ * specific character in the game map's matrix. It verifies whether the
+ * character complies with the rules of a valid map layout, including walls,
+ * doors, and empty spaces. If any inconsistencies or errors are detected in
+ * the surroundings, the function returns an error code.
  *
- * For traversable areas ('0') and player spawn points ('N', 'S', 'E', 'W'), the
- * function checks if any adjacent elements are empty spaces (' '). Such a
- * configuration would violate the rule that the map must be enclosed by walls
- * and that traversable areas should not have empty spaces inside them. If such
- * an inconsistency is found, the function returns 1, indicating an error in the
- * map layout. Otherwise, it returns 0, confirming that the surroundingsare
- * valid.
- *
- * @param cub Pointer to the t_Cub3d structure containing program context
- * and data.
- * @param i Row index of the map element.
- * @param j Column index of the map element.
- * @return Returns 0 if surroundings are valid, or 1 if an error is detected.
+ * @param m Pointer to the map configuration.
+ * @param i The row index of the character to check.
+ * @param j The column index of the character to check.
+ * @return 1 if the surroundings are invalid, 0 if they are valid.
  */
-static int	check_surroundings(t_MapConfig *m, int i, int j)
+int	check_surroundings(t_MapConfig *m, int i, int j)
 {
 	char	*charset;
 
@@ -91,7 +83,7 @@ static int	check_surroundings(t_MapConfig *m, int i, int j)
 			|| (m->right_valid && m->matrix[i][j + 1] == ' '))
 			return (1);
 		if (check_walls_doors(m, i, j))
-				return (1);
+			return (1);
 	}
 	else if (ft_strchr("\n\t ", m->matrix[i][j]))
 		return (0);
@@ -131,27 +123,19 @@ static int	check_nullb_whitespaces(t_MapConfig *m, int *i, int *j)
 }
 
 /**
- * @brief Check if the map is fully enclosed by walls and has valid player
- * movement areas.
+ * @brief Check the validity of door placements in the map.
  *
- * This function checks whether the map is fully enclosed by walls and has
- * valid player movement areas. It iterates through the map matrix and examines
- * each element to ensure that walls are present at the boundaries and that the
- * player movement areas are defined by '0' characters. The function calls
- * helper functions to perform specific checks:
- * - `check_nullb_whitespaces` detects invalid whitespace between walls.
- * - `check_surroundings` verifies the surroundings of a given element for valid
- * player movement.
+ * The `check_closed` function scans the map matrix to verify if the placement
+ * of doors is valid. It checks whether doors have one of two specific setups:
+ * an available path from north to south while having walls on the east and west
+ * sides, or walls on the north and south sides with a path to the east and
+ * west. If these conditions are not met, the function returns an error code,
+ * indicating an invalid door placement.
  *
- * If any discrepancies are found, the function returns 1 to indicate an error.
- *
- * @param cub Pointer to the t_Cub3d structure containing program
- * context and data.
- * @param i Starting row index for iterating through the map matrix.
- * @param j Starting column index for iterating through the map matrix.
- * @return Returns 1 if the map is not properly enclosed or has invalid player
- * movement areas, or 0 if the map is correctly enclosed and has valid player
- * movement areas.
+ * @param m Pointer to the map configuration struct.
+ * @param i The row index of the current character.
+ * @param j The column index of the current character.
+ * @return 1 if the door placement is invalid, 0 if it is valid.
  */
 static int	check_closed(t_MapConfig *m, int i, int j)
 {
@@ -169,17 +153,8 @@ static int	check_closed(t_MapConfig *m, int i, int j)
 				return (1);
 			if (i > m->n_lines)
 				break ;
-			if ('1' == m->matrix[i][j])
-			{
-				if (check_surroundings(m, i, j))
-					return (1);
-			}
-			else if (ft_strchr(charset, m->matrix[i][j])
-				&& m->matrix[i][j])
-			{
-				if (check_surroundings(m, i, j))
-					return (1);
-			}
+			if (check_surroundings_utils(m, i, j, charset))
+				return (1);
 			j++;
 		}
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_format_putaddress2.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:15:48 by andvieir          #+#    #+#             */
-/*   Updated: 2023/06/28 13:58:22 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/27 23:55:54 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int	ft_paddmw1(char *hexastr, t_buffer *values, int precision, int len)
 
 	count = 0;
 	if (values->space)
-			count += write(1, " ", 1);
+		count += write(1, " ", 1);
 	if (values->plus)
-			count += write(1, "+", 1);
+		count += write(1, "+", 1);
 	if (ft_strncmp(hexastr, "(nil)", 6))
 	{
 		count += write(1, "0x", 2);

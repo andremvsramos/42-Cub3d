@@ -47,22 +47,27 @@ int	is_valid_map_file(t_Cub3d *cub)
 }
 
 /**
- * @brief Parse individual map elements and player orientation.
+ * @brief Parse and validate game elements from a line of the map configuration
+ * file.
  *
- * This function is responsible for parsing individual characters in the
- * provided line from the map file. It checks whether the character is valid
- * and belongs to the set of allowed characters, including 0, 1, N, S, E, W,
- * newline, space, and tab. If the character represents a valid player
- * orientation (N, S, E, W), it invokes the set_player_orientation function to
- * handle setting the player's orientation. The function returns 1 if an invalid
- * character is encountered, or if there's an issue setting the player's
- * orientation. Otherwise, it returns 0.
+ * The `parse_elements2` function parses and validates game elements from a line
+ * of the map configuration file. It checks if the character at a specific index
+ * in the line belongs to a valid set of characters defined by the `charset`
+ * variable, which includes map symbols ('0', '1', 'N', 'S', 'E', 'W'), newline
+ * ('\n'), and tab characters ('\t'). The function also considers bonus
+ * elements when the `BONUS` flag is enabled.
  *
- * @param cub Pointer to the t_Cub3d structure containing program
- * context and data.
- * @param line A pointer to the current line being processed.
- * @param i The index of the character within the line.
- * @return Returns 1 if there's an error, or 0 if the character is valid.
+ * If the character is not valid or an error occurs while setting the player's
+ * orientation based on the character, the function returns an error code (1).
+ * Otherwise, it returns 0, indicating successful parsing and validation.
+ *
+ * This function is essential for processing map configuration elements and
+ * ensuring the integrity of game data.
+ *
+ * @param cub Pointer to the Cub3D game configuration structure.
+ * @param line A line from the map configuration file.
+ * @param i The index of the character to parse and validate in the line.
+ * @return An integer value indicating success (0) or failure (1).
  */
 static int	parse_elements2(t_Cub3d *cub, char *line, int i)
 {

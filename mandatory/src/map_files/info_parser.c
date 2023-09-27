@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   info_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:45:39 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/27 16:58:13 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/27 23:26:13 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
  * @param line A pointer to the current line being processed from the map file.
  * @return Returns 0 if the color settings are valid, or 1 if an error occurs.
  */
-static int	has_valid_info3(t_Cub3d *cub, char *line)
+int	has_valid_info3(t_Cub3d *cub, char *line)
 {
 	if (!ft_strncmp("F ", line, 2))
 	{
@@ -69,7 +69,7 @@ static int	has_valid_info3(t_Cub3d *cub, char *line)
  * @return Returns 0 if the texture path setting is valid,
  * or 1 if an error occurs.
  */
-static int	set_tex_path(t_Cub3d *cub, char *path, int direction)
+int	set_tex_path(t_Cub3d *cub, char *path, int direction)
 {
 	char	*temp;
 
@@ -90,48 +90,24 @@ static int	set_tex_path(t_Cub3d *cub, char *path, int direction)
 }
 
 /**
- * @brief Check the validity of map information and texture settings.
+ * @brief Check and set additional information in the Cub3D configuration.
  *
- * This function validates the correctness of map information and texture
- * settings within the scene description. It ensures that essential information,
- * such as texture paths and colors, is provided and correctly formatted.
- * Additionally, the function checks that the map data begins after the
- * information lines and that no invalid characters precede it.
- * It iterates through the map file until all required information is found
- * or an error is detected.
+ * The `has_valid_info2` function checks if the given line corresponds to any
+ * additional information in the map file, such as bonus-related details. It
+ * checks for valid information related to textures for the north, south, west,
+ * east walls, and doors. If valid information is found, it calls appropriate
+ * functions to set the corresponding texture paths in the `cub` configuration.
  *
- * If the information and settings are valid, the function returns 0. If any
- * checks fail, indicating invalid data or formatting, the function frees
- * allocated memory, terminates the program with an error message, and sets the
- * `crash` flag to true to indicate an error.
- *
- * @param cub Pointer to the t_Cub3d structure containing program
- * context and data.
- * @return Returns 0 if the map information and settings are valid,
- * or 1 if any checks fail.
+ * @param cub Pointer to the main Cub3D configuration.
+ * @param line The line from the map file being processed.
+ * @return 1 if an error occurs (e.g., invalid path), 0 otherwise.
  */
-static int	has_valid_info2(t_Cub3d *cub, char *line)
+int	has_valid_info2(t_Cub3d *cub, char *line)
 {
-	if (!ft_strncmp("NO ", line, 3))
-	{
-		if (set_tex_path(cub, line, 1))
-			return (1);
-	}
-	else if (!ft_strncmp("SO ", line, 3))
-	{
-		if (set_tex_path(cub, line, 2))
-			return (1);
-	}
-	else if (!ft_strncmp("WE ", line, 3))
-	{
-		if (set_tex_path(cub, line, 3))
-			return (1);
-	}
-	else if (!ft_strncmp("EA ", line, 3))
-	{
-		if (set_tex_path(cub, line, 4))
-			return (1);
-	}
+	if (check_north_south(cub, line))
+		return (1);
+	else if (check_west_east(cub, line))
+		return (1);
 	else if (BONUS && !ft_strncmp("DO ", line, 3))
 	{
 		if (set_tex_path(cub, line, 9))
@@ -140,37 +116,19 @@ static int	has_valid_info2(t_Cub3d *cub, char *line)
 	return (0);
 }
 
-void	ft_clean_gnl(int fd, char *line)
-{
-	while (line)
-	{
-		free(line);
-		line = get_next_line(fd);
-	}
-	free(line);
-	close(fd);
-}
-
 /**
- * @brief Check the validity of map information and texture settings.
+ * @brief Check and set map-related configuration in the Cub3D structure.
  *
- * This function validates the correctness of map information and texture
- * settings within the scene description. It ensures that essential information,
- * such as texture paths and colors, is provided and correctly formatted.
- * Additionally, the function checks that the map data begins after the
- * information lines and that no invalid characters precede it.
- * It iterates through the map file until all required information is found
- * or an error is detected.
+ * The `has_valid_info` function is responsible for reading and processing map-
+ * related configuration information from the map file. It handles the parsing
+ * of texture paths for north, south, west, and east walls, as well as colors for
+ * the ceiling and floor. Depending on whether the bonus features are enabled,
+ * it may also check for additional bonus-related information. If any errors are
+ * encountered during parsing (e.g., invalid paths), the function returns an
+ * error code.
  *
- * If the information and settings are valid, the function returns 0. If any
- * checks fail, indicating invalid data or formatting, the function frees
- * allocated memory, terminates the program with an error message, and sets the
- * `crash` flag to true to indicate an error.
- *
- * @param cub Pointer to the t_Cub3d structure containing program
- * context and data.
- * @return Returns 0 if the map information and settings are valid,
- * or 1 if any checks fail.
+ * @param cub Pointer to the main Cub3D configuration.
+ * @return 1 if an error occurs during parsing, 0 otherwise.
  */
 int	has_valid_info(t_Cub3d *cub)
 {
@@ -194,23 +152,8 @@ int	has_valid_info(t_Cub3d *cub)
 			line = get_next_line(cub->map->fd);
 		}
 	}
-	else
-	{
-		while ((!cub->map->tex_north->path || !cub->map->tex_south->path
-			|| !cub->map->tex_west->path || !cub->map->tex_east->path)
-		|| (!cub->map->colors[0] || !cub->map->colors[1])
-		|| !cub->map->tex_door->path)
-		{
-			if (ft_strchr("1\t ", line[0]))
-				return (ft_clean_gnl(cub->map->fd, line), 1);
-			if (has_valid_info2(cub, line))
-				return (ft_clean_gnl(cub->map->fd, line), 1);
-			else if (has_valid_info3(cub, line))
-				return (ft_clean_gnl(cub->map->fd, line), 1);
-			free(line);
-			line = get_next_line(cub->map->fd);
-		}
-	}
+	else if (fill_bonus_info(cub, line))
+		return (1);
 	ft_clean_gnl(cub->map->fd, line);
 	return (0);
 }

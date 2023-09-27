@@ -112,6 +112,21 @@ int	player_init(t_Cub3d *cub)
 	return (0);
 }
 
+/**
+ * @brief Update the player's position and direction.
+ *
+ * The `update_player` function is responsible for updating the player's
+ * position and orientation based on the character representing the player
+ * ('N', 'S', 'W', or 'E') within the game map. It sets the player's direction
+ * and position accordingly, ensuring that the player is correctly placed and
+ * facing the right way at the start of the game.
+ *
+ * @param cub Pointer to the Cub3D game configuration structure.
+ * @param m Pointer to the MapConfig structure containing the game map data.
+ * @param i The row index indicating the player's vertical position in the map.
+ * @param j The column index indicating the player's horizontal position in the
+ * map.
+ */
 static void	update_player(t_Cub3d *cub, t_MapConfig *m, int i, int j)
 {
 	if (m->matrix[i][j] == 'N')

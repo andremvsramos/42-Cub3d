@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_format_puthexa.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:15:48 by andvieir          #+#    #+#             */
-/*   Updated: 2023/06/28 14:07:00 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/27 23:56:17 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,10 @@ static int	ft_pmw(char *hexastr, t_buffer *values, int precision, char base)
 	len = ft_strlen(hexastr);
 	if (values->hash && hexastr[0] != '0')
 	{
-			count += write(1, "0", 1);
-			count += ft_putchar(base + 23);
-			len += 2;
-			precision += 2;
+		count += write(1, "0", 1);
+		count += ft_putchar(base + 23);
+		len += 2;
+		precision += 2;
 	}
 	if (values->width && values->precision)
 	{

@@ -26,7 +26,6 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-
 /**
  * @struct t_WindowConfig
  * Structure for configuring the window properties in the Cub3D project.
@@ -34,9 +33,10 @@
  *
  * @param WindowSizeX Width of the rendering window in pixels.
  * @param WindowSizeY Height of the rendering window in pixels.
- * @param WindowAspectRatio Aspect ratio of the rendering window (Width / Height).
+ * @param WindowAspectRatio Aspect ratio of the rendering window (Width /
+ * Height).
  */
-typedef struct	s_WindowConfig
+typedef struct s_WindowConfig
 {
 	int	width;
 	int	height;
@@ -59,7 +59,7 @@ typedef struct	s_WindowConfig
  * @param width Width of the image in pixels.
  * @param height Height of the image in pixels.
  */
-typedef struct	s_ImageControl
+typedef struct s_ImageControl
 {
 	void	*img_ptr;
 	char	*addr;
@@ -77,10 +77,9 @@ typedef struct	s_ImageControl
  * This structure holds data related to texture paths and images.
  *
  * @param path Path to the texture file.
- * @param xpm MiniLibX pointer to the texture image.
  * @param img Pointer to the image control structure.
  */
-typedef struct	s_TextureSetup
+typedef struct s_TextureSetup
 {
 	char			*path;
 	t_ImageControl	*img;
@@ -88,15 +87,29 @@ typedef struct	s_TextureSetup
 
 /**
  * @struct t_PlayerConfig
- * @brief Structure for managing player configuration in the Cub3D map.
+ * Structure for managing player configuration and state in the game.
  *
- * This structure holds data related to the player's position and orientation.
+ * This structure holds data related to the player's position, orientation,
+ * input controls, and various gameplay attributes.
  *
- * @param orientation Orientation of the player (e.g., 'N' for north).
- * @param pos_x X-coordinate of the player's position.
- * @param pos_y Y-coordinate of the player's position.
+ * @param orientation Player's orientation or facing direction.
+ * @param pos_x X-coordinate of the player's position in 2D space.
+ * @param pos_y Y-coordinate of the player's position in 2D space.
+ * @param dir_x X-component of the player's facing direction vector.
+ * @param dir_y Y-component of the player's facing direction vector.
+ * @param up Flag indicating if the "up" movement control is active.
+ * @param down Flag indicating if the "down" movement control is active.
+ * @param left Flag indicating if the "left" movement control is active.
+ * @param right Flag indicating if the "right" movement control is active.
+ * @param l_key State of the left key or action.
+ * @param r_key State of the right key or action.
+ * @param shoot Flag indicating if the player is currently shooting.
+ * @param use_distance_y Y-coordinate for use or interaction with objects.
+ * @param use_distance_x X-coordinate for use or interaction with objects.
+ * @param crosshair Pointer to the crosshair texture setup.
+ * @param gun Pointer to the gun texture setup.
  */
-typedef struct	s_PlayerConfig
+typedef struct s_PlayerConfig
 {
 	char			orientation;
 	float			pos_x;
@@ -112,12 +125,26 @@ typedef struct	s_PlayerConfig
 	int				shoot;
 	float			use_distance_y;
 	float			use_distance_x;
-	pthread_mutex_t	lock;
-	pthread_cond_t	condition;
 	t_TextureSetup	*crosshair;
 	t_TextureSetup	*gun;
 }				t_PlayerConfig;
 
+/**
+ * @struct t_MiniMap
+ * Structure for managing the minimap in the Cub3D game.
+ *
+ * The minimap provides a scaled-down representation of the game world to
+ * help players navigate and gain situational awareness.
+ *
+ * @param img Pointer to the image control structure for the minimap.
+ * @param width Width of the minimap image.
+ * @param height Height of the minimap image.
+ * @param draw_x X-coordinate for drawing on the minimap image.
+ * @param draw_y Y-coordinate for drawing on the minimap image.
+ * @param player_x X-coordinate of the player's position on the minimap.
+ * @param player_y Y-coordinate of the player's position on the minimap.
+ * @param flag A flag used to determine the minimap's state or behavior.
+ */
 typedef struct s_MiniMap
 {
 	t_ImageControl	*img;
@@ -132,28 +159,34 @@ typedef struct s_MiniMap
 
 /**
  * @struct t_MapConfig
- * Structure for managing map configuration and data in the Cub3D project.
+ * Structure for managing map configuration in the Cub3D game.
  *
- * This structure holds information about the map layout, textures,
- * and player data.
+ * The `t_MapConfig` structure holds various parameters and data related to the
+ * game map, including file descriptors, map dimensions, matrix representation,
+ * colors, and texture setups.
  *
  * @param fd File descriptor for the map file.
- * @param temp_fd Temporary file descriptor for parsing.
- * @param n_lines Number of lines in the map file.
- * @param max_line_len Maximum length of lines in the map.
- * @param skip_counter Counter for skipped lines in the map.
- * @param matrix A matrix representing the map layout.
+ * @param temp_fd Temporary file descriptor for map file operations.
+ * @param n_lines Number of lines in the map.
+ * @param max_line_len Maximum length of a line in the map.
+ * @param skip_counter A counter used for parsing the map.
+ * @param matrix Matrix representation of the map.
+ * @param up_valid Flag indicating if up is valid in a given position.
+ * @param down_valid Flag indicating if down is valid in a given position.
+ * @param left_valid Flag indicating if left is valid in a given position.
+ * @param right_valid Flag indicating if right is valid in a given position.
  * @param filename Name of the map file.
- * @param floor_c Colors for floor tiles.
- * @param ceilling_c Colors for ceiling tiles.
- * @param colors Array indicating color presence.
- * @param tex_north Texture setup for the north side.
- * @param tex_south Texture setup for the south side.
- * @param tex_east Texture setup for the east side.
- * @param tex_west Texture setup for the west side.
- * @param player Player configuration in the map.
+ * @param floor_c Color values for the floor.
+ * @param ceilling_c Color values for the ceiling.
+ * @param colors Flags indicating if floor and ceiling colors have been defined.
+ * @param tex_north Texture setup for the north-facing wall.
+ * @param tex_south Texture setup for the south-facing wall.
+ * @param tex_east Texture setup for the east-facing wall.
+ * @param tex_west Texture setup for the west-facing wall.
+ * @param tex_door Texture setup for doors (if available, for bonus).
+ * @param door_pos Positions of doors in the map (if available, for bonus).
  */
-typedef struct	s_MapConfig
+typedef struct s_MapConfig
 {
 	int				fd;
 	int				temp_fd;
@@ -177,15 +210,70 @@ typedef struct	s_MapConfig
 	char			**door_pos;
 }				t_MapConfig;
 
-
-typedef struct	s_Transform
+/**
+ * @struct t_Transform
+ * Structure for representing 3D transformations in space.
+ *
+ * The `t_Transform` structure holds three double precision values
+ * (`x`, `y`, and `z`) representing 3D coordinates or transformations in space.
+ *
+ * @param x The x-coordinate or transformation value.
+ * @param y The y-coordinate or transformation value.
+ * @param z The z-coordinate or transformation value.
+ */
+typedef struct s_Transform
 {
 	double	x;
 	double	y;
 	double	z;
 }				t_Transform;
 
-typedef struct	s_CameraConfig
+/**
+ * @struct t_CameraConfig
+ * Structure for managing camera configuration in the Cub3D project.
+ *
+ * The `t_CameraConfig` structure holds various parameters and data related to
+ * the camera used for rendering scenes in the Cub3D project.
+ *
+ * @param fov Field of view (FOV) angle in radians.
+ * @param camera_x X-coordinate of the camera position.
+ * @param plane_x X-coordinate of the camera's view plane.
+ * @param plane_y Y-coordinate of the camera's view plane.
+ * @param raydir_x X-coordinate of the current ray direction.
+ * @param raydir_y Y-coordinate of the current ray direction.
+ * @param olddir_x X-coordinate of the previous ray direction.
+ * @param oldplane_x X-coordinate of the previous view plane.
+ * @param map_x X-coordinate of the current map grid cell.
+ * @param map_y Y-coordinate of the current map grid cell.
+ * @param ddist_x Delta distance between X-coordinates of the current and next
+ * map grid cells.
+ * @param ddist_y Delta distance between Y-coordinates of the current and next
+ * map grid cells.
+ * @param s_dist_x Side distance to the next X-coordinate grid cell boundary.
+ * @param s_dist_y Side distance to the next Y-coordinate grid cell boundary.
+ * @param perp_wd Perpendicular wall distance from camera.
+ * @param camera_rot Current camera rotation angle.
+ * @param step_x Step value for X-coordinate in ray casting.
+ * @param step_y Step value for Y-coordinate in ray casting.
+ * @param hit Flag indicating if a wall has been hit.
+ * @param side Flag indicating which side of the wall was hit (0 for vertical, 1
+ * for horizontal).
+ * @param line_height Height of the wall line to be drawn.
+ * @param draw_start Starting pixel position for drawing the wall.
+ * @param draw_end Ending pixel position for drawing the wall.
+ * @param wall_dir Direction of the wall (North, South, East, or West).
+ * @param wallhit Distance to the wall hit.
+ * @param tex_x X-coordinate of the texture being sampled.
+ * @param tex_y Y-coordinate of the texture being sampled.
+ * @param tex_w Width of the currently selected texture.
+ * @param tex_h Height of the currently selected texture.
+ * @param tex_step Step size for texture sampling.
+ * @param tex_pos Current texture sampling position.
+ * @param tex Two-dimensional array representing wall textures.
+ * @param tex_vector Flag indicating whether textures are being used.
+ * @param color Color value for rendering.
+ */
+typedef struct s_CameraConfig
 {
 	double			fov;
 	double			camera_x;
@@ -223,33 +311,51 @@ typedef struct	s_CameraConfig
 	unsigned int	color;
 }				t_CameraConfig;
 
-typedef struct	s_Menu
+/**
+ * @struct t_Menu
+ * Structure for managing the game menu in the Cub3D project.
+ *
+ * The `t_Menu` structure holds pointers to textures for the "Start"
+ * and "Quit" buttons in the game menu.
+ *
+ * @param start Pointer to the texture setup for the "Start" button.
+ * @param quit Pointer to the texture setup for the "Quit" button.
+ */
+typedef struct s_Menu
 {
 	t_TextureSetup	*start;
 	t_TextureSetup	*quit;
 }				t_Menu;
 
-
 /**
  * @struct t_Cub3d
- * @brief The main structure representing the context and data for the Cub3D
- * project.
+ * Main structure for managing the Cub3D game configuration.
  *
- * This structure holds essential information related to the game's execution
- * and rendering.
+ * The `t_Cub3d` structure is the central configuration structure for the Cub3D
+ * game.
+ * It holds various components and flags for controlling the game's behavior.
  *
- * @param mlx_ptr A pointer to the MinilibX context for graphics operations.
- * @param win_ptr A pointer to the game's main window created with MinilibX.
- * @param graphics_ok Flag indicating successful graphics context setup.
- * @param frame1 Timestamp of the previous frame for frame rate calculation.
- * @param frame2 Timestamp of the current frame for frame rate calculation.
- * @param fps Calculated frames per second.
- * @param player A pointer to the structure holding player configuration.
- * @param map A pointer to the structure holding map configuration and data.
- * @param img A pointer to an image control structure for managing graphical
- * data.
+ * @param mlx_ptr Pointer to the MiniLibX connection.
+ * @param win_ptr Pointer to the MiniLibX game window.
+ * @param img_wall Pointer to an image representing walls.
+ * @param img_floor Pointer to an image representing the floor.
+ * @param mouse_x Current X-coordinate of the mouse cursor.
+ * @param mouse_y Current Y-coordinate of the mouse cursor.
+ * @param cam Pointer to the camera configuration structure.
+ * @param player Pointer to the player configuration structure.
+ * @param map Pointer to the map configuration structure.
+ * @param img Pointer to the main game image control structure.
+ * @param minimap Pointer to the minimap configuration structure.
+ * @param main Pointer to the main menu configuration structure.
+ * @param menu_active Flag indicating if the menu is currently active.
+ * @param graphics_ok Flag indicating if graphics resources are initialized.
+ * @param files_ok Flag indicating if game files are successfully loaded.
+ * @param minimap_ok Flag indicating if the minimap is initialized.
+ * @param cam_ok Flag indicating if the camera is configured.
+ * @param menu_ok Flag indicating if the main menu is initialized.
+ * @param gun_ok Flag indicating if the player's gun is set up.
  */
-typedef struct	s_Cub3d
+typedef struct s_Cub3d
 {
 	void			*mlx_ptr;
 	void			*win_ptr;
@@ -257,8 +363,6 @@ typedef struct	s_Cub3d
 	void			*img_floor;
 	int				mouse_x;
 	int				mouse_y;
-	int				framecount;
-	time_t			lasttime;
 	t_CameraConfig	*cam;
 	t_PlayerConfig	*player;
 	t_MapConfig		*map;
@@ -273,7 +377,6 @@ typedef struct	s_Cub3d
 	bool			menu_ok;
 	bool			gun_ok;
 }				t_Cub3d;
-
 
 // PROGRAM LIFECYCLE FUNCTIONS
 // Section for functions managing program's start, execution, and termination.
@@ -294,11 +397,19 @@ int		is_valid_map_type(char *filename);
 int		parse_elements(t_Cub3d *cub, int i);
 void	get_map_n_lines(t_Cub3d *cub);
 int		has_valid_info(t_Cub3d *cub);
+int		has_valid_info2(t_Cub3d *cub, char *line);
+int		has_valid_info3(t_Cub3d *cub, char *line);
+int		set_tex_path(t_Cub3d *cub, char *path, int direction);
 void	put_floor_ceil_color(t_Cub3d *cub, char *line, int n, int i);
 int		fill_matrix(t_Cub3d *cub);
 int		check_map_closed(t_Cub3d *cub);
+int		check_surroundings(t_MapConfig *m, int i, int j);
+int		check_surroundings_utils(t_MapConfig *m, int i, int j, char *charset);
 void	get_matrix_borders(t_MapConfig *m, int i, int j);
 int		check_walls_doors(t_MapConfig *m, int i, int j);
+int		check_north_south(t_Cub3d *cub, char *line);
+int		check_west_east(t_Cub3d *cub, char *line);
+int		fill_bonus_info(t_Cub3d *cub, char *line);
 
 // PLAYER MANAGEMENT FUNCTIONS
 int		set_player_orientation(t_Cub3d *cub, char c);
@@ -339,7 +450,6 @@ int		readmove(t_Cub3d *cub, t_PlayerConfig *p);
 void	apply_for_back_move(t_Cub3d *cub, t_PlayerConfig *p, int dir);
 void	apply_left_right_move(t_Cub3d *cub, t_PlayerConfig *p, int dir);
 void	check_wall_hit(t_Cub3d *cub, double temp_x, double temp_y);
-
 
 // CAMERA HANDLING FUNCTIONS
 // Functions related to handling camera events
@@ -383,7 +493,7 @@ void	update_button(t_Cub3d *c, t_ImageControl *i, int p, char b);
 
 // MISCELLANEOUS UTILS
 void	cub3d_new_image(t_Cub3d *cub);
-void	restore_doors(t_Cub3d *cub);
+void	restore_doors(t_Cub3d *cub, int x, int y);
 int		mouse_hook(int key, int x, int y, t_Cub3d *cub);
 void	ft_clean_gnl(int fd, char *line);
 

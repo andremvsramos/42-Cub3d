@@ -3,15 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:03:12 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/27 18:13:01 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/27 23:33:28 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
 
+/**
+ * @brief Determine the validity of neighboring positions in the game map
+ * matrix.
+ *
+ * The `get_matrix_borders` function calculates the validity of neighboring
+ * positions around a given cell in the game map matrix. It checks whether the
+ * cells to the up, down, left, and right of the specified cell are within the
+ * bounds of the matrix and stores this information in boolean variables.
+ *
+ * This function is useful for checking adjacent cells when performing various
+ * map-related operations, such as collision detection and map analysis.
+ *
+ * @param m Pointer to the game map configuration structure.
+ * @param i The row index of the cell being analyzed.
+ * @param j The column index of the cell being analyzed.
+ * @note The validity of neighboring positions is stored in the `up_valid`,
+ * `down_valid`, `left_valid`, and `right_valid` members of the map
+ * configuration.
+ */
 void	get_matrix_borders(t_MapConfig *m, int i, int j)
 {
 	m->up_valid = i - 1 >= 0 && j >= 0 && j < m->max_line_len;
@@ -40,15 +59,11 @@ void	get_matrix_borders(t_MapConfig *m, int i, int j)
  * data.
  * @param line A pointer to the input line containing map data.
  */
-static	void	get_map_n_lines_utils(t_Cub3d *cub, char *line)
+static	void	get_map_n_lines_utils(t_Cub3d *cub, char *line, int i, int tabs)
 {
 	int	aux_len;
-	int	i;
-	int	tabs;
 
-	i = 0;
 	aux_len = 0;
-	tabs = 0;
 	cub->map->n_lines++;
 	while (line[i])
 	{
@@ -91,7 +106,7 @@ void	get_map_n_lines(t_Cub3d *cub)
 	line = get_next_line(cub->map->temp_fd);
 	while (line)
 	{
-		get_map_n_lines_utils(cub, line);
+		get_map_n_lines_utils(cub, line, 0, 0);
 		free(line);
 		line = get_next_line(cub->map->temp_fd);
 	}

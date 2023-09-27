@@ -35,7 +35,6 @@ static void	rotate_player_keys(t_Cub3d *cub, int dir)
 	c->plane_y = rot_plane.y;
 }
 
-
 /**
  * @brief Check for wall collisions and update player position accordingly.
  *

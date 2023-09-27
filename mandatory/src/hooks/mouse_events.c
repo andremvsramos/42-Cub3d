@@ -12,6 +12,49 @@
 
 #include "../../headers/cub3d.h"
 
+/**
+ * @brief Render the first frame of the Cub3D game.
+ *
+ * The `draw_first_frame` function is responsible for rendering the initial
+ * frame of the Cub3D game. It draws the player's view, minimap, gun, and
+ * crosshair on the game window. This function is typically called when the game
+ * is first started or after returning from the main menu to display the game
+ * world to the player.
+ *
+ * @param cub Pointer to the t_Cub3d structure representing the Cub3D
+ * application.
+ */
+static void	draw_first_frame(t_Cub3d *cub)
+{
+	draw_rays(cub);
+	draw_minimap(cub);
+	draw_gun(cub, cub->player, 0, 0);
+	draw_crosshair(cub, cub->player, 0, 0);
+	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr,
+		cub->img->img_ptr, 0, 0);
+	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr,
+		cub->minimap->img->img_ptr, 30, 30);
+	cub->menu_active = false;
+}
+
+/**
+ * @brief Handle mouse input events in the Cub3D game.
+ *
+ * The `mouse_hook` function is called when a mouse input event occurs in the
+ * Cub3D game window. It handles left mouse button clicks, checks if specific
+ * buttons in the game menu were clicked, and triggers actions accordingly. If
+ * the game menu is active and the "Start" button is clicked, it renders the
+ * first frame of the game. If the "Quit" button is clicked, it closes the game
+ * window. If the menu is not active, it signals the player to perform a
+ * shooting action.
+ *
+ * @param key The mouse button that was pressed.
+ * @param x The x-coordinate of the mouse cursor.
+ * @param y The y-coordinate of the mouse cursor.
+ * @param cub Pointer to the t_Cub3d structure representing the Cub3D
+ * application.
+ * @return Always returns 0 to indicate successful handling of the mouse event.
+ */
 int	mouse_hook(int key, int x, int y, t_Cub3d *cub)
 {
 	int	start;
@@ -26,16 +69,7 @@ int	mouse_hook(int key, int x, int y, t_Cub3d *cub)
 		start = button_mo(cub, cub->main->start->img, 's');
 		quit = button_mo(cub, cub->main->quit->img, 'q');
 		if (start)
-		{
-			draw_rays(cub);
-			draw_minimap(cub);
-			draw_gun(cub, cub->player, 0, 0);
-			draw_crosshair(cub, cub->player, 0, 0);
-			mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img->img_ptr, 0, 0);
-			mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr,
-			cub->minimap->img->img_ptr, 30, 30);
-			cub->menu_active = false;
-		}
+			draw_first_frame(cub);
 		else if (quit)
 			win_close(cub);
 	}

@@ -125,16 +125,16 @@ int	on_key_release(int key, t_Cub3d *cub)
 }
 
 /**
- * @brief Register event hooks for keyboard inputs and window closing.
+ * @brief Set up event hooks for the Cub3D window.
  *
- * The `hook_events` function is responsible for registering event hooks for
- * keyboard inputs (both key press and key release) and window closing. It uses
- * the MiniLibX functions `mlx_hook` to set up event handling. Keyboard input
- * events are directed to the `on_key_press` and `on_key_release` functions,
- * while window closing events are handled by the `win_close` function.
+ * The `hook_events` function registers event hooks for various user
+ * interactions within the Cub3D window. These hooks include handling window
+ * closure, key press events, key release events, and mouse button press events.
+ * When these events occur, corresponding functions are called to manage the
+ * application's response.
  *
- * @param cub Pointer to the `t_Cub3d` structure containing program context and
- * data.
+ * @param cub Pointer to the t_Cub3d structure representing the Cub3D
+ * application.
  */
 void	hook_events(t_Cub3d *cub)
 {
@@ -142,6 +142,4 @@ void	hook_events(t_Cub3d *cub)
 	mlx_hook(cub->win_ptr, KeyPress, KeyPressMask, on_key_press, cub);
 	mlx_hook(cub->win_ptr, KeyRelease, KeyReleaseMask, on_key_release, cub);
 	mlx_hook(cub->win_ptr, ButtonPress, ButtonPressMask, mouse_hook, cub);
-	//mlx_hook(cub->win_ptr, ButtonRelease, ButtonReleaseMask, mouse_hook, cub);
-	//mlx_hook(cub->win_ptr, ButtonRelease, ButtonReleaseMask, mouse_hook, cub);
 }

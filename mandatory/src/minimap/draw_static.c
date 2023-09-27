@@ -3,15 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   draw_static.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:50:43 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/25 09:01:12 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2023/09/27 23:37:37 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
 
+/**
+ * @brief Draw a static cube on the minimap image.
+ *
+ * The `draw_static_cube` function draws a square of a specified `type` (color)
+ * onto the minimap image at the given coordinates.
+ *
+ * @param cub Pointer to the Cub3D game configuration structure.
+ * @param type The type (color) of the cube to be drawn.
+ */
 void	draw_static_cube(t_Cub3d *cub, int type)
 {
 	int	i;
@@ -19,20 +28,28 @@ void	draw_static_cube(t_Cub3d *cub, int type)
 
 	i = 0;
 	j = 0;
-
 	while (i < 13)
 	{
 		j = 0;
 		while (j < 13)
 		{
 			my_mlx_pixel_put(cub->minimap->img, (cub->minimap->draw_x + j),
-					(cub->minimap->draw_y + i), type);
+				(cub->minimap->draw_y + i), type);
 			j++;
 		}
 		i++;
 	}
 }
 
+/**
+ * @brief Draw the static player position on the minimap image.
+ *
+ * The `draw_static_player` function marks the player's position on the minimap
+ * image as a red square. It uses the player's coordinates to determine the
+ * position to draw.
+ *
+ * @param cub Pointer to the Cub3D game configuration structure.
+ */
 void	draw_static_player(t_Cub3d *cub)
 {
 	int	i;
@@ -53,6 +70,15 @@ void	draw_static_player(t_Cub3d *cub)
 	}
 }
 
+/**
+ * @brief Draw the static map grid on the minimap image.
+ *
+ * The `draw_static_map` function draws a static representation of the game map
+ * on the minimap image. It iterates through the map matrix and draws cubes of
+ * different colors based on the map elements (walls, empty space, etc.).
+ *
+ * @param cub Pointer to the Cub3D game configuration structure.
+ */
 void	draw_static_map(t_Cub3d *cub)
 {
 	int	x;

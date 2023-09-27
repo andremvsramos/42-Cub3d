@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: programming-pc <programming-pc@student.    +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/09/27 21:36:56 by programming      ###   ########.fr        #
+#    Updated: 2023/09/27 22:43:39 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,10 @@ SRC =		mandatory/src/main.c \
 			mandatory/src/map_files/map_matrix.c \
 			mandatory/src/map_files/map_parser_utils.c \
 			mandatory/src/map_files/map_closed.c \
+			mandatory/src/map_files/map_closed_utils.c \
 			mandatory/src/map_files/map_colors.c \
 			mandatory/src/map_files/info_parser.c \
+			mandatory/src/map_files/info_parser_utils.c \
 			mandatory/src/map_files/file_utils.c \
 			mandatory/src/graphics/mlx_graphics.c \
 			mandatory/src/graphics/mlx_textures.c \

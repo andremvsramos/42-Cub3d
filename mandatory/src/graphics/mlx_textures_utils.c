@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_textures_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:18:06 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/22 13:17:52 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/27 22:19:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	*get_texture_addr(t_ImageControl *i)
  * @return A pointer to the `t_ImageControl` structure associated with the
  * specified texture ID.
  */
-t_ImageControl *get_img_struct(t_Cub3d *cub, int id)
+t_ImageControl	*get_img_struct(t_Cub3d *cub, int id)
 {
 	if (id == 1)
 		return (cub->map->tex_north->img);
@@ -126,7 +126,7 @@ t_ImageControl *get_img_struct(t_Cub3d *cub, int id)
  * configuration data.
  * @return The `wall_x` value representing the point of contact with the wall.
  */
-double get_wall_x(t_Cub3d *cub, t_CameraConfig *c)
+double	get_wall_x(t_Cub3d *cub, t_CameraConfig *c)
 {
 	double	wall_x;
 
@@ -163,14 +163,14 @@ double get_wall_x(t_Cub3d *cub, t_CameraConfig *c)
  */
 void	apply_texture(t_Cub3d *cub, t_CameraConfig *c, int x, int id)
 {
-	double	wall_x;
-	double	tx;
-	double	ty;
-	int		y;
-	t_ImageControl *img;
+	double			wall_x;
+	double			tx;
+	double			ty;
+	int				y;
+	t_ImageControl	*img;
 
 	img = get_img_struct(cub, id);
-	wall_x =  get_wall_x(cub, c);
+	wall_x = get_wall_x(cub, c);
 	tx = (int)(wall_x * (double)img->width);
 	tx = img->width - tx - 1;
 	c->tex_step = 1.0 * img->width / c->line_height;

@@ -13,10 +13,10 @@
 #include "../../headers/cub3d.h"
 
 /**
- * @brief Initializes the camera configuration parameters.
+ * @brief Initializes the camera configuration for raycasting.
  *
- * The cam_utils_init function sets the camera's configuration parameters to
- * their initial values. This function is typically called before raycasting
+ * This function sets various fields in the camera configuration structure to
+ * their initial values. It is typically called before performing raycasting
  * and collision detection to ensure that camera-related variables start with
  * proper values.
  *
@@ -37,19 +37,13 @@ void	cam_utils_init(t_CameraConfig *cam)
 }
 
 /**
- * @brief Initialize the camera configuration.
+ * @brief Initializes the camera configuration.
  *
- * The camera_init function allocates memory for the t_CameraConfig structure
- * that holds the camera's configuration parameters. It initializes the
- * structure with zero values using the calloc function and assigns it to the
- * 'cam' field of the t_Cub3d structure. If the memory allocation fails, the
- * function returns 1, indicating an error. Otherwise, it returns 0 to indicate
- * a successful initialization.
+ * This function initializes the camera configuration structure, setting the
+ * field of view (fov) to a default value and marking the camera as valid.
  *
- * @param cub Pointer to the t_Cub3d structure containing program context
- * and data.
- * @return Returns 0 if the camera configuration is successfully initialized,
- * or 1 if there's an error.
+ * @param cub Pointer to the main game structure (t_Cub3d).
+ * @return Returns 0 on success, or 1 if memory allocation fails.
  */
 int	camera_init(t_Cub3d *cub)
 {
