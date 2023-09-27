@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   info_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: programming-pc <programming-pc@student.    +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:45:39 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/27 15:39:46 by programming      ###   ########.fr       */
+/*   Updated: 2023/09/27 16:58:13 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,24 +140,16 @@ static int	has_valid_info2(t_Cub3d *cub, char *line)
 	return (0);
 }
 
-/* static int	has_valid_info_bonus(t_Cub3d *cub, char *line)
+void	ft_clean_gnl(int fd, char *line)
 {
-	while ((!cub->map->tex_north->path || !cub->map->tex_south->path
-			|| !cub->map->tex_west->path || !cub->map->tex_east->path)
-		|| (!cub->map->colors[0] || !cub->map->colors[1])
-		|| !cub->map->tex_door->path)
+	while (line)
 	{
-		if (ft_strchr("1\t ", line[0]))
-			return (1);
-		if (has_valid_info2(cub, line))
-			return (1);
-		else if (has_valid_info3(cub, line))
-			return (1);
 		free(line);
-		line = get_next_line(cub->map->fd);
+		line = get_next_line(fd);
 	}
-	return (0);
-} */
+	free(line);
+	close(fd);
+}
 
 /**
  * @brief Check the validity of map information and texture settings.
@@ -193,11 +185,11 @@ int	has_valid_info(t_Cub3d *cub)
 			|| (!cub->map->colors[0] || !cub->map->colors[1]))
 		{
 			if (ft_strchr("D1\t ", line[0]))
-				return (1);
+				return (ft_clean_gnl(cub->map->fd, line), 1);
 			if (has_valid_info2(cub, line))
-				return (1);
+				return (ft_clean_gnl(cub->map->fd, line), 1);
 			else if (has_valid_info3(cub, line))
-				return (1);
+				return (ft_clean_gnl(cub->map->fd, line), 1);
 			free(line);
 			line = get_next_line(cub->map->fd);
 		}
@@ -210,19 +202,15 @@ int	has_valid_info(t_Cub3d *cub)
 		|| !cub->map->tex_door->path)
 		{
 			if (ft_strchr("1\t ", line[0]))
-				return (1);
+				return (ft_clean_gnl(cub->map->fd, line), 1);
 			if (has_valid_info2(cub, line))
-				return (1);
+				return (ft_clean_gnl(cub->map->fd, line), 1);
 			else if (has_valid_info3(cub, line))
-				return (1);
+				return (ft_clean_gnl(cub->map->fd, line), 1);
 			free(line);
 			line = get_next_line(cub->map->fd);
 		}
 	}
-	while (line)
-	{
-		free(line);
-		line = get_next_line(cub->map->fd);
-	}
-	return (free(line), close(cub->map->fd), 0);
+	ft_clean_gnl(cub->map->fd, line);
+	return (0);
 }

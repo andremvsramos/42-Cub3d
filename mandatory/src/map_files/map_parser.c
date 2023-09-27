@@ -122,11 +122,11 @@ int	parse_elements(t_Cub3d *cub, int i)
 		i = 0;
 		while (line[i++])
 			if (parse_elements2(cub, line, i))
-				return (free(line), 1);
+				return (ft_clean_gnl(cub->map->temp_fd, line), 1);
 		free(line);
 		line = get_next_line(cub->map->temp_fd);
 	}
-	return (close(cub->map->temp_fd), free(line), 0);
+	return (ft_clean_gnl(cub->map->temp_fd, line), 0);
 }
 
 /**

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: programming-pc <programming-pc@student.    +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:12:03 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/27 15:16:15 by programming      ###   ########.fr       */
+/*   Updated: 2023/09/27 16:14:41 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,29 +93,8 @@ void	free_textures(t_Cub3d *cub, t_TextureSetup *texture)
  */
 static void	free_graphics(t_Cub3d *cub)
 {
-	int	i;
-
-	i = 0;
-	if (cub->map->tex_north)
-		free_textures(cub, cub->map->tex_north);
-	if (cub->map->tex_south)
-		free_textures(cub, cub->map->tex_south);
-	if (cub->map->tex_west)
-		free_textures(cub, cub->map->tex_west);
-	if (cub->map->tex_east)
-		free_textures(cub, cub->map->tex_east);
-	if (BONUS && cub->map->tex_door)
-		free_textures(cub, cub->map->tex_door);
-	if (cub->cam_ok)
-	{
-		while (i < 4 + BONUS)
-		{
-			if (cub->cam->tex[i])
-				free(cub->cam->tex[i]);
-			i++;
-		}
-		free(cub->cam->tex);
-	}
+	free_cam(cub);
+	free_gun(cub);
 	free_menu(cub);
 	if (cub->graphics_ok)
 	{

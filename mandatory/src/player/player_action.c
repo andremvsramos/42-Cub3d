@@ -25,6 +25,8 @@ int	use_action(t_PlayerConfig *p, t_MapConfig *m)
 
 void	shoot_gun(t_Cub3d *cub, t_PlayerConfig *p, int *counter)
 {
+	if (*counter)
+		mlx_destroy_image(cub->mlx_ptr, p->gun->img->img_ptr);
 	if (*counter == 1)
 		setup_menu(cub, p->gun, "./sprites/Gun_Sprites/g_01.xpm");
 	else if (*counter == 2)

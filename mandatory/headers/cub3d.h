@@ -13,8 +13,8 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "../mlx/mlx.h"
-# include "../mlx/mlx_int.h"
+# include "../../mlx/mlx.h"
+# include "../../mlx/mlx_int.h"
 # include "constants.h"
 # include "libft.h"
 # include <math.h>
@@ -278,6 +278,8 @@ typedef struct	s_Cub3d
 // Section for functions managing program's start, execution, and termination.
 void	free_main(t_Cub3d *cub);
 void	free_textures(t_Cub3d *cub, t_TextureSetup *texture);
+void	free_gun(t_Cub3d *cub);
+void	free_cam(t_Cub3d *cub);
 void	free_menu(t_Cub3d *cub);
 int		gameloop(t_Cub3d *cub);
 
@@ -379,5 +381,6 @@ void	update_button(t_Cub3d *c, t_ImageControl *i, int p, char b);
 void	cub3d_new_image(t_Cub3d *cub);
 void	restore_doors(t_Cub3d *cub);
 int		mouse_hook(int key, int x, int y, t_Cub3d *cub);
+void	ft_clean_gnl(int fd, char *line);
 
 #endif
