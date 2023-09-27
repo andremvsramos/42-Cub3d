@@ -226,13 +226,8 @@ typedef struct	s_CameraConfig
 typedef struct	s_Menu
 {
 	bool			menu_ok;
-	t_TextureSetup	*bg;
 	t_TextureSetup	*start;
 	t_TextureSetup	*quit;
-	char			*path_start0;
-	char			*path_start1;
-	char			*path_quit0;
-	char			*path_quit1;
 }				t_Menu;
 
 
@@ -356,6 +351,7 @@ void	get_wall_direction(t_MapConfig *m, t_CameraConfig *c);
 //Functions related to minimap drawing
 int		draw_minimap(t_Cub3d *cub);
 void	init_minimap(t_Cub3d *cub);
+void	minimap_new_image(t_Cub3d *cub);
 void	draw_static_player(t_Cub3d *cub);
 void	draw_static_cube(t_Cub3d *cub, int type);
 void	draw_static_map(t_Cub3d *cub);
@@ -376,6 +372,7 @@ int		button_mo(t_Cub3d *cub, t_ImageControl *i, char b);
 void	update_button(t_Cub3d *c, t_ImageControl *i, int p, char b);
 
 // MISCELLANEOUS UTILS
+void	cub3d_new_image(t_Cub3d *cub);
 void	restore_doors(t_Cub3d *cub);
 int		mouse_hook(int key, int x, int y, t_Cub3d *cub);
 

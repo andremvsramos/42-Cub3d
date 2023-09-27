@@ -6,7 +6,7 @@
 /*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:03:05 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/22 19:48:01 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/27 10:47:35 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,10 @@ int	start_menu(t_Cub3d *cub)
 	setup_menu(cub, m->quit, "./sprites/Menu/quit_00.xpm");
 	m->menu_ok = true;
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, m->start->img->img_ptr,
-		(WINDOW_X / 2) - m->start->img->width / 2, ((WINDOW_Y - 100) / 2) - m->start->img->height);
+		(WINDOW_X / 2) - m->start->img->width / 2,
+		((WINDOW_Y - 100) / 2) - m->start->img->height);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, m->quit->img->img_ptr,
-		(WINDOW_X / 2) - m->quit->img->width / 2, ((WINDOW_Y + 450) / 2) - m->quit->img->height);
+		(WINDOW_X / 2) - m->quit->img->width / 2,
+		((WINDOW_Y + 450) / 2) - m->quit->img->height);
 	return (0);
 }

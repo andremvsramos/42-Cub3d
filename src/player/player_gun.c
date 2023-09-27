@@ -6,7 +6,7 @@
 /*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 17:53:35 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/22 20:02:04 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/27 11:01:55 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	draw_gun(t_Cub3d *cub, t_PlayerConfig *p, int x, int y)
 
 int	player_gun(t_Cub3d *cub, t_PlayerConfig *p)
 {
-	int	color;
+	/* int	color;
 	int	x;
-	int	y;
+	int	y; */
 
 	p->gun = ft_calloc(1, sizeof(t_TextureSetup));
 	if (!p->gun)
@@ -55,8 +55,9 @@ int	player_gun(t_Cub3d *cub, t_PlayerConfig *p)
 	p->gun->img = ft_calloc(1, sizeof(t_ImageControl));
 	if (!p->gun->img)
 		return (1);
-	setup_menu(cub, p->gun, "./sprites/Gun Sprites/g_00.xpm");\
-	p->gun_sprite = ft_calloc(1, sizeof(t_TextureSetup));
+	setup_menu(cub, p->gun, "./sprites/Gun_Sprites/g_00.xpm");
+	puts("gun ok");
+	/* p->gun_sprite = ft_calloc(1, sizeof(t_TextureSetup));
 	if (!p->gun_sprite)
 		return (1);
 	(void)p->gun_sprite->path;
@@ -80,7 +81,7 @@ int	player_gun(t_Cub3d *cub, t_PlayerConfig *p)
 			y++;
 		}
 		x++;
-	}
+	} */
 	/* mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr,
 	p->gun_sprite->img->img_ptr, WINDOW_X - p->gun->img->width,
 	WINDOW_Y - p->gun->img->height); */

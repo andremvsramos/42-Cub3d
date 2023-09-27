@@ -91,22 +91,19 @@ int	gameloop(t_Cub3d *cub)
 {
 	if (cub->menu_active)
 	{
-		int	path_s;
-		int	path_q;
+		int	start;
+		int	quit;
 
-		path_s = button_mo(cub, cub->main->start->img, 's');
-		path_q = button_mo(cub, cub->main->quit->img, 'q');
-		update_button(cub, cub->main->start->img, path_s, 's');
-		update_button(cub, cub->main->quit->img, path_q, 'q');
+		start = button_mo(cub, cub->main->start->img, 's');
+		quit = button_mo(cub, cub->main->quit->img, 'q');
+		update_button(cub, cub->main->start->img, start, 's');
+		update_button(cub, cub->main->quit->img, quit, 'q');
 		return (0);
 	}
 	readmove(cub, cub->player);
 	restore_doors(cub);
-	mlx_destroy_image(cub->mlx_ptr, cub->img->img_ptr);
-	cub->img->img_ptr = mlx_new_image(cub->mlx_ptr, WINDOW_X, WINDOW_Y);
-	cub->img->addr = mlx_get_data_addr(cub->img->img_ptr, &cub->img->bpp,
-			&cub->img->len, &cub->img->endian);
-	mlx_destroy_image(cub->mlx_ptr, cub->minimap->img->img_ptr);
+	cub3d_new_image(cub);
+	minimap_new_image(cub);
 	/* mlx_destroy_image(cub->mlx_ptr, cub->player->gun_sprite->img->img_ptr);
 	cub->player->gun_sprite->img->img_ptr = mlx_new_image(cub->mlx_ptr, 1280, 1181);
 	cub->player->gun_sprite->img->addr = mlx_get_data_addr(cub->player->gun_sprite->img->img_ptr,
@@ -114,7 +111,6 @@ int	gameloop(t_Cub3d *cub)
 		&cub->player->gun_sprite->img->endian); */
 	draw_rays(cub);
 	//draw_gun(cub, cub->player, 0, 0);
-	init_minimap(cub);
 	draw_minimap(cub);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img->img_ptr, 0, 0);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr,

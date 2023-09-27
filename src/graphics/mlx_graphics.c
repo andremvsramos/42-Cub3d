@@ -136,10 +136,6 @@ int	graphics(t_Cub3d *cub)
 			&cub->img->bpp, &cub->img->len, &cub->img->endian);
 	if (start_menu(cub))
 		return (1);
-	cub->minimap = ft_calloc(1, sizeof(t_MiniMap));
-	cub->minimap->img = ft_calloc(1, sizeof(t_ImageControl));
-	cub->minimap->width = 10 * (cub->map->max_line_len - 1);
-	cub->minimap->height = 10 * (cub->map->n_lines + 1);
 	init_minimap(cub);
 	cub->graphics_ok = true;
 	if (camera_init(cub))

@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 14:45:15 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/19 11:52:28 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/27 10:37:20 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
+
+void	cub3d_new_image(t_Cub3d *cub)
+{
+	mlx_destroy_image(cub->mlx_ptr, cub->img->img_ptr);
+	cub->img->img_ptr = mlx_new_image(cub->mlx_ptr, WINDOW_X, WINDOW_Y);
+	cub->img->addr = mlx_get_data_addr(cub->img->img_ptr, &cub->img->bpp,
+			&cub->img->len, &cub->img->endian);
+}
 
 /**
  * @brief Get the color of a pixel at a specified position in an image.
