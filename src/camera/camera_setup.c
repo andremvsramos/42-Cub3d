@@ -53,7 +53,6 @@ void	cam_utils_init(t_CameraConfig *cam)
  */
 int	camera_init(t_Cub3d *cub)
 {
-	cub->cam_ok = false;
 	cub->cam = ft_calloc(1, sizeof(t_CameraConfig));
 	if (!cub->cam)
 		return (1);

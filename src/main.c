@@ -135,7 +135,10 @@ int	main(int ac, char **av, char **env)
 	cub.minimap_ok = false;
 	cub.menu_ok = false;
 	cub.cam_ok = false;
+<<<<<<< HEAD
 	cub.gun_ok = false;
+=======
+>>>>>>> e15da0ad683f0da70afe3ac01ef5a7faff7703e2
 	cub.framecount = 0;
 	initialization(ac, av, &cub);
 	mlx_mouse_move(cub.mlx_ptr, cub.win_ptr, WINDOW_X / 2, WINDOW_Y / 2);
