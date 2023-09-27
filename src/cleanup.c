@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: programming-pc <programming-pc@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:12:03 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/22 17:43:37 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/27 15:16:15 by programming      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ static void	free_graphics(t_Cub3d *cub)
 		free_textures(cub, cub->map->tex_east);
 	if (BONUS && cub->map->tex_door)
 		free_textures(cub, cub->map->tex_door);
-	if (cub->cam->tex_vector)
+	if (cub->cam_ok)
 	{
 		while (i < 4 + BONUS)
 		{
@@ -133,7 +133,7 @@ static void	free_graphics(t_Cub3d *cub)
 
 static void	free_minimap(t_Cub3d *cub)
 {
-	if (!cub->minimap)
+	if (cub->minimap_ok == false)
 		return ;
 	if (cub->minimap->img)
 	{

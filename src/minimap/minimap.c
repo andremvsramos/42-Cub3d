@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: programming-pc <programming-pc@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 09:50:37 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/27 10:46:47 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/09/27 15:09:15 by programming      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	init_minimap(t_Cub3d *cub)
 			&cub->minimap->img->len, &cub->minimap->img->endian);
 	cub->minimap->draw_x = 0;
 	cub->minimap->draw_y = 0;
+	cub->minimap_ok = true;
 }
 
 int	draw_minimap(t_Cub3d *cub)

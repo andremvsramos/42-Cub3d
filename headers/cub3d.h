@@ -256,19 +256,21 @@ typedef struct	s_Cub3d
 	void			*win_ptr;
 	void			*img_wall;
 	void			*img_floor;
-	bool			graphics_ok;
 	int				mouse_x;
 	int				mouse_y;
 	int				framecount;
 	time_t			lasttime;
 	t_CameraConfig	*cam;
-	bool			cam_ok;
 	t_PlayerConfig	*player;
 	t_MapConfig		*map;
 	t_ImageControl	*img;
 	t_MiniMap		*minimap;
 	t_Menu			*main;
 	bool			menu_active;
+	bool			graphics_ok;
+	bool			minimap_ok;
+	bool			cam_ok;
+	bool			menu_ok;
 }				t_Cub3d;
 
 
