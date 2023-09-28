@@ -1,0 +1,42 @@
+NO ./textures/Brick Walls/brick_64.xpm
+
+
+
+SO ./textures/Brick Walls/mossy_64.xpm
+WE ./textures/Brick Walls/gray_64.xpm
+
+
+F 180,180,180
+
+EA ./textures/Brick Walls/brown_64.xpm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+C 145,244,255
+
+1111111111111
+1000000000001
+1000000000001
+1000019100001
+1000000000001
+1000000000001
+100000N000001
+1000000000001
+1111111111111

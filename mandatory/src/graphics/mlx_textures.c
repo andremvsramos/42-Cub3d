@@ -69,10 +69,14 @@ int	check_access(t_Cub3d *cub)
 		if (fd[4] < 0)
 			return (1);
 	}
-	close(fd[0]);
-	close(fd[1]);
-	close(fd[2]);
-	close(fd[3]);
+	if (fd[0] != -1)
+		close(fd[0]);
+	if (fd[1] != -1)
+		close(fd[1]);
+	if (fd[2] != -1)
+		close(fd[2]);
+	if (fd[3] != -1)
+		close(fd[3]);
 	if (fd[0] < 0 || fd[1] < 0 || fd[2] < 0 || fd[3] < 0)
 		return (1);
 	return (0);

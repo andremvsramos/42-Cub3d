@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/09/27 22:43:39 by marvin           ###   ########.fr        #
+#    Updated: 2023/09/28 10:41:48 by andvieir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,8 +65,10 @@ BONSRC =	bonus/src/main.c \
 			bonus/src/map_files/map_matrix.c \
 			bonus/src/map_files/map_parser_utils.c \
 			bonus/src/map_files/map_closed.c \
+			bonus/src/map_files/map_closed_utils.c \
 			bonus/src/map_files/map_colors.c \
 			bonus/src/map_files/info_parser.c \
+			bonus/src/map_files/info_parser_utils.c \
 			bonus/src/map_files/file_utils.c \
 			bonus/src/graphics/mlx_graphics.c \
 			bonus/src/graphics/mlx_textures.c \
@@ -144,6 +146,8 @@ mlxconfig:
 clean:
 			@$(RM) $(OBJ:%=bin/%) $(BONOBJ:%=bin/%)
 			@rm -r bin/mandatory/src
+			@rm -r bin/bonus/src
+			@rmdir -rf bin/
 			@cd $(LIBFTDIR) && $(MAKE) -s clean
 			@$(RM) .map
 
