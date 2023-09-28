@@ -88,7 +88,6 @@ static void	menu_loop(t_Cub3d *cub)
 	quit = button_mo(cub, cub->main->quit->img, 'q');
 	update_button(cub, cub->main->start->img, start, 's');
 	update_button(cub, cub->main->quit->img, quit, 'q');
-	return (0);
 }
 
 /**
