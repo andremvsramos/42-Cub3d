@@ -6,7 +6,7 @@
 /*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:45:39 by andvieir          #+#    #+#             */
-/*   Updated: 2023/10/02 10:41:05 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/10/02 14:55:56 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,46 @@ int	has_valid_info2(t_Cub3d *cub, char *line)
 }
 
 /**
+ * @brief Check if the map in the given file descriptor is valid.
+ *
+ * The `ft_check_d` function checks if the map data in the specified file
+ * descriptor is valid according to the Cub3D map format. It scans through the
+ * file line by line until it finds the map section, and then it verifies that
+ * the map contains only valid characters ('1' for walls, ' ' for empty space,
+ * and '\n' for line endings). Any other character indicates an invalid map.
+ *
+ * @param line A pointer to the current line being processed.
+ * @param fd The file descriptor of the map file.
+ *
+ * @return 0 if the map is valid, 1 if the map is invalid or an error occurs.
+ */
+static int ft_check_d(char *line, int fd)
+{
+	int		i;
+	bool	is_map;
+	is_map = false;
+	while (line)
+	{
+		i = 0;
+		while (line[i] && !is_map)
+		{
+			if (line[i] != '1' && line[i] != ' '
+				&& line[i] != '\t' && line[i] != '\n')
+				return (ft_clean_gnl(fd, line), 1);
+			if (line[i] == '1')
+				is_map = true;
+			i++;
+		}
+		if (is_map)
+			break ;
+		free(line);
+		line = get_next_line(fd);
+	}
+	ft_clean_gnl(fd, line);
+	return (0);
+}
+
+/**
  * @brief Check and set map-related configuration in the Cub3D structure.
  *
  * The `has_valid_info` function is responsible for reading and processing map-
@@ -149,10 +189,8 @@ int	has_valid_info(t_Cub3d *cub, char *line)
 			free(line);
 			line = get_next_line(cub->map->fd);
 		}
-		while (line)
-			if (ft_strchr(line, 'D'))
-				return (ft_clean_gnl(cub->map->fd, line), 1);
-		ft_clean_gnl(cub->map->fd, line);
+		if (ft_check_d(line, cub->map->fd))
+			return (1);
 	}
 	else if (fill_bonus_info(cub, line))
 		return (1);
