@@ -2,18 +2,26 @@
 
 Welcome to the Cub3D project, a recreation of the nostalgic ambiance from the original Wolfenstein and DOOM games. Using the MiniLibX (MLX) library and perspective rendering techniques, Cub3D brings back the retro gaming experience. Please note that Cub3D does not feature true 3D graphics but aims to recapture the essence of those iconic games.
 
+## Project Completion and Submission
+
+- **Completion Date:** October 2nd, 2023
+- **Project Submission:** Successfully submitted with a score of 125/125
+
 ## Table of Contents
 
-- [Introduction](#introduction)
-- [Features](#features)
-- [Project Progress](#project-progress)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Usage](#usage)
-- [Note on Parsing Map File Tabulations](#note-on-parsing-map-file-tabulations)
-- [Collaborators](#collaborators)
-- [License](#license)
+- [42-Cub3D Project](#42-cub3d-project)
+  - [Project Completion and Submission](#project-completion-and-submission)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Features](#features)
+  - [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+    - [Usage](#usage)
+  - [Note on Parsing Map File Tabulations](#note-on-parsing-map-file-tabulations)
+  - [Project Screenshots](#project-screenshots)
+  - [Collaborators](#collaborators)
+  - [License](#license)
 
 ## Introduction
 
@@ -24,16 +32,6 @@ Cub3D is an ongoing project that aims to recreate the 'immersive' gameplay exper
  - Cub3D utilizes perspective rendering techniques to provide a sense of depth in a 2D environment, delivering an experience reminiscent of the original games.
  - Experience familiar textures and environments through texture mapping, capturing the visual essence of the classic games.
  - Cub3D employs a map configuration system using `.cub` files as input. These files specify elements like textures, colors, and the layout of the game world.
-
-## Project Progress
-
-- **Minimap Prototype (September 06, 2023):** We've added a prototype for a minimap bonus feature (commented out of the rendering). This feature will provide players with a top-down view of the game world, enhancing navigation and orientation.
-
-- **Player Movement (September 18, 2023):** Basic player movement has been successfully implemented. This includes arrow key and mouse controls for player movement within the game world.
-
-- **Texture Rendering (September 18, 2023):** Texture rendering has been successfully implemented. This achievement marks a significant enhancement in visual quality, replacing simple colors for walls and laying the foundation for future features like doors and more.
-
-- **Next Step:** Our next major goal is to implement doors and sprites, which will add interactivity and depth to the game environment.
 
 ## Getting Started
 
@@ -60,6 +58,17 @@ As the project guidelines do not specify how to parse tabulations, we have appli
 - Each tab is equivalent to 8 spaces.
 - This rule is based on the common practice of text editors.
 - Please be aware that creating a map in VS Code may not accurately reflect the actual map appearance, as each tab in that editor is equal to 4 spaces.
+
+## Project Screenshots
+
+Here are some screenshots showcasing different aspects of the project:
+
+- *Screenshot 1*: [Description or caption for the first screenshot]
+  ![Screenshot 1](path/to/your/screenshot1.png)
+
+- *Screenshot 2*: [Description or caption for the second screenshot]
+  ![Screenshot 2](path/to/your/screenshot2.png)
+
 
 ## Collaborators
 
