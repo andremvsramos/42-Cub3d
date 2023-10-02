@@ -7,6 +7,9 @@ Welcome to the Cub3D project, a recreation of the nostalgic ambiance from the or
 - **Completion Date:** October 2nd, 2023
 - **Project Submission:** Successfully submitted with a score of 125/125
 
+![Screenshot from 2023-10-02 15-22-43](https://github.com/andremvsramos/42-Cub3d/assets/115324164/11e7b98c-71af-477e-bc50-5d9c422f5775)
+
+
 ## Table of Contents
 
 - [42-Cub3D Project](#42-cub3d-project)
@@ -43,8 +46,8 @@ Cub3D is an ongoing project that aims to recreate the 'immersive' gameplay exper
 
 1. Clone this repository as such: `git clone git@github.com:andremvsramos/42-Cub3d.git CUB3D`
 2. Navigate to the project directory: `cd CUB3D`
-3. Compile the project: `make`
-4. Run the game: `./cub3D <filename.cub>`
+3. Compile the project: `make` for mandatory (no door or door textures allowed) ; `make bonus` for bonus (must have       door texture pathing).
+4. Run the game: `./cub3D <filename.cub>` | `./cub3D_Bonus <filename.cub>`
 
 ### Usage
 
@@ -58,16 +61,18 @@ As the project guidelines do not specify how to parse tabulations, we have appli
 - Each tab is equivalent to 8 spaces.
 - This rule is based on the common practice of text editors.
 - Please be aware that creating a map in VS Code may not accurately reflect the actual map appearance, as each tab in that editor is equal to 4 spaces.
+Please refer to the provided map files for references.
 
 ## Project Screenshots
 
 Here are some screenshots showcasing different aspects of the project:
 
-- *Screenshot 1*: [Description or caption for the first screenshot]
-  ![Screenshot 1](path/to/your/screenshot1.png)
+- Main Menu: ![Screenshot from 2023-10-02 15-12-29](https://github.com/andremvsramos/42-Cub3d/assets/115324164/110f4f93-bdf9-4f22-bea7-4df5a329f0f2)
 
-- *Screenshot 2*: [Description or caption for the second screenshot]
-  ![Screenshot 2](path/to/your/screenshot2.png)
+
+- Gameplay 1: ![Screenshot from 2023-10-02 15-12-38](https://github.com/andremvsramos/42-Cub3d/assets/115324164/bb1837b4-1417-4576-a076-e5332f9cf74f)
+
+- Gameplay 2: ![Screenshot from 2023-10-02 15-13-11](https://github.com/andremvsramos/42-Cub3d/assets/115324164/363ee4be-53ae-41fa-875b-6bb1129db647)
 
 
 ## Collaborators
