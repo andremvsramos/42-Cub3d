@@ -81,4 +81,4 @@ Here are some screenshots showcasing different aspects of the project:
 
 ## License
 
-- This project is being developed as part of the 42 Porto curriculum.
+- This project was developed as part of the 42 Porto curriculum.
