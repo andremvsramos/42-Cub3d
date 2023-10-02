@@ -6,7 +6,7 @@
 #    By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/09/28 10:41:48 by andvieir         ###   ########.fr        #
+#    Updated: 2023/09/28 10:43:33 by andvieir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -114,7 +114,6 @@ MINILBX = " [ Compiled MiniLibX ]"
 
 #----------RULES----------#
 .c.o:
-#@$(CC) $(CFLAGS) -c -I$(HEADERDIR) $< -o ${<:.c=.o}
 			@mkdir -p bin/$(dir $<)
 			@$(CC) $(CFLAGS) -c -I$(HEADERDIR) $< -o bin/$*.o
 
@@ -144,12 +143,18 @@ mlxconfig:
 			@cd $(MLXDIR) && chmod 777 configure && ./configure
 
 clean:
-			@$(RM) $(OBJ:%=bin/%) $(BONOBJ:%=bin/%)
-			@rm -r bin/mandatory/src
-			@rm -r bin/bonus/src
-			@rmdir -rf bin/
-			@cd $(LIBFTDIR) && $(MAKE) -s clean
-			@$(RM) .map
+			@if [ -d "bin/mandatory/src" ]; then \
+				$(RM) $(OBJ:%=bin/%) $(BONOBJ:%=bin/%); \
+				rm -r bin/mandatory/src; \
+				rmdir bin/mandatory; \
+			fi
+			@if [ -d "bin/bonus/src" ]; then \
+				$(RM) $(OBJ:%=bin/%) $(BONOBJ:%=bin/%); \
+				rm -r bin/bonus/src; \
+				rmdir bin/bonus; \
+			fi
+		@cd $(LIBFTDIR) && $(MAKE) -s clean
+		@$(RM) .map
 
 fclean:		clean
 			@$(RM) $(NAME) $(NAME_BONUS) $(LIBFT) $(MLX)

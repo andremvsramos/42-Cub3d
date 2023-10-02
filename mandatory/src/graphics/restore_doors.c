@@ -3,14 +3,70 @@
 /*                                                        :::      ::::::::   */
 /*   restore_doors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 18:59:00 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/27 23:15:30 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/28 17:28:21 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/cub3d.h"
+
+/**
+ * @brief Restore a door in the map matrix.
+ *
+ * The `restore` function checks if the specified position in the map matrix
+ * contains a '0' and if the player's position is sufficiently far from it.
+ * If these conditions are met, it changes the map value to '9', effectively
+ * restoring that position.
+ *
+ * @param cub Pointer to the main Cub3D game configuration structure.
+ * @param x The x-coordinate in the map matrix.
+ * @param y The y-coordinate in the map matrix.
+ */
+static void	restore(t_Cub3d *cub, int x, int y)
+{
+	if (cub->map->matrix[y][x] == '0'
+		&& (cub->player->pos_y > y + 3 || cub->player->pos_y < y - 3
+			|| cub->player->pos_x > x + 3
+			|| cub->player->pos_x < x - 3))
+		cub->map->matrix[y][x] = '9';
+}
+
+/**
+ * @brief Count tabs in a line and calculate the horizontal position.
+ *
+ * The `count_tabs` function counts the number of tabs in a line and calculates
+ * the horizontal position (x) based on the tab count. It also resets the tab
+ * count to 0 after processing tabs. This function is typically used to track
+ * horizontal positions in a line containing tabs.
+ *
+ * @param line A string representing a line of text.
+ * @param i The current index within the line.
+ * @param tabs A pointer to an integer storing the tab count.
+ * @return The horizontal position (x) calculated based on tab count.
+ */
+static int	count_tabs(char *line, int i, int *tabs)
+{
+	int	x;
+
+	x = 0;
+	(*tabs)++;
+	if (line[i] == '\t')
+	{
+		if (*tabs == 7)
+			(*tabs) = 0;
+		while (*tabs < 8)
+		{
+			x++;
+			(*tabs)++;
+		}
+		*tabs = 0;
+	}
+	else if (*tabs == 7)
+		(*tabs) = 0;
+	return (x);
+}
 
 /**
  * @brief Checks if a door tile placement in the map is valid.
@@ -35,11 +91,17 @@ int	check_walls_doors(t_MapConfig *m, int i, int j)
 	{
 		if (BONUS)
 		{
-			if (m->matrix[i][j - 1] == '0' && m->matrix[i][j + 1] == '0' &&
-				m->matrix[i - 1][j] == '1' && m->matrix[i + 1][j] == '1')
+			if ((m->matrix[i][j - 1] == '0'
+				|| ft_strchr("NSEW", m->matrix[i][j - 1]))
+				&& (m->matrix[i][j + 1] == '0'
+				|| ft_strchr("NSEW", m->matrix[i][j + 1]))
+				&& m->matrix[i - 1][j] == '1' && m->matrix[i + 1][j] == '1')
 				return (0);
-			else if (m->matrix[i][j - 1] == '1' && m->matrix[i][j + 1] == '1' &&
-				m->matrix[i - 1][j] == '0' && m->matrix[i + 1][j] == '0')
+			else if (m->matrix[i][j - 1] == '1' && m->matrix[i][j + 1] == '1'
+				&& (m->matrix[i - 1][j] == '0'
+				|| ft_strchr("NSEW", m->matrix[i - 1][j]))
+				&& (m->matrix[i + 1][j] == '0'
+				|| ft_strchr("NSEW", m->matrix[i + 1][j])))
 				return (0);
 			else
 				return (1);
@@ -63,10 +125,12 @@ int	check_walls_doors(t_MapConfig *m, int i, int j)
  * @param x The initial x-coordinate for scanning the map.
  * @param y The initial y-coordinate for scanning the map.
  */
-void	restore_doors(t_Cub3d *cub, int x, int y)
+void	restore_doors(t_Cub3d *cub, int x, int y, int i)
 {
 	char	*line;
+	int		tabs;
 
+	tabs = 0;
 	cub->map->temp_fd = open("./.map", O_RDONLY);
 	line = get_next_line(cub->map->temp_fd);
 	if (!line)
@@ -74,17 +138,15 @@ void	restore_doors(t_Cub3d *cub, int x, int y)
 	while (line)
 	{
 		x = 0;
-		while (line[x])
+		i = 0;
+		tabs = 0;
+		while (line[i])
 		{
-			if (line[x] == '9')
-			{
-				if (cub->map->matrix[y][x] == '0'
-					&& (cub->player->pos_y > y + 3 || cub->player->pos_y < y - 3
-						|| cub->player->pos_x > x + 3
-						|| cub->player->pos_x < x - 3))
-					cub->map->matrix[y][x] = '9';
-			}
+			x += count_tabs(line, i, &tabs);
+			if (line[i] == '9')
+				restore(cub, x, y);
 			x++;
+			i++;
 		}
 		y++;
 		free(line);

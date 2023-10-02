@@ -133,7 +133,7 @@ int	gameloop(t_Cub3d *cub)
 		return (0);
 	}
 	readmove(cub, cub->player);
-	restore_doors(cub, 0, 0);
+	restore_doors(cub, 0, 0, 0);
 	cub3d_new_image(cub);
 	minimap_new_image(cub);
 	draw_minimap(cub);

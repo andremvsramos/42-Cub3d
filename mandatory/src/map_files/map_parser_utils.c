@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:03:12 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/27 23:33:28 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/28 17:15:59 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,17 @@
  * `down_valid`, `left_valid`, and `right_valid` members of the map
  * configuration.
  */
-void	get_matrix_borders(t_MapConfig *m, int i, int j)
+int	get_matrix_borders(t_MapConfig *m, int i, int j)
 {
-	m->up_valid = i - 1 >= 0 && j >= 0 && j < m->max_line_len;
-	m->down_valid = i + 1 < m->max_line_len && j >= 0 && j < m->max_line_len;
+	if (m->matrix[i][j + 1] == '\0')
+		if (m->matrix[i][j] != '1' || m->matrix[i][j] != ' ')
+			return (1);
+	m->up_valid = i - 1 >= 0 && j >= 0 && j < m->max_line_len - 1;
+	m->down_valid = i + 1 < m->max_line_len - 1 && j >= 0
+		&& j < m->max_line_len - 1;
 	m->left_valid = j - 1 >= 0 && i >= 0 && i < m->n_lines;
-	m->right_valid = j + 1 < m->max_line_len && i >= 0 && i < m->n_lines;
+	m->right_valid = j + 1 < m->max_line_len - 1 && i >= 0 && i < m->n_lines;
+	return (0);
 }
 
 /**

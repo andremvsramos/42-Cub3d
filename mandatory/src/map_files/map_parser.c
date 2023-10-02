@@ -107,10 +107,8 @@ static int	parse_elements2(t_Cub3d *cub, char *line, int i)
  * @param i An integer used for iterating through characters in the line.
  * @return Returns 0 if the parsing is successful, or 1 if an error occurs.
  */
-int	parse_elements(t_Cub3d *cub, int i)
+int	parse_elements(t_Cub3d *cub, int i, char *line)
 {
-	char	*line;
-
 	ft_open(cub);
 	line = get_next_line(cub->map->fd);
 	if (!line)
@@ -125,9 +123,12 @@ int	parse_elements(t_Cub3d *cub, int i)
 	while (line)
 	{
 		i = 0;
-		while (line[i++])
+		while (line[i])
+		{
 			if (parse_elements2(cub, line, i))
 				return (ft_clean_gnl(cub->map->temp_fd, line), 1);
+			i++;
+		}
 		free(line);
 		line = get_next_line(cub->map->temp_fd);
 	}
@@ -146,7 +147,9 @@ int	parse_elements(t_Cub3d *cub, int i)
  */
 int	check_map_validity(t_Cub3d *cub)
 {
-	if (parse_elements(cub, 0))
+	if (parse_elements(cub, 0, NULL))
+		return (1);
+	if (!cub->player->orientation)
 		return (1);
 	get_map_n_lines(cub);
 	cub->map->n_lines--;

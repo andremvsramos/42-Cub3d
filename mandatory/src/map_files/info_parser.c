@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   info_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:45:39 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/27 23:26:13 by marvin           ###   ########.fr       */
+/*   Updated: 2023/10/02 09:56:36 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,9 +151,9 @@ int	has_valid_info(t_Cub3d *cub)
 			free(line);
 			line = get_next_line(cub->map->fd);
 		}
+		ft_clean_gnl(cub->map->fd, line);
 	}
 	else if (fill_bonus_info(cub, line))
 		return (1);
-	ft_clean_gnl(cub->map->fd, line);
 	return (0);
 }

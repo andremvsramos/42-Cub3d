@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_closed.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:35:38 by tsodre-p          #+#    #+#             */
-/*   Updated: 2023/09/27 23:30:04 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/28 14:04:05 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ int	check_surroundings(t_MapConfig *m, int i, int j)
 	{
 		if (j == 0 && (m->matrix[i][j] != '1' || m->matrix[i][j] != ' '))
 			return (1);
-		get_matrix_borders(m, i, j);
+		if (get_matrix_borders(m, i, j))
+			return (1);
 		if ((m->up_valid && m->matrix[i - 1][j] == ' ')
 			|| (m->down_valid && m->matrix[i + 1][j] == ' ')
 			|| (m->left_valid && m->matrix[i][j - 1] == ' ')

@@ -394,7 +394,7 @@ void	create_temp_map(t_Cub3d *cub, char *line);
 int		check_map_validity(t_Cub3d *cub);
 int		parse_map_file(t_Cub3d *cub);
 int		is_valid_map_type(char *filename);
-int		parse_elements(t_Cub3d *cub, int i);
+int		parse_elements(t_Cub3d *cub, int i, char *line);
 void	get_map_n_lines(t_Cub3d *cub);
 int		has_valid_info(t_Cub3d *cub);
 int		has_valid_info2(t_Cub3d *cub, char *line);
@@ -405,7 +405,7 @@ int		fill_matrix(t_Cub3d *cub);
 int		check_map_closed(t_Cub3d *cub);
 int		check_surroundings(t_MapConfig *m, int i, int j);
 int		check_surroundings_utils(t_MapConfig *m, int i, int j, char *charset);
-void	get_matrix_borders(t_MapConfig *m, int i, int j);
+int		get_matrix_borders(t_MapConfig *m, int i, int j);
 int		check_walls_doors(t_MapConfig *m, int i, int j);
 int		check_north_south(t_Cub3d *cub, char *line);
 int		check_west_east(t_Cub3d *cub, char *line);
@@ -493,7 +493,7 @@ void	update_button(t_Cub3d *c, t_ImageControl *i, int p, char b);
 
 // MISCELLANEOUS UTILS
 void	cub3d_new_image(t_Cub3d *cub);
-void	restore_doors(t_Cub3d *cub, int x, int y);
+void	restore_doors(t_Cub3d *cub, int x, int y, int i);
 int		mouse_hook(int key, int x, int y, t_Cub3d *cub);
 void	ft_clean_gnl(int fd, char *line);
 

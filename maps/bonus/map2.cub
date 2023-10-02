@@ -1,0 +1,13 @@
+NO ./textures/Brick Walls/redbrick_32.xpm
+SO ./textures/Brick Walls/redbrick_32.xpm
+WE ./textures/Brick Walls/redbrick_32.xpm
+EA ./textures/Brick Walls/brick_2k.xpm
+F 180,180,180
+C 145,244,255
+DO ./textures/Doors/door_32.xpm
+
+	11111111111
+	10000000001
+	100000N0001
+	10000000001
+	11111111111

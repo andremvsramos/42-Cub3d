@@ -95,5 +95,6 @@ int	fill_bonus_info(t_Cub3d *cub, char *line)
 		free(line);
 		line = get_next_line(cub->map->fd);
 	}
+	ft_clean_gnl(cub->map->fd, line);
 	return (0);
 }
