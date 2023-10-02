@@ -6,7 +6,7 @@
 /*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:45:39 by andvieir          #+#    #+#             */
-/*   Updated: 2023/10/02 09:56:36 by andvieir         ###   ########.fr       */
+/*   Updated: 2023/10/02 10:41:05 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,10 +130,8 @@ int	has_valid_info2(t_Cub3d *cub, char *line)
  * @param cub Pointer to the main Cub3D configuration.
  * @return 1 if an error occurs during parsing, 0 otherwise.
  */
-int	has_valid_info(t_Cub3d *cub)
+int	has_valid_info(t_Cub3d *cub, char *line)
 {
-	char	*line;
-
 	ft_open(cub);
 	line = get_next_line(cub->map->fd);
 	if (!BONUS)
@@ -151,6 +149,9 @@ int	has_valid_info(t_Cub3d *cub)
 			free(line);
 			line = get_next_line(cub->map->fd);
 		}
+		while (line)
+			if (ft_strchr(line, 'D'))
+				return (ft_clean_gnl(cub->map->fd, line), 1);
 		ft_clean_gnl(cub->map->fd, line);
 	}
 	else if (fill_bonus_info(cub, line))

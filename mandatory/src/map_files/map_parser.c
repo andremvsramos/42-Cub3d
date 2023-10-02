@@ -113,7 +113,7 @@ int	parse_elements(t_Cub3d *cub, int i, char *line)
 	line = get_next_line(cub->map->fd);
 	if (!line)
 		return (1);
-	line = skip_info(cub, line);
+	line = skip_info(cub, line, 0);
 	create_temp_map(cub, line);
 	close(cub->map->temp_fd);
 	cub->map->temp_fd = open("./.map", O_RDONLY);
@@ -177,7 +177,7 @@ int	check_map_validity(t_Cub3d *cub)
  */
 int	parse_map_file(t_Cub3d *cub)
 {
-	if (has_valid_info(cub))
+	if (has_valid_info(cub, NULL))
 	{
 		free_main(cub);
 		printf("Error: Invalid or missing texture/color info\n");

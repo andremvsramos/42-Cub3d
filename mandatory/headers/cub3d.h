@@ -396,7 +396,7 @@ int		parse_map_file(t_Cub3d *cub);
 int		is_valid_map_type(char *filename);
 int		parse_elements(t_Cub3d *cub, int i, char *line);
 void	get_map_n_lines(t_Cub3d *cub);
-int		has_valid_info(t_Cub3d *cub);
+int		has_valid_info(t_Cub3d *cub, char *line);
 int		has_valid_info2(t_Cub3d *cub, char *line);
 int		has_valid_info3(t_Cub3d *cub, char *line);
 int		set_tex_path(t_Cub3d *cub, char *path, int direction);
@@ -420,7 +420,7 @@ void	draw_crosshair(t_Cub3d *cub, t_PlayerConfig *p, int x, int y);
 // FILE MANAGEMENT FUNCTIONS
 // Section for managing file processes
 void	ft_open(t_Cub3d *cub);
-char	*skip_info(t_Cub3d *cub, char *line);
+char	*skip_info(t_Cub3d *cub, char *line, int i);
 
 // APPLICATION GRAPHICS FUNCTIONS
 // Functions for managing graphics and window

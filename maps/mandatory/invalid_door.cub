@@ -4,8 +4,8 @@ WE ./textures/Brick Walls/redbrick_32.xpm
 F 180,180,180
 EA ./textures/Brick Walls/redbrick_32.xpm
 C 145,244,255
-
 11111111
-10N00011
+10N00111
 10000901
+10000101
 11111111

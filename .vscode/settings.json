@@ -8,7 +8,8 @@
 		"mlx.h": "c",
 		"compare": "c",
 		"type_traits": "c",
-		"time.h": "c"
+		"time.h": "c",
+		"wait.h": "c"
 	},
 	"C_Cpp.errorSquiggles": "disabled"
 }

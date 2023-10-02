@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:57:34 by andvieir          #+#    #+#             */
-/*   Updated: 2023/09/27 23:58:33 by marvin           ###   ########.fr       */
+/*   Updated: 2023/10/02 10:21:29 by andvieir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,17 +141,17 @@ static char	*skip_info2(t_Cub3d *cub, char *line, int *skip)
  * @return Returns a pointer to the first line of actual map data, or NULL if
  * not found.
  */
-char	*skip_info(t_Cub3d *cub, char *line)
+char	*skip_info(t_Cub3d *cub, char *line, int i)
 {
 	int	skip;
-	int	i;
 
 	skip = 0;
 	while (skip < SKIP + BONUS)
 		line = skip_info2(cub, line, &skip);
+	if (!line)
+		return (NULL);
 	while (ft_strchr("\n", line[0]))
 	{
-		cub->map->skip_counter++;
 		free(line);
 		line = get_next_line(cub->map->fd);
 	}

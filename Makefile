@@ -6,13 +6,14 @@
 #    By: andvieir <andvieir@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 09:23:06 by andvieir          #+#    #+#              #
-#    Updated: 2023/09/28 10:43:33 by andvieir         ###   ########.fr        #
+#    Updated: 2023/10/02 10:07:36 by andvieir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 NAME_BONUS = cub3D_Bonus
 LIBFT = libft.a
+LIBFT_BON = libft_bonus.a
 MLX = libmlx.a
 
 #----------DIRS----------#
@@ -129,6 +130,10 @@ $(LIBFT):
 			@cd $(LIBFTDIR) && $(MAKE) -s
 			@echo "$(YELLOW)$(LFT)"
 
+$(LIBFT_BON):
+			@cd $(BONUSLIBFTDIR) && $(MAKE) -s
+			@echo "$(YELLOW)$(LFT)"
+
 $(MLX):
 			@cd $(MLXDIR) && $(MAKE)
 			@echo "$(RED)$(MINILBX)"
@@ -136,7 +141,7 @@ $(MLX):
 $(NAME):	$(OBJ) $(LIBFT) $(MLX)
 			@$(CC) $(CFLAGS) $(OBJ:%=bin/%) $(LIBFTDIR)$(LIBFT) $(MLXDIR)$(MLX) $(MLXFLAGS) $(MATH) -o $(NAME)
 
-$(NAME_BONUS):	$(BONOBJ) $(LIBFT) $(MLX)
+$(NAME_BONUS):	$(BONOBJ) $(LIBFT_BON) $(MLX)
 				@$(CC) $(CFLAGS) $(BONOBJ:%=bin/%) $(BONUSLIBFTDIR)$(LIBFT) $(MLXDIR)$(MLX) $(MLXFLAGS) $(MATH) -o $(NAME_BONUS)
 
 mlxconfig:
@@ -157,8 +162,9 @@ clean:
 		@$(RM) .map
 
 fclean:		clean
-			@$(RM) $(NAME) $(NAME_BONUS) $(LIBFT) $(MLX)
+			@$(RM) $(NAME) $(NAME_BONUS) $(LIBFT) $(LIBFT_BON) $(MLX)
 			@cd $(LIBFTDIR) && $(MAKE) -s fclean
+			@cd $(BONUSLIBFTDIR) && $(MAKE) -s fclean
 			@cd $(MLXDIR) && $(MAKE) -s clean
 			@$(RM) .map
 

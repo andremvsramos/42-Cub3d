@@ -86,6 +86,8 @@ int	fill_bonus_info(t_Cub3d *cub, char *line)
 		|| (!cub->map->colors[0] || !cub->map->colors[1])
 		|| !cub->map->tex_door->path)
 	{
+		if (!line)
+			return (ft_clean_gnl(cub->map->fd, line), 1);
 		if (ft_strchr("1\t ", line[0]))
 			return (ft_clean_gnl(cub->map->fd, line), 1);
 		if (has_valid_info2(cub, line))
