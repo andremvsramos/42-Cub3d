@@ -64,7 +64,7 @@ Cub3D is an ongoing project that aims to recreate the 'immersive' gameplay exper
 - As the project guidelines do not specify how to parse tabulations, we have applied the following rule:
   - Each tab is equivalent to 8 spaces.
   - This rule is based on the common practice of text editors.
-- Please be aware that creating a map in VS Code may not accurately reflect the actual map appearance, as each tab in that editor is equal to 4 spaces. Please refer to the provided map files for references.
+- Please be aware that creating a map in VS Code may not accurately reflect the actual map appearance, as each tab in that editor is equal to 4 spaces by default. Please refer to the provided map files for references.
 - The application does not hide the mouse cursor, if you want to hide it, then at the `main.c` file in both the mandatory and bonus `src` folders, add the following after line 171: `mlx_mouse_hide(cub.mlx_ptr, cub.win_ptr);`. Please be aware however, adding this funcionality creates memory leaks, which is a "feature" of the MiniLibX library.
 
 ## Project Screenshots
