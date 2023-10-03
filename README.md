@@ -61,7 +61,7 @@ Cub3D is an ongoing project that aims to recreate the 'immersive' gameplay exper
 
 ## Notes
 
--As the project guidelines do not specify how to parse tabulations, we have applied the following rule:
+- As the project guidelines do not specify how to parse tabulations, we have applied the following rule:
   - Each tab is equivalent to 8 spaces.
   - This rule is based on the common practice of text editors.
 - Please be aware that creating a map in VS Code may not accurately reflect the actual map appearance, as each tab in that editor is equal to 4 spaces. Please refer to the provided map files for references.
