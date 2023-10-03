@@ -52,16 +52,20 @@ Cub3D is an ongoing project that aims to recreate the 'immersive' gameplay exper
 ### Usage
 
 - Launch the game by providing a `.cub` file as a command-line argument.
-- Move around using the arrow keys (not yet implemented).
-- Interact with the environment (not yet implemented).
+- At the main menu choose to either start the game or to quit the application.
+- Move around using the arrow keys.
+- Look around using the mouse or left and right arrow keys.
+- "Shoot" the gun with the mouse.
+- Interact with doors by pressing the `E` key near them.
+- Close the application by pressing the `Esc` key or by clicking the closing icon at the top of the window.
 
-## Note on Parsing Map File Tabulations
+## Notes
 
-As the project guidelines do not specify how to parse tabulations, we have applied the following rule:
-- Each tab is equivalent to 8 spaces.
-- This rule is based on the common practice of text editors.
-- Please be aware that creating a map in VS Code may not accurately reflect the actual map appearance, as each tab in that editor is equal to 4 spaces.
-Please refer to the provided map files for references.
+-As the project guidelines do not specify how to parse tabulations, we have applied the following rule:
+  - Each tab is equivalent to 8 spaces.
+  - This rule is based on the common practice of text editors.
+- Please be aware that creating a map in VS Code may not accurately reflect the actual map appearance, as each tab in that editor is equal to 4 spaces. Please refer to the provided map files for references.
+- The application does not hide the mouse cursor, if you want to hide it, then at the `main.c` file in both the mandatory and bonus `src` folders, add the following after line 171: `mlx_mouse_hide(cub.mlx_ptr, cub.win_ptr);`
 
 ## Project Screenshots
 
